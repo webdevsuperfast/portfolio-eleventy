@@ -1,0 +1,129 @@
+const fetch = require('node-fetch');
+const axios = require('axios');
+const flatCache = require('flat-cache');
+const path = require('path');
+const { data } = require('autoprefixer');
+
+const CACHE_KEY = 'portfolio';
+const CACHE_FOLDER = path.resolve('./.cache');
+const CACHE_FILE = 'portfolio.json';
+
+const GRAPHQL_URL = process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
+
+async function requestPortfolio() {
+  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
+  const cachedItems = cache.getKey(CACHE_KEY);
+
+  if (cachedItems) {
+    console.log('Using cached portfolio');
+    return cachedItems;
+  }
+
+  let afterCursor = '';
+  let itemsPerRequest = 100;
+
+  let makeNewQuery = true;
+
+  let portfolios = [];
+
+  while (makeNewQuery) {
+    console.log(`Trying to fetch ${itemsPerRequest} portfolio`);
+
+    try {
+      const data = await fetch( GRAPHQL_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `query {
+            allPortfolio(first: ${itemsPerRequest}, after: "${afterCursor}") {
+              nodes {
+                portfolioCategories {
+                  nodes {
+                    slug
+                    name
+                  }
+                }
+                clientInformation {
+                  clientName
+                  clientWebsite
+                }
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+                id
+                content
+                title
+                slug
+                portfolioId
+              }
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+                endCursor
+                startCursor
+              }
+            }
+          }`
+        })
+      } );
+
+      const response = await data.json();
+
+      if ( response.errors ) {
+        let errors = response.errors;
+
+        errors.map( (error) => {
+          console.error(error.message);
+        });
+
+        throw new Error('Failed to fetch portfolio');
+      }
+
+      portfolioInfo = response.data.allPortfolio.pageInfo;
+
+      if ( portfolioInfo.hasNextPage ) {
+        makeNewQuery = true;
+        afterCursor = portfolioInfo.endCursor;
+      } else {
+        makeNewQuery = false;
+      }
+
+      portfolios = portfolios.concat(response.data.allPortfolio.nodes);
+    } catch ( error ) {
+      throw new Error(error);
+    }
+  }
+
+  for ( x = 0; x < portfolios.length; x++ ) {
+    thePortfolio = portfolios[x];
+  }
+
+  const portfoliosFormatted = portfolios.map( (item) => {
+    return {
+      id: item.portfolioId,
+      title: item.title,
+      slug: item.slug,
+      content: item.content,
+      image: item.featuredImage.node.sourceUrl,
+      imageAlt: item.featuredImage.node.altText,
+      portfolioCategories: item.portfolioCategories.nodes,
+      clientName: item.clientInformation.clientName,
+      clientWebsite: item.clientInformation.clientWebsite,
+    }
+  });
+
+  if ( portfoliosFormatted.length ) {
+    cache.setKey( CACHE_KEY, portfoliosFormatted );
+    cache.save( true );
+  }
+
+  return portfoliosFormatted;
+}
+
+module.exports = requestPortfolio;

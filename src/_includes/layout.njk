@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="smooth-scroll">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/main.bundle.css">
+  <script src="/assets/main.bundle.js" defer></script>
+  <title>{{ title }} | Rotsen Mark Acob</title>
+</head>
+
+<body class="{{ 'debug-screens' if env.devMode }} bg-body bg-fixed">
+  {% include 'header.njk' %}
+  
+  <main class="site-content">
+    {% block body %}
+      {{ content | safe }}
+    {% endblock %}
+  </main>
+
+  {% include 'footer.njk' %}
+</body>
+<script>
+  const myComponent = window.myComponent = () => ({
+    value: 'all',
+    clicked(e) {
+      this.value = e.target.dataset.filter;
+    }
+  });
+
+  const myComponent2 = window.myComponent2 = () => ({
+    value: '#js-scroll-to-about',
+    clicked(e) {
+      this.value = e.target.hash;
+    }
+  });
+</script>
+</html>

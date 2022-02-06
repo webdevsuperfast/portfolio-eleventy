@@ -1,0 +1,71 @@
+{
+  "name": "portfolio-eleventy",
+  "version": "1.0.0",
+  "description": "My portfolio based on TEA Stack.",
+  "main": "index.js",
+  "config": {
+    "css_in": "src/_styles/_main.pcss",
+    "css_out": "dist/assets/main.bundle.css",
+    "js_in": "src/_scripts/_main.js",
+    "js_out": "dist/assets/main.bundle.js"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production npm-run-all clean -p build:*",
+    "build:11ty": "eleventy --quiet",
+    "build:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --minify --postcss",
+    "build:js": "esbuild $npm_package_config_js_in --outfile=$npm_package_config_js_out --bundle",
+    "clean": "rm -rf dist && rm -rf .cache",
+    "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && cross-env NODE_ENV=development npm-run-all -p dev:*",
+    "dev:11ty": "eleventy --serve --quiet",
+    "dev:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --watch --postcss",
+    "dev:js": "esbuild $npm_package_config_js_in --outfile=$npm_package_config_js_out --bundle --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdevsuperfast/portfolio-eleventy.git"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "htmlWhitespaceSensitivity": "ignore"
+  },
+  "keywords": [
+    "tailwind",
+    "eleventy",
+    "alpine"
+  ],
+  "author": "Rotsen Mark Acob",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webdevsuperfast/portfolio-eleventy/issues"
+  },
+  "homepage": "https://github.com/webdevsuperfast/portfolio-eleventy#readme",
+  "dependencies": {
+    "@11ty/eleventy-img": "^1.0.0",
+    "alpinejs": "^3.1.0",
+    "autoprefixer": "^10.4.2",
+    "axios": "^0.25.0",
+    "flat-cache": "^3.0.4",
+    "glightbox": "^3.1.0",
+    "https": "^1.0.0",
+    "mixitup": "^3.3.1",
+    "path": "^0.12.7",
+    "postcss": "^8.4.5",
+    "vanilla-lazyload": "^17.5.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0",
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "esbuild": "^0.14.3",
+    "node-fetch": "^2.6.7",
+    "npm-run-all": "^4.1.5",
+    "postcss-import": "^14.0.0",
+    "tailwindcss": "^3.0.1",
+    "tailwindcss-debug-screens": "^2.2.1"
+  }
+}

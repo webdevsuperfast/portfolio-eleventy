@@ -1,0 +1,63 @@
+<section id="js-scroll-to-portfolio" class="flex w-full scroll-mt-12 sm:scroll-mt-24 sm:min-h-screen relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8 relative" x-data="{ filterOpen: false }" @click.away="filterOpen = false">
+    <div class="filter-container relative flex flex-nowrap place-content-between items-center py-10">
+      <h2 class="section-title text-4xl sm:text-6xl grow font-bold">Portfolio</h2>
+      <div class="filter-block">
+        <div x-transition class="w-full items-center flex-none lg:mt-0 lg:w-auto sm:ml-auto flex space-x-8" x-data="myComponent()">
+          <div 
+            x-show="filterOpen"
+            x-cloak
+            :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
+            class="absolute right-0 top-[100px] filter-container z-10 rounded-xl flex-col bg-gray-900 lg:rounded-none lg:static lg:bg-transparent lg:bg-opacity-0 lg:flex-row lg:space-x-6 uppercase lg:text-xl"
+          >
+            <a
+              @click.prevent="clicked($event)" 
+              x-bind:class="value === 'all' ? 'text-rose-900 underline underline-offset-4' : ''"
+              data-filter="all" class="filter text-center uppercase hover:text-rose-900 hover:cursor-pointer transition-colors block py-1 px-6 lg:px-0 lg:py-0">All</a>
+            
+            {# {% for item in category | dictsort %}
+              <a
+                @click.prevent="clicked($event)"
+                x-bind:class="value === '.{{ item.slug }}' ? 'text-rose-900 underline underline-offset-4' : ''"
+                class="filter uppercase text-center hover:text-rose-900 transition-colors hover:cursor-pointer block py-1 px-6 lg:px-0 lg:py-0" data-filter=".{{ item.slug }}" >{{ item.name }}</a>
+            {% endfor %} #}
+          </div>
+          <button
+            x-on:click="filterOpen = ! filterOpen"
+            class="flex items-center space-x-2 focus:outline-none">
+            <span class="text-xl uppercase" x-text="filterOpen ? '' : 'Filter'">Filter</span>
+            
+            <div class="w-10 h-10 flex items-center justify-center relative">
+              <span 
+              x-bind:class="filterOpen ? '-translate-y-0 rotate-45' : '-translate-y-3'"
+              class="transform transition w-full rounded h-0.5 bg-current absolute"
+              ></span>
+              <span 
+              x-bind:class="filterOpen ? 'opacity-0 translate-x-3 w-10' : 'opacity-100'"
+              class="transform transition w-3/5 rounded h-0.5 bg-current absolute"
+              ></span>
+              <span 
+              x-bind:class="filterOpen ? 'translate-y-0 -rotate-45 w-10' : 'translate-y-3 w-1/5'"
+              class="transform transition rounded h-0.5 bg-current absolute"
+              ></span>
+            </div>
+          </button>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="collections grid grid-cols-none sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-col-6 gap-8 snap-proximity overflow-x-auto relative overflow-y-hidden">
+      {% for item in portfolio %}
+        <figure class="mix portfolio w-100">
+          <a data-glightbox="type: image" href="" class="glightbox group">
+            {% image item.image, item.imageAlt %}
+            <figcaption class="portfolio-info">
+              <h3 class="font-normal mb-0 text-white">{{ item.title }}</h3>
+            </figcaption>
+          </a>
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section> <!-- Portfolio Section -->
