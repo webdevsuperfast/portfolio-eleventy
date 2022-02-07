@@ -14,13 +14,14 @@
               @click.prevent="clicked($event)" 
               x-bind:class="value === 'all' ? 'text-rose-900 underline underline-offset-4' : ''"
               data-filter="all" class="filter text-center uppercase hover:text-rose-900 hover:cursor-pointer transition-colors block py-1 px-6 lg:px-0 lg:py-0">All</a>
+
             
-            {# {% for item in category | dictsort %}
+            {% for item in category %}
               <a
                 @click.prevent="clicked($event)"
                 x-bind:class="value === '.{{ item.slug }}' ? 'text-rose-900 underline underline-offset-4' : ''"
                 class="filter uppercase text-center hover:text-rose-900 transition-colors hover:cursor-pointer block py-1 px-6 lg:px-0 lg:py-0" data-filter=".{{ item.slug }}" >{{ item.name }}</a>
-            {% endfor %} #}
+            {% endfor %}
           </div>
           <button
             x-on:click="filterOpen = ! filterOpen"
@@ -49,11 +50,17 @@
 
     <div class="collections grid grid-cols-none sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-col-6 gap-8 snap-proximity overflow-x-auto relative overflow-y-hidden">
       {% for item in portfolio %}
-        <figure class="mix portfolio w-100">
-          <a data-glightbox="type: image" href="" class="glightbox group">
-            {% image item.image, item.imageAlt %}
+        {% set testing %}
+          {% set comma = joiner(' ') %}
+          {% for test in item.category %}
+            {{ comma() }} {{ test.slug  }}
+          {% endfor %}
+        {% endset %}
+        <figure class="mix portfolio w-100 {{ testing | safe }}">
+          <a data-glightbox="type: image" href="{{ item.featuredImage }}" class="glightbox group">
+            <img data-src="{{ item.thumbnail }}" alt="{{ item.title }}" class="portfolio-image rounded-xl rounded-br-none overflow-hidden mb-2 w-full object-cover h-[250px] lazy transition group-hover:scale-95 group-hover:grayscale group-hover:drop-shadow-lg">
             <figcaption class="portfolio-info">
-              <h3 class="font-normal mb-0 text-white">{{ item.title }}</h3>
+              <h3 class="font-bold mb-0 text-white">{{ item.title }}</h3>
             </figcaption>
           </a>
         </figure>
