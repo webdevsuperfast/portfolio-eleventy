@@ -39,7 +39,7 @@ async function requestCategory() {
             portfolioCategories(
               first: ${itemsPerRequest} 
               after: "${afterCursor}"
-              where: {orderby: NAME, order: ASC}
+              where: {orderby: NAME, order: ASC, hideEmpty: true}
               ) {
               nodes {
                 name
