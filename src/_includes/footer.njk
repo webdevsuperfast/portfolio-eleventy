@@ -23,8 +23,8 @@
         {% if social %}
           <div class="">
             {% for item in social %}
-              <a class="text-white uppercase block text-center hover:text-gray-200 hover:bg-rose-700 transition-all py-3 px-5 lg:py-5 lg:px-10 lg:text-xl" href="{{ item.url }}" target="_blank">
-                {{ item.name }}
+              <a class="text-white uppercase block text-center hover:text-gray-200 hover:bg-rose-700 transition-all py-3 px-5 lg:py-5 lg:px-10 lg:text-xl" href="{{ item.url }}" target="{{ item.target }}">
+                {{ item.label }}
               </a>
             {% endfor %}
           </div>
