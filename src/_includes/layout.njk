@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="smooth-scroll">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/assets/main.bundle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/main.bundle.css">
+  </noscript>
   <script src="/assets/main.bundle.js" defer></script>
-  <title>{{ title }} | Rotsen Mark Acob</title>
+  <title>Rotsen Mark Acob - Jamstack Developer</title>
 </head>
 
-<body class="{{ 'debug-screens' if env.devMode }} bg-body bg-fixed">
+<body class="{{ 'debug-screens' if env.devMode }} bg-body bg-fixed lazy">
   {% include 'header.njk' %}
   
   <main class="site-content">
