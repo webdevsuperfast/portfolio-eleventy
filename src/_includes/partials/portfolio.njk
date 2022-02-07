@@ -50,13 +50,7 @@
 
     <div class="collections grid grid-cols-none sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-col-6 gap-8 snap-proximity overflow-x-auto relative overflow-y-hidden">
       {% for item in portfolio %}
-        {% set testing %}
-          {% set comma = joiner(' ') %}
-          {% for test in item.category %}
-            {{ comma() }} {{ test.slug  }}
-          {% endfor %}
-        {% endset %}
-        <figure class="mix portfolio w-100 {{ testing | safe }}">
+        <figure class="mix portfolio w-100 {{ item.category }}">
           <a data-glightbox="type: image" href="{{ item.featuredImage }}" class="glightbox group">
             <img data-src="{{ item.thumbnail }}" alt="{{ item.title }}" class="portfolio-image rounded-xl rounded-br-none overflow-hidden mb-2 w-full object-cover h-[250px] lazy transition group-hover:scale-95 group-hover:grayscale group-hover:drop-shadow-lg">
             <figcaption class="portfolio-info">

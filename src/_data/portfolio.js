@@ -108,6 +108,13 @@ async function requestPortfolio() {
   }
 
   const portfoliosFormatted = portfolios.map( (item) => {
+    const cat = [];
+      for ( i = 0; i < item.portfolioCategories.nodes.length; i++ ) {
+        cat[i] = item.portfolioCategories.nodes[i].slug;
+      }
+
+    const categories = cat.join( ' ' );
+
     return {
       id: item.portfolioId,
       title: item.title,
@@ -116,7 +123,7 @@ async function requestPortfolio() {
       thumbnail: item.featuredImage.node.thumbnail,
       featuredImage: item.featuredImage.node.featuredImage,
       imageAlt: item.featuredImage.node.altText,
-      category: item.portfolioCategories.nodes,
+      category: categories,
       clientName: item.clientInformation.clientName,
       clientWebsite: item.clientInformation.clientWebsite,
     }
