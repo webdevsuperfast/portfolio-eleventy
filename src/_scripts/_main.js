@@ -1,4 +1,4 @@
 import './alpine'
-// import './glightbox'
-// import './lazyload'
-// import './mixitup'
+import './glightbox'
+import './lazyload'
+import './mixitup'
