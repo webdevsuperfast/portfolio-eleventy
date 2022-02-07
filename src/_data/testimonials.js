@@ -1,12 +1,10 @@
 const fetch = require('node-fetch');
-const axios = require('axios');
 const flatCache = require('flat-cache');
 const path = require('path');
-const { data } = require('autoprefixer');
 
-const CACHE_KEY = 'testimonial';
+const CACHE_KEY = 'testimonials';
 const CACHE_FOLDER = path.resolve('./.cache');
-const CACHE_FILE = 'testimonial.json';
+const CACHE_FILE = 'testimonials.json';
 
 const GRAPHQL_URL = process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
 
@@ -15,7 +13,7 @@ async function requestTestimonial() {
   const cachedItems = cache.getKey(CACHE_KEY);
 
   if (cachedItems) {
-    console.log('Using cached testimonial');
+    console.log(`Using cached ${CACHE_KEY}`);
     return cachedItems;
   }
 
@@ -27,7 +25,7 @@ async function requestTestimonial() {
   let testimonials = [];
 
   while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} testimonial`);
+    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`);
 
     try {
       const data = await fetch( GRAPHQL_URL, {
@@ -38,7 +36,11 @@ async function requestTestimonial() {
         },
         body: JSON.stringify({
           query: `query {
-            testimonials(first: ${itemsPerRequest}, after: "${afterCursor}") {
+            testimonials(
+              first: ${itemsPerRequest}
+              after: "${afterCursor}" 
+              where: {orderby: {field: TITLE, order: ASC}}
+              ) {
               nodes {
                 content
                 featuredImage {
@@ -50,6 +52,10 @@ async function requestTestimonial() {
                 title
                 slug
                 testimonialId
+                testimonialDetails {
+                  testimonialLocation
+                  testimonialScore
+                }
               }
               pageInfo {
                 hasNextPage
@@ -74,7 +80,7 @@ async function requestTestimonial() {
         throw new Error('Failed to fetch testimonial');
       }
 
-      testimonialInfo = response.data.allTestimonial.pageInfo;
+      testimonialInfo = response.data.testimonials.pageInfo;
 
       if ( testimonialInfo.hasNextPage ) {
         makeNewQuery = true;
@@ -83,7 +89,7 @@ async function requestTestimonial() {
         makeNewQuery = false;
       }
 
-      testimonials = testimonials.concat(response.data.allTestimonial.nodes);
+      testimonials = testimonials.concat(response.data.testimonials.nodes);
     } catch ( error ) {
       throw new Error(error);
     }
@@ -100,7 +106,9 @@ async function requestTestimonial() {
       slug: item.slug,
       content: item.content,
       image: item.featuredImage.node.sourceUrl,
-      imageAlt: item.featuredImage.node.altText
+      imageAlt: item.featuredImage.node.altText,
+      location: item.testimonialDetails.testimonialLocation,
+      score: item.testimonialDetails.testimonialScore
     }
   });
 

@@ -1,8 +1,6 @@
 const fetch = require('node-fetch');
-const axios = require('axios');
 const flatCache = require('flat-cache');
 const path = require('path');
-const { data } = require('autoprefixer');
 
 const CACHE_KEY = 'category';
 const CACHE_FOLDER = path.resolve('./.cache');
@@ -38,7 +36,11 @@ async function requestCategory() {
         },
         body: JSON.stringify({
           query: `query {
-            portfolioCategories(first: ${itemsPerRequest}, after: "${afterCursor}") {
+            portfolioCategories(
+              first: ${itemsPerRequest} 
+              after: "${afterCursor}"
+              where: {orderby: NAME, order: ASC}
+              ) {
               nodes {
                 name
                 portfolioCategoryId

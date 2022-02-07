@@ -1,8 +1,6 @@
 const fetch = require('node-fetch');
-const axios = require('axios');
 const flatCache = require('flat-cache');
 const path = require('path');
-const { data } = require('autoprefixer');
 
 const CACHE_KEY = 'portfolio';
 const CACHE_FOLDER = path.resolve('./.cache');
@@ -38,7 +36,11 @@ async function requestPortfolio() {
         },
         body: JSON.stringify({
           query: `query {
-            allPortfolio(first: ${itemsPerRequest}, after: "${afterCursor}") {
+            allPortfolio(
+              first: ${itemsPerRequest}
+              after: "${afterCursor}"
+              where: {orderby: {field: TITLE, order: ASC}}
+              ) {
               nodes {
                 portfolioCategories {
                   nodes {
@@ -53,7 +55,8 @@ async function requestPortfolio() {
                 featuredImage {
                   node {
                     altText
-                    sourceUrl
+                    thumbnail: sourceUrl(size: PORTFOLIO_THUMBNAIL)
+                    featuredImage: sourceUrl
                   }
                 }
                 id
@@ -110,9 +113,10 @@ async function requestPortfolio() {
       title: item.title,
       slug: item.slug,
       content: item.content,
-      image: item.featuredImage.node.sourceUrl,
+      thumbnail: item.featuredImage.node.thumbnail,
+      featuredImage: item.featuredImage.node.featuredImage,
       imageAlt: item.featuredImage.node.altText,
-      portfolioCategories: item.portfolioCategories.nodes,
+      category: item.portfolioCategories.nodes,
       clientName: item.clientInformation.clientName,
       clientWebsite: item.clientInformation.clientWebsite,
     }
