@@ -52,7 +52,7 @@
       {% for item in portfolio %}
         <figure class="mix portfolio w-100 {{ item.category }}">
           <a data-glightbox="type: image" href="{{ item.featuredImage }}" class="glightbox group">
-            <img data-src="{{ item.thumbnail }}" alt="{{ item.title }}" class="portfolio-image rounded-xl rounded-br-none overflow-hidden mb-2 w-full object-cover h-[250px] lazy transition group-hover:scale-95 group-hover:grayscale group-hover:drop-shadow-lg">
+            <img width="445" height="330" data-src="{{ item.thumbnail }}" alt="{{ item.title }}" class="portfolio-image rounded-xl rounded-br-none overflow-hidden mb-2 w-full object-cover h-[250px] lazy transition group-hover:scale-95 group-hover:grayscale group-hover:drop-shadow-lg">
             <figcaption class="portfolio-info">
               <h3 class="font-bold mb-0 text-white">{{ item.title }}</h3>
             </figcaption>
