@@ -15,8 +15,8 @@
   <script src="/assets/main.bundle.js" defer></script>
   <title>Rotsen Mark Acob - Jamstack Developer</title>
 </head>
-
-<body class="{{ 'debug-screens' if env.devMode }} bg-body bg-fixed lazy">
+{% set bg='/images/background.jpg' %}
+<body data-bg="{{ bg }}" class="{{ 'debug-screens' if env.devMode }} bg-fixed lazy">
   {% include 'header.njk' %}
   
   <main class="site-content">
