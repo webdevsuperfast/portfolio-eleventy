@@ -25,8 +25,9 @@
           {%- for nav in navigation -%}
             <a
               @click="clicked"
+              x-bind:class="value === '#{{ nav.route }}' ? 'text-rose-900': ''"
               class="uppercase block px-6 py-3 sm:px-0 sm:py-0 text-md text-2xl hover:text-rose-900 transition-colors" 
-              href="{{ nav.route }}">{{ nav.name }}</a>
+              href="#{{ nav.route }}">{{ nav.name }}</a>
           {%- endfor -%}
         </div>
         <button
