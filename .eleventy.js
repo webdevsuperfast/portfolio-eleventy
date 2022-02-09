@@ -31,7 +31,7 @@ module.exports = (config) => {
 
   async function portfolioImageShortcode( src, alt ) {
     let metadata = await Image( src, {
-      widths: [1024],
+      widths: [null],
       formats: ['webp'],
       urlPath: '/images/',
       outputDir: './dist/images/',
@@ -45,10 +45,10 @@ module.exports = (config) => {
 
     let data = metadata.webp[metadata.webp.length - 1];
 
-    return `<a href="${data.url}" class="portfolio-image">` + Image.generateHTML( metadata, imageAttributes ) + `</a>`;
+    return data.url;
   }
 
-  config.addNunjucksAsyncShortcode('portfolio-image', portfolioImageShortcode);
+  config.addNunjucksAsyncShortcode('portfolioImage', portfolioImageShortcode);
 
   config.setBrowserSyncConfig({
     files: ['dist/**/*'],
