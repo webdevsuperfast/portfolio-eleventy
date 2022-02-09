@@ -27,8 +27,7 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 </head>
-{% set bg='/images/background.jpg' %}
-<body data-bg="{{ bg }}" class="{{ 'debug-screens' if env.devMode }} bg-fixed lazy">
+<body data-bg="{% portfolioImage 'public/images/background.jpg' %}" class="{{ 'debug-screens' if env.devMode }} bg-fixed lazy">
   {% include 'header.njk' %}
   
   <main class="site-content">
