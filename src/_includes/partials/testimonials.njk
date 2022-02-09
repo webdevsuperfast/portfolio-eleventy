@@ -12,7 +12,7 @@
             {{ testimonial.content | safe }}
           </blockquote>
           <div class="flex items-center content-end text-right flex-row-reverse">
-            <img width="150" height="150" class="w-10 h-10 rounded-full ml-4 lazy" data-src="{{ testimonial.image }}" alt="{{ testimonial.title }}" />
+            <img width="150" height="150" class="w-10 h-10 rounded-full ml-4 lazy" data-src="{% portfolioImage testimonial.image %}" alt="{{ testimonial.title }}" />
             <div class="text-sm">
               <h3 class="font-bold">{{ testimonial.title }}</h3>
               <p class="text-xs">{{ testimonial.location }}</p>
