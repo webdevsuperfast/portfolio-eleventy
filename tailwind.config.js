@@ -15,7 +15,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'ibm-plex-sans': ['IBM Plex Sans', 'sans-serif']
+        'barlow': ['Barlow', 'sans-serif'],
+        'barlow-condensed': ['Barlow Condensed', 'sans-serif'],
       },
       fontSize: {
         '14xl': ['14rem', {
