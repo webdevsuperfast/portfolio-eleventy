@@ -50,14 +50,17 @@
 
     <div class="collections grid grid-cols-none sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 2xl:grid-col-6 gap-8 snap-proximity overflow-x-auto relative overflow-y-hidden">
       {% for item in portfolio %}
-        {% set portfolioFeatured %}
-          {% portfolioImage item.featuredImage %}
-        {% endset %}
-        <figure class="mix portfolio w-100 {{ item.category }}">
-          <a data-glightbox="type: image" href="{% portfolioImage item.featuredImage %}" class="glightbox group">
-            <img width="445" height="330" data-src="{% portfolioImage item.thumbnail %}" alt="{{ item.title }}" class="portfolio-image rounded-xl rounded-br-none overflow-hidden mb-2 w-full object-cover h-[250px] lazy transition group-hover:scale-95 group-hover:grayscale group-hover:drop-shadow-lg">
-            <figcaption class="portfolio-info">
-              <h3 class="font-bold mb-0 text-white">{{ item.title }}</h3>
+        <figure class="mix portfolio relative w-100 {{ item.category }} rounded-xl rounded-br-none overflow-hidden group">
+          <a data-glightbox="type: image" href="{% portfolioImage item.featuredImage %}" class="glightbox">
+            <img 
+              width="445" 
+              height="330" 
+              data-src="{% portfolioImage item.thumbnail %}" 
+              alt="{{ item.title }}" 
+              class="portfolio-image mb-0 w-full object-cover h-[250px] lazy transition-transform group-hover:-translate-y-10">
+            <figcaption 
+            class="portfolio-info absolute bottom-0 left-0 w-full bg-rose-900 py-4 px-5 translate-y-full group-hover:translate-y-0 transition-transform">
+              <h3 class="mb-0 text-gray-100">{{ item.title }}</h3>
             </figcaption>
           </a>
         </figure>
