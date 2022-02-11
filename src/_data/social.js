@@ -8,7 +8,7 @@ const CACHE_FILE = 'social.json';
 
 const { WP_SITE_URL } = require('../../env');
 
-const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`; // process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
+const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`; 
 
 async function requestSocial() {
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
