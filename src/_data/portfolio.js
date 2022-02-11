@@ -6,7 +6,9 @@ const CACHE_KEY = 'portfolio';
 const CACHE_FOLDER = path.resolve('./.cache');
 const CACHE_FILE = 'portfolio.json';
 
-const GRAPHQL_URL = process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
+const { WP_SITE_URL } = require('../../env');
+
+const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`;
 
 async function requestPortfolio() {
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);

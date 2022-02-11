@@ -6,7 +6,9 @@ const CACHE_KEY = 'social';
 const CACHE_FOLDER = path.resolve('./.cache');
 const CACHE_FILE = 'social.json';
 
-const GRAPHQL_URL = process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
+const { WP_SITE_URL } = require('../../env');
+
+const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`; // process.env.NODE_ENV === 'production' ? 'https://cdn.rotsenacob.com/graphql' : 'https://rotsenacob.ddev.site/graphql';
 
 async function requestSocial() {
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
