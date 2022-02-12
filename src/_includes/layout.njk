@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="/assets/main.bundle.css">
   </noscript>
   <script src="/assets/main.bundle.js" defer></script>
-  <meta name="google-site-verification" content="f1pibpLr0O-CAKHRGuwJGGCoPFcYi8AR44YzMxc0fh0" />
-  <meta name="msvalidate.01" content="F7E7125AA252E622EA9ED516931281E1" />
+  <meta name="google-site-verification" content="{{ site.google_site_verification }}" />
+  <meta name="msvalidate.01" content="{{ site.microsoft_site_verification }}" />
   <meta name="description" content="{{ site.description }}">
   <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
 
@@ -27,7 +27,7 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 </head>
-<body data-bg="{% portfolioImage 'public/images/background.jpg' %}" class="{{ 'debug-screens' if env.devMode }} bg-fixed lazy">
+<body class="{{ 'debug-screens' if env.devMode }} bg-gradient-to-r from-gray-700 via-gray-900 to-black">
   {% include 'header.njk' %}
   
   <main class="site-content">
