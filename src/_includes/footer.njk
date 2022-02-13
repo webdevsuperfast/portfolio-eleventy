@@ -1,35 +1,43 @@
-<footer class="pb-4 lg:pb-24 w-full fixed bottom-0">
+<footer class="fixed bottom-0 w-full pb-4 lg:pb-24">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative" x-data="{ open: false }" @click.away="open = false">
-      <button class="p-5 bg-rose-900 rounded-xl rounded-br-none absolute right-0 bottom-0 hover:bg-rose-700 active:bg-rose-700 focus:bg-rose-700" x-on:click="open = ! open">
-        <div class="w-5 h-5 flex items-center justify-center relative">
+      <button
+        class="absolute right-0 bottom-0 rounded-xl rounded-br-none bg-rose-900 p-5 hover:bg-rose-700 focus:bg-rose-700 active:bg-rose-700"
+        x-on:click="open = ! open"
+      >
+        <div class="relative flex h-5 w-5 items-center justify-center">
           <span
             x-bind:class="open ? 'rotate-45' : ''"
-            class="transform transition w-full h-0.5 absolute rounded bg-white"
+            class="absolute h-0.5 w-full transform rounded bg-white transition"
           ></span>
           <span
             x-bind:class="open ? 'rotate-45' : ''"
-            class="transform transition h-full absolute w-0.5 rounded bg-white"
-            ></span>
+            class="absolute h-full w-0.5 transform rounded bg-white transition"
+          ></span>
         </div>
       </button>
       <div
-        :class="{ 'block': open, 'hidden': ! open }" 
-        class="hidden absolute right-0 bottom-20 rounded-xl bg-rose-900 overflow-hidden" 
-        x-show="open" 
+        :class="{ 'block': open, 'hidden': ! open }"
+        class="absolute right-0 bottom-20 hidden overflow-hidden rounded-xl bg-rose-900"
+        x-show="open"
         x-transition
         x-cloak
       >
         {% if social %}
-          <div class="">
-            {% for item in social %}
-              <a class="text-white uppercase block text-center hover:text-gray-200 hover:bg-rose-700 transition-all py-3 px-5 lg:py-5 lg:px-10 lg:text-xl" href="{{ item.url }}" target="{{ item.target }}">
-                {{ item.label }}
-              </a>
-            {% endfor %}
-          </div>
+        <div class="">
+          {% for item in social %}
+          <a
+            class="block py-3 px-5 text-center uppercase text-white transition-all hover:bg-rose-700 hover:text-gray-200 lg:py-5 lg:px-10 lg:text-xl"
+            href="{{ item.url }}"
+            target="{{ item.target }}"
+          >
+            {{ item.label }}
+          </a>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
     </div>
   </div>
-</footer><!-- End Footer -->
+</footer>
+<!-- End Footer -->

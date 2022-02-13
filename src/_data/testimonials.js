@@ -1,40 +1,40 @@
-const fetch = require('node-fetch');
-const flatCache = require('flat-cache');
-const path = require('path');
+const fetch = require('node-fetch')
+const flatCache = require('flat-cache')
+const path = require('path')
 
-const CACHE_KEY = 'testimonials';
-const CACHE_FOLDER = path.resolve('./.cache');
-const CACHE_FILE = 'testimonials.json';
+const CACHE_KEY = 'testimonials'
+const CACHE_FOLDER = path.resolve('./.cache')
+const CACHE_FILE = 'testimonials.json'
 
-const { WP_SITE_URL } = require('../../env');
+const { WP_SITE_URL } = require('../../env')
 
-const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`;
+const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
 
 async function requestTestimonial() {
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
-  const cachedItems = cache.getKey(CACHE_KEY);
+  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
+  const cachedItems = cache.getKey(CACHE_KEY)
 
   if (cachedItems) {
-    console.log(`Using cached ${CACHE_KEY}`);
-    return cachedItems;
+    console.log(`Using cached ${CACHE_KEY}`)
+    return cachedItems
   }
 
-  let afterCursor = '';
-  let itemsPerRequest = 100;
+  let afterCursor = ''
+  let itemsPerRequest = 100
 
-  let makeNewQuery = true;
+  let makeNewQuery = true
 
-  let testimonials = [];
+  let testimonials = []
 
   while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`);
+    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`)
 
     try {
-      const data = await fetch( GRAPHQL_URL, {
+      const data = await fetch(GRAPHQL_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           query: `query {
@@ -66,42 +66,42 @@ async function requestTestimonial() {
                 startCursor
               }
             }
-          }`
+          }`,
+        }),
+      })
+
+      const response = await data.json()
+
+      if (response.errors) {
+        let errors = response.errors
+
+        errors.map((error) => {
+          console.error(error.message)
         })
-      } );
 
-      const response = await data.json();
-
-      if ( response.errors ) {
-        let errors = response.errors;
-
-        errors.map( (error) => {
-          console.error(error.message);
-        });
-
-        throw new Error('Failed to fetch testimonial');
+        throw new Error('Failed to fetch testimonial')
       }
 
-      testimonialInfo = response.data.testimonials.pageInfo;
+      testimonialInfo = response.data.testimonials.pageInfo
 
-      if ( testimonialInfo.hasNextPage ) {
-        makeNewQuery = true;
-        afterCursor = testimonialInfo.endCursor;
+      if (testimonialInfo.hasNextPage) {
+        makeNewQuery = true
+        afterCursor = testimonialInfo.endCursor
       } else {
-        makeNewQuery = false;
+        makeNewQuery = false
       }
 
-      testimonials = testimonials.concat(response.data.testimonials.nodes);
-    } catch ( error ) {
-      throw new Error(error);
+      testimonials = testimonials.concat(response.data.testimonials.nodes)
+    } catch (error) {
+      throw new Error(error)
     }
   }
 
-  for ( x = 0; x < testimonials.length; x++ ) {
-    theTestimonial = testimonials[x];
+  for (x = 0; x < testimonials.length; x++) {
+    theTestimonial = testimonials[x]
   }
 
-  const testimonialsFormatted = testimonials.map( (item) => {
+  const testimonialsFormatted = testimonials.map((item) => {
     return {
       id: item.testimonialId,
       title: item.title,
@@ -110,16 +110,16 @@ async function requestTestimonial() {
       image: item.featuredImage.node.sourceUrl,
       imageAlt: item.featuredImage.node.altText,
       location: item.testimonialDetails.testimonialLocation,
-      score: item.testimonialDetails.testimonialScore
+      score: item.testimonialDetails.testimonialScore,
     }
-  });
+  })
 
-  if ( testimonialsFormatted.length ) {
-    cache.setKey( CACHE_KEY, testimonialsFormatted );
-    cache.save( true );
+  if (testimonialsFormatted.length) {
+    cache.setKey(CACHE_KEY, testimonialsFormatted)
+    cache.save(true)
   }
 
-  return testimonialsFormatted;
+  return testimonialsFormatted
 }
 
-module.exports = requestTestimonial;
+module.exports = requestTestimonial

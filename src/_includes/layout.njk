@@ -1,56 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html
+  lang="en"
+  class="scroll-smooth"
+  x-data="{ darkMode: localStorage.getItem('dark') === 'true' }"
+  x-init="$watch( 'darkMode', val => { localStorage.setItem('dark', val) } )"
+  x-bind:class="{ 'dark-mode': darkMode }"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="/assets/main.bundle.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap"
+        rel="stylesheet"
+      />
+      <link rel="stylesheet" href="/assets/main.bundle.css" />
+    </noscript>
+    <script src="/assets/main.bundle.js" defer></script>
+    <meta
+      name="google-site-verification"
+      content="{{ site.google_site_verification }}"
+    />
+    <meta
+      name="msvalidate.01"
+      content="{{ site.microsoft_site_verification }}"
+    />
+    <meta name="description" content="{{ site.description }}" />
+    <link
+      rel="shortcut icon"
+      href="/images/favicon/favicon.ico"
+      type="image/x-icon"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ site.title }}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/main.bundle.css">
-  </noscript>
-  <script src="/assets/main.bundle.js" defer></script>
-  <meta name="google-site-verification" content="{{ site.google_site_verification }}" />
-  <meta name="msvalidate.01" content="{{ site.microsoft_site_verification }}" />
-  <meta name="description" content="{{ site.description }}">
-  <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/images/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/images/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body
+    class="{{ 'debug-screens' if env.devMode }} bg-gradient-to-r from-gray-700 via-gray-900 to-black"
+  >
+    {% include 'header.njk' %}
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/images/favicon/site.webmanifest">
-  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-<body class="{{ 'debug-screens' if env.devMode }} bg-gradient-to-r from-gray-700 via-gray-900 to-black">
-  {% include 'header.njk' %}
-  
-  <main class="site-content">
-    {% block body %}
+    <main class="site-content">
+      {% block body %}
       {{ content | safe }}
-    {% endblock %}
-  </main>
+      {% endblock %}
+    </main>
 
-  {% include 'footer.njk' %}
-</body>
-<script>
-  const myComponent = window.myComponent = () => ({
-    value: 'all',
-    clicked(e) {
-      this.value = e.target.dataset.filter;
-    }
-  });
+    {% include 'footer.njk' %}
+  </body>
+  <script>
+    const myComponent = (window.myComponent = () => ({
+      value: 'all',
+      clicked(e) {
+        this.value = e.target.dataset.filter
+      },
+    }))
 
-  const myComponent2 = window.myComponent2 = () => ({
-    value: '#js-scroll-to-about',
-    clicked(e) {
-      this.value = e.target.hash;
-    }
-  });
-</script>
+    const myComponent2 = (window.myComponent2 = () => ({
+      value: '#js-scroll-to-about',
+      clicked(e) {
+        this.value = e.target.hash
+      },
+    }))
+  </script>
 </html>
