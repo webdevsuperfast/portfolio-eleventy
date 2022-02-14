@@ -27,14 +27,13 @@
         x-data="filterNav()"
       >
         <div
-          x-show="navOpen"
           x-transition:enter-start="opacity-0 lg:scale-75"
           x-transition:enter-end="opacity-100 lg:scale-100"
           x-transition:leave-start="opacity-100 lg:scale-100"
           x-transition:leave-end="opacity-0 lg:scale-75"
-          :class="{ 'block' : navOpen, 'hidden' : !navOpen }"
+          :class="{ 'hidden sm:flex' : navOpen, 'hidden' : !navOpen }"
           x-cloak
-          class="navigation w-100 text-light fixed top-8 flex flex-col items-center rounded-xl bg-gray-900 bg-opacity-75 text-center uppercase sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
+          class="navigation w-100 text-light fixed top-8 flex-col items-center rounded-xl bg-gray-900 bg-opacity-75 text-center uppercase sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
         >
           {%- for nav in navigation -%}
           <a
@@ -76,6 +75,32 @@
           </div>
         </label>
       </div>
+    </div>
+  </nav>
+  <nav 
+    :class="{ 'bg-transparent dark:bg-transparent' : scrolled }"
+    class="mobile-navigation bg-gray-200 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 mt-4 text-center sm:text-left sm:hidden" 
+    x-show="navOpen"
+  >
+    <div
+      x-transition:enter-start="opacity-0 lg:scale-75"
+      x-transition:enter-end="opacity-100 lg:scale-100"
+      x-transition:leave-start="opacity-100 lg:scale-100"
+      x-transition:leave-end="opacity-0 lg:scale-75"
+      :class="{ 'block sm:hidden' : navOpen, 'hidden' : !navOpen }"
+      x-cloak
+      class="navigation"
+    >
+      {%- for nav in navigation -%}
+      <a
+        @click="clicked"
+        x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
+        class="text-md block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+        href="#{{ nav.route }}"
+      >
+        {{ nav.name }}
+      </a>
+      {%- endfor -%}
     </div>
   </nav>
 </header>
