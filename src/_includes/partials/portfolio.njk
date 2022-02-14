@@ -10,7 +10,7 @@
     <div
       class="filter-container relative flex flex-nowrap place-content-between items-center py-10"
     >
-      <h2 class="section-title grow text-4xl font-bold sm:text-6xl">
+      <h2 class="section-title grow text-4xl sm:text-6xl text-gray-700 dark:text-gray-100">
         Portfolio
       </h2>
       <div class="filter-block">
@@ -23,13 +23,13 @@
             x-show="filterOpen"
             x-cloak
             :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
-            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl"
+            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl"
           >
             <a
               @click.prevent="clicked($event)"
-              x-bind:class="value === 'all' ? 'text-rose-900 underline underline-offset-4' : ''"
+              x-bind:class="value === 'all' ? 'text-gray-400 dark:text-rose-900 underline underline-offset-4' : ''"
               data-filter="all"
-              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer hover:text-rose-900 lg:px-0 lg:py-0"
+              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer text-gray-700 hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
             >
               All
             </a>
@@ -39,8 +39,8 @@
               @click.prevent="clicked($event)"
               x-bind:class="value === '.{{
                 item.slug
-              }}' ? 'text-rose-900 underline underline-offset-4' : ''"
-              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer hover:text-rose-900 lg:px-0 lg:py-0"
+              }}' ? 'text-gray-400 dark:text-rose-900 underline underline-offset-4' : ''"
+              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
               data-filter=".{{ item.slug }}"
             >
               {{ item.name }}
@@ -49,7 +49,7 @@
           </div>
           <button
             x-on:click="filterOpen = ! filterOpen"
-            class="flex items-center space-x-2 focus:outline-none"
+            class="flex items-center space-x-2 focus:outline-none text-gray-700 dark:text-gray-100"
           >
             <span class="text-xl uppercase" x-text="filterOpen ? '' : 'Filter'">
               Filter
@@ -81,7 +81,7 @@
       <figure
         class="mix portfolio relative w-100 {{
           item.category
-        }} rounded-xl rounded-br-none overflow-hidden group"
+        }} rounded-xl rounded-br-none overflow-hidden group drop-shadow-sm shadow-gray-400 dark:shadow-rose-900"
       >
         <a
           data-glightbox="type: image"
@@ -96,9 +96,9 @@
             class="portfolio-image lazy mb-0 h-[250px] w-full object-cover transition-transform group-hover:-translate-y-10"
           />
           <figcaption
-            class="portfolio-info absolute bottom-0 left-0 w-full translate-y-full bg-rose-900 py-4 px-5 transition-transform group-hover:translate-y-0"
+            class="portfolio-info absolute bottom-0 left-0 w-full translate-y-full bg-gray-100 dark:bg-rose-900 py-4 px-5 transition-transform group-hover:translate-y-0"
           >
-            <h3 class="mb-0 text-gray-100">{{ item.title }}</h3>
+            <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
           </figcaption>
         </a>
       </figure>

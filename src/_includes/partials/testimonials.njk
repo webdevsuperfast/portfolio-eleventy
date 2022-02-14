@@ -6,7 +6,7 @@
     <div
       class="filter-container relative grid grid-cols-2 place-content-between items-center py-10"
     >
-      <h2 class="section-title text-4xl font-bold sm:text-6xl">Testimonials</h2>
+      <h2 class="section-title text-4xl sm:text-6xl text-gray-700 dark:text-gray-100">Testimonials</h2>
     </div>
 
     {% if testimonials %}
@@ -16,7 +16,7 @@
       {% for testimonial in testimonials %}
       <div class="testimonial w-100 space-between flex flex-col">
         <blockquote
-          class="mb-6 block grow rounded-2xl rounded-br-none bg-gray-100 p-8 text-xl text-gray-900"
+          class="mb-6 block grow rounded-2xl rounded-br-none bg-gray-700 dark:bg-gray-100 p-8 text-xl text-gray-100 dark:text-gray-900 drop-shadow-xl shadow-gray-900"
         >
           {{ testimonial.content | safe }}
         </blockquote>
@@ -29,8 +29,8 @@
             alt="{{ testimonial.title }}"
           />
           <div class="text-sm">
-            <h3 class="font-bold">{{ testimonial.title }}</h3>
-            <p class="text-xs">{{ testimonial.location }}</p>
+            <h3 class="font-bold text-gray-700 dark:text-gray-100">{{ testimonial.title }}</h3>
+            <p class="text-xs text-gray-400 dark:text-gray-200">{{ testimonial.location }}</p>
           </div>
         </div>
       </div>

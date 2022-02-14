@@ -1,15 +1,15 @@
 <header
-  class="fixed z-50 w-full flex-none pt-4 text-sm font-medium leading-6 text-gray-100 transition-all lg:pt-24"
+  class="fixed z-50 w-full flex-none pt-4 text-sm font-medium leading-6 text-gray-700 dark:text-gray-100 transition-all lg:pt-24"
   x-data="{ scrolled: false, navOpen: false }"
-  :class="{ 'bg-gray-900 bg-opacity-75 py-4 lg:pt-4' : scrolled }"
+  :class="{ 'bg-gray-200 dark:bg-gray-900 drop-shadow bg-opacity-75 py-4 lg:pt-4' : scrolled }"
   @scroll.window="scrolled = (window.pageYOffset > 20) ? true : false"
   @click.away="navOpen = false"
 >
   <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-nowrap items-center">
-      <a class="flex-none text-white" href="/">
+      <a class="flex-none" href="/">
         <svg
-          class="fill-gray-100 transition-colors hover:fill-rose-900"
+          class="fill-gray-700 dark:fill-gray-100 transition-colors hover:fill-gray-400 dark:hover:fill-rose-900"
           width="50"
           height="50"
           fill="none"
@@ -39,8 +39,8 @@
           {%- for nav in navigation -%}
           <a
             @click="clicked"
-            x-bind:class="value === '#{{ nav.route }}' ? 'text-rose-900': ''"
-            class="text-md block px-6 py-3 text-2xl uppercase transition-colors hover:text-rose-900 sm:px-0 sm:py-0"
+            x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
+            class="text-md block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
             href="#{{ nav.route }}"
           >
             {{ nav.name }}
@@ -54,15 +54,15 @@
           <div class="relative flex h-10 w-10 items-center justify-center">
             <span
               x-bind:class="navOpen ? 'translate-y-0 rotate-45' : '-translate-y-3'"
-              class="absolute h-1 w-full transform rounded bg-current transition group-hover:bg-rose-900"
+              class="absolute h-1 w-full transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
             <span
               x-bind:class="navOpen ? 'opacity-0 translate-x-3 w-10' : 'opacity-100'"
-              class="absolute right-0 h-1 w-4/5 transform rounded bg-current transition group-hover:bg-rose-900"
+              class="absolute right-0 h-1 w-4/5 transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
             <span
               x-bind:class="navOpen ? 'translate-y-0 -rotate-45 w-10' : 'translate-y-3 w-3/5'"
-              class="absolute right-0 h-1 transform rounded bg-current transition group-hover:bg-rose-900"
+              class="absolute right-0 h-1 transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
           </div>
         </button>
@@ -70,12 +70,9 @@
       <div class="flex items-center ml-4">
         <label for="toggleB" class="flex items-center cursor-pointer">
           <div class="relative">
-            <input type="checkbox" id="toggleB" class="sr-only" @click="darkMode = !darkMode">
-            <div class="block bg-gray-100 w-14 h-8 rounded-full"></div>
-            <div class="dot absolute left-1 top-1 bg-gray-700 w-6 h-6 rounded-full transition"></div>
-          </div>
-          <div class="ml-3 text-gray-700 font-medium">
-            {# Toggle Me! #}
+            <input type="checkbox" id="toggleB" class="sr-only" @click="toggle">
+            <div class="block bg-gray-700 w-14 h-8 rounded-full"></div>
+            <div class="dot absolute left-1 top-1 bg-gray-100 w-6 h-6 rounded-full transition"></div>
           </div>
         </label>
       </div>
