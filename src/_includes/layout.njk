@@ -3,7 +3,7 @@
   lang="en"
   class="scroll-smooth"
   x-data="{
-    toggle: () => {
+    setTheme: () => {
       if (localStorage.theme === 'dark') {
         localStorage.theme = 'light';
         document.documentElement.classList.remove('dark');
