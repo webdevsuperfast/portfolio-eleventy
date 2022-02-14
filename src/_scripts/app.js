@@ -1,5 +1,4 @@
 // set initial color scheme
-
 let explicitelyPreferScheme = false
 if (window.localStorage) {
   if (localStorage.getItem('theme') === 'dark') {
@@ -20,3 +19,19 @@ if (
   document.documentElement.classList.add('dark')
   document.getElementById('toggle-dark-mode').checked = true
 }
+
+// Set portfolio filter on click
+const filterPortfolio = (window.filterPortfolio = () => ({
+  value: 'all',
+  clicked(e) {
+    this.value = e.target.dataset.filter
+  },
+}))
+
+// Set navigation on click
+const filterNav = (window.filterNav = () => ({
+  value: '#js-scroll-to-about',
+  clicked(e) {
+    this.value = e.target.hash
+  },
+}))
