@@ -20,28 +20,18 @@
           x-data="filterPortfolio()"
         >
           <div
-            x-show="filterOpen"
             x-cloak
             :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
-            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl"
+            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 shadow-opacity-50"
           >
-            <a
-              @click.prevent="clicked($event)"
-              x-bind:class="value === 'all' ? 'text-gray-400 dark:text-rose-900 underline underline-offset-4' : ''"
-              data-filter="all"
-              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer text-gray-700 dark:text-gray-100 hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
-            >
-              All
-            </a>
-
             {% for item in category %}
             <a
               @click.prevent="clicked($event)"
-              x-bind:class="value === '.{{
-                item.slug
-              }}' ? 'text-gray-400 dark:text-rose-900 underline underline-offset-4' : ''"
+              x-bind:class="value === '{{
+                item.filter
+              }}' ? 'text-gray-400 dark:text-rose-900 lg:underline lg:underline-offset-4' : ''"
               class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
-              data-filter=".{{ item.slug }}"
+              data-filter="{{ item.filter }}"
             >
               {{ item.name }}
             </a>
@@ -104,6 +94,6 @@
       </figure>
       {% endfor %}
     </div>
-  </div>
+  </div><!-- End .container -->
 </section>
 <!-- Portfolio Section -->
