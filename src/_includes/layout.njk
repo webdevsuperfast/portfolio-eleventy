@@ -94,19 +94,4 @@
 
     {% include 'footer.njk' %}
   </body>
-  <script>
-    const myComponent = (window.myComponent = () => ({
-      value: 'all',
-      clicked(e) {
-        this.value = e.target.dataset.filter
-      },
-    }))
-
-    const myComponent2 = (window.myComponent2 = () => ({
-      value: '#js-scroll-to-about',
-      clicked(e) {
-        this.value = e.target.hash
-      },
-    }))
-  </script>
 </html>
