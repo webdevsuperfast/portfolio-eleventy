@@ -22,7 +22,7 @@
           <div
             x-cloak
             :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
-            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 shadow-opacity-50"
+            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
           >
             {% for item in category %}
             <a
