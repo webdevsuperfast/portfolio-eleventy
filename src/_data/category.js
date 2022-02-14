@@ -1,40 +1,40 @@
-const fetch = require('node-fetch');
-const flatCache = require('flat-cache');
-const path = require('path');
+const fetch = require('node-fetch')
+const flatCache = require('flat-cache')
+const path = require('path')
 
-const CACHE_KEY = 'category';
-const CACHE_FOLDER = path.resolve('./.cache');
-const CACHE_FILE = 'category.json';
+const CACHE_KEY = 'category'
+const CACHE_FOLDER = path.resolve('./.cache')
+const CACHE_FILE = 'category.json'
 
-const { WP_SITE_URL } = require('../../env');
+const { WP_SITE_URL } = require('../../env')
 
-const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`;
+const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
 
 async function requestCategory() {
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
-  const cachedItems = cache.getKey(CACHE_KEY);
+  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
+  const cachedItems = cache.getKey(CACHE_KEY)
 
   if (cachedItems) {
-    console.log(`Using cached ${CACHE_KEY}`);
-    return cachedItems;
+    console.log(`Using cached ${CACHE_KEY}`)
+    return cachedItems
   }
 
-  let afterCursor = '';
-  let itemsPerRequest = 100;
+  let afterCursor = ''
+  let itemsPerRequest = 100
 
-  let makeNewQuery = true;
+  let makeNewQuery = true
 
-  let categories = [];
+  let categories = []
 
   while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`);
+    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`)
 
     try {
-      const data = await fetch( GRAPHQL_URL, {
+      const data = await fetch(GRAPHQL_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           query: `query {
@@ -55,55 +55,55 @@ async function requestCategory() {
                 startCursor
               }
             }
-          }`
+          }`,
+        }),
+      })
+
+      const response = await data.json()
+
+      if (response.errors) {
+        let errors = response.errors
+
+        errors.map((error) => {
+          console.error(error.message)
         })
-      } );
 
-      const response = await data.json();
-
-      if ( response.errors ) {
-        let errors = response.errors;
-
-        errors.map( (error) => {
-          console.error(error.message);
-        });
-
-        throw new Error(`Error fetching ${CACHE_KEY}`);
+        throw new Error(`Error fetching ${CACHE_KEY}`)
       }
 
-      categoryInfo = response.data.portfolioCategories.pageInfo;
+      categoryInfo = response.data.portfolioCategories.pageInfo
 
-      if ( categoryInfo.hasNextPage ) {
-        makeNewQuery = true;
-        afterCursor = categoryInfo.endCursor;
+      if (categoryInfo.hasNextPage) {
+        makeNewQuery = true
+        afterCursor = categoryInfo.endCursor
       } else {
-        makeNewQuery = false;
+        makeNewQuery = false
       }
 
-      categories = categories.concat(response.data.portfolioCategories.nodes);
-    } catch ( error ) {
-      throw new Error(error);
+      categories = categories.concat(response.data.portfolioCategories.nodes)
+    } catch (error) {
+      throw new Error(error)
     }
   }
 
-  for ( x = 0; x < categories.length; x++ ) {
-    theCategory = categories[x];
+  for (x = 0; x < categories.length; x++) {
+    theCategory = categories[x]
   }
 
-  const categoriesFormatted = categories.map( (item) => {
+  const categoriesFormatted = categories.map((item) => {
     return {
       id: item.portfolioCategoryId,
       name: item.name,
       slug: item.slug,
     }
-  });
+  })
 
-  if ( categoriesFormatted.length ) {
-    cache.setKey( CACHE_KEY, categoriesFormatted );
-    cache.save( true );
+  if (categoriesFormatted.length) {
+    cache.setKey(CACHE_KEY, categoriesFormatted)
+    cache.save(true)
   }
 
-  return categoriesFormatted;
+  return categoriesFormatted
 }
 
-module.exports = requestCategory;
+module.exports = requestCategory

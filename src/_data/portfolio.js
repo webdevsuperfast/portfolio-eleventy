@@ -1,40 +1,40 @@
-const fetch = require('node-fetch');
-const flatCache = require('flat-cache');
-const path = require('path');
+const fetch = require('node-fetch')
+const flatCache = require('flat-cache')
+const path = require('path')
 
-const CACHE_KEY = 'portfolio';
-const CACHE_FOLDER = path.resolve('./.cache');
-const CACHE_FILE = 'portfolio.json';
+const CACHE_KEY = 'portfolio'
+const CACHE_FOLDER = path.resolve('./.cache')
+const CACHE_FILE = 'portfolio.json'
 
-const { WP_SITE_URL } = require('../../env');
+const { WP_SITE_URL } = require('../../env')
 
-const GRAPHQL_URL = `${ WP_SITE_URL }/graphql`;
+const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
 
 async function requestPortfolio() {
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER);
-  const cachedItems = cache.getKey(CACHE_KEY);
+  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
+  const cachedItems = cache.getKey(CACHE_KEY)
 
   if (cachedItems) {
-    console.log('Using cached portfolio');
-    return cachedItems;
+    console.log('Using cached portfolio')
+    return cachedItems
   }
 
-  let afterCursor = '';
-  let itemsPerRequest = 100;
+  let afterCursor = ''
+  let itemsPerRequest = 100
 
-  let makeNewQuery = true;
+  let makeNewQuery = true
 
-  let portfolios = [];
+  let portfolios = []
 
   while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} portfolio`);
+    console.log(`Trying to fetch ${itemsPerRequest} portfolio`)
 
     try {
-      const data = await fetch( GRAPHQL_URL, {
+      const data = await fetch(GRAPHQL_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           query: `query {
@@ -74,48 +74,48 @@ async function requestPortfolio() {
                 startCursor
               }
             }
-          }`
+          }`,
+        }),
+      })
+
+      const response = await data.json()
+
+      if (response.errors) {
+        let errors = response.errors
+
+        errors.map((error) => {
+          console.error(error.message)
         })
-      } );
 
-      const response = await data.json();
-
-      if ( response.errors ) {
-        let errors = response.errors;
-
-        errors.map( (error) => {
-          console.error(error.message);
-        });
-
-        throw new Error('Failed to fetch portfolio');
+        throw new Error('Failed to fetch portfolio')
       }
 
-      portfolioInfo = response.data.allPortfolio.pageInfo;
+      portfolioInfo = response.data.allPortfolio.pageInfo
 
-      if ( portfolioInfo.hasNextPage ) {
-        makeNewQuery = true;
-        afterCursor = portfolioInfo.endCursor;
+      if (portfolioInfo.hasNextPage) {
+        makeNewQuery = true
+        afterCursor = portfolioInfo.endCursor
       } else {
-        makeNewQuery = false;
+        makeNewQuery = false
       }
 
-      portfolios = portfolios.concat(response.data.allPortfolio.nodes);
-    } catch ( error ) {
-      throw new Error(error);
+      portfolios = portfolios.concat(response.data.allPortfolio.nodes)
+    } catch (error) {
+      throw new Error(error)
     }
   }
 
-  for ( x = 0; x < portfolios.length; x++ ) {
-    thePortfolio = portfolios[x];
+  for (x = 0; x < portfolios.length; x++) {
+    thePortfolio = portfolios[x]
   }
 
-  const portfoliosFormatted = portfolios.map( (item) => {
-    const cat = [];
-      for ( i = 0; i < item.portfolioCategories.nodes.length; i++ ) {
-        cat[i] = item.portfolioCategories.nodes[i].slug;
-      }
+  const portfoliosFormatted = portfolios.map((item) => {
+    const cat = []
+    for (i = 0; i < item.portfolioCategories.nodes.length; i++) {
+      cat[i] = item.portfolioCategories.nodes[i].slug
+    }
 
-    const categories = cat.join( ' ' );
+    const categories = cat.join(' ')
 
     return {
       id: item.portfolioId,
@@ -129,14 +129,14 @@ async function requestPortfolio() {
       clientName: item.clientInformation.clientName,
       clientWebsite: item.clientInformation.clientWebsite,
     }
-  });
+  })
 
-  if ( portfoliosFormatted.length ) {
-    cache.setKey( CACHE_KEY, portfoliosFormatted );
-    cache.save( true );
+  if (portfoliosFormatted.length) {
+    cache.setKey(CACHE_KEY, portfoliosFormatted)
+    cache.save(true)
   }
 
-  return portfoliosFormatted;
+  return portfoliosFormatted
 }
 
-module.exports = requestPortfolio;
+module.exports = requestPortfolio
