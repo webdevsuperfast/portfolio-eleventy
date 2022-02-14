@@ -95,7 +95,15 @@ async function requestCategory() {
       id: item.portfolioCategoryId,
       name: item.name,
       slug: item.slug,
+      filter: `.${item.slug}`,
     }
+  })
+
+  categoriesFormatted.unshift({
+    id: 0,
+    name: 'All',
+    slug: 'all',
+    filter: 'all',
   })
 
   if (categoriesFormatted.length) {
