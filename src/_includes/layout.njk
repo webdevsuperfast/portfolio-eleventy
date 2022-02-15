@@ -40,14 +40,21 @@
       <link rel="stylesheet" href="/assets/main.bundle.css" />
     </noscript>
     <script src="/assets/main.bundle.js" defer></script>
+    
+    {% if ( site.google_site_verification ) %}
     <meta
       name="google-site-verification"
       content="{{ site.google_site_verification }}"
     />
+    {% endif %}
+    
+    {% if (site.microsoft_site_verification) %}
     <meta
       name="msvalidate.01"
       content="{{ site.microsoft_site_verification }}"
     />
+    {% endif %}
+    
     <meta name="description" content="{{ site.description }}" />
     <link
       rel="shortcut icon"
