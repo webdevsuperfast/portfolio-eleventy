@@ -15,78 +15,78 @@
   }"
 >
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ site.title }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Recursive:Recursive:wght@400;700&display=swap"
       rel="preload"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
-    />
+/>
     <link
       rel="preload"
       href="/assets/main.bundle.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
-    />
+/>
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap"
         rel="stylesheet"
-      />
-      <link rel="stylesheet" href="/assets/main.bundle.css" />
+/>
+      <link rel="stylesheet" href="/assets/main.bundle.css"/>
     </noscript>
     <script src="/assets/main.bundle.js" defer></script>
-    
-    {% if ( site.google_site_verification ) %}
-    <meta
+
+    {% if (site.google_site_verification) %}
+      <meta
       name="google-site-verification"
       content="{{ site.google_site_verification }}"
-    />
+/>
     {% endif %}
-    
+
     {% if (site.microsoft_site_verification) %}
-    <meta
+      <meta
       name="msvalidate.01"
       content="{{ site.microsoft_site_verification }}"
-    />
+/>
     {% endif %}
-    
-    <meta name="description" content="{{ site.description }}" />
+
+    <meta name="description" content="{{ site.description }}"/>
     <link
       rel="shortcut icon"
       href="/images/favicon/favicon.ico"
       type="image/x-icon"
-    />
+/>
 
     <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="/images/favicon/apple-touch-icon.png"
-    />
+/>
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
       href="/images/favicon/favicon-32x32.png"
-    />
+/>
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
       href="/images/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="/images/favicon/site.webmanifest" />
+/>
+    <link rel="manifest" href="/images/favicon/site.webmanifest"/>
     <link
       rel="mask-icon"
       href="/images/favicon/safari-pinned-tab.svg"
       color="#5bbad5"
-    />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+/>
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="theme-color" content="#ffffff"/>
   </head>
   <body
     class="{{ 'debug-screens' if env.devMode }} bg-fixed lazy bg-light dark:bg-dark text-gray-500 dark:text-gray-100"
@@ -95,7 +95,7 @@
 
     <main class="site-content">
       {% block body %}
-      {{ content | safe }}
+        {{ content | safe }}
       {% endblock %}
     </main>
 

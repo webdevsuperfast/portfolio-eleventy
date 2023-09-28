@@ -16,8 +16,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        barlow: ['Barlow', 'sans-serif'],
-        'barlow-condensed': ['Barlow Condensed', 'sans-serif'],
+        recursive: ['Recursive', 'sans-serif'],
       },
       fontSize: {
         '10xl': [
