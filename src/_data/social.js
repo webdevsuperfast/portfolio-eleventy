@@ -1,4 +1,3 @@
-const fetch = require('node-fetch')
 const flatCache = require('flat-cache')
 const path = require('path')
 
