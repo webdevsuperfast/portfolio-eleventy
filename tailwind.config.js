@@ -16,7 +16,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        recursive: ['Recursive', 'sans-serif'],
+        'space-mono': ['Space Mono', 'monospace'],
       },
       fontSize: {
         '10xl': [
