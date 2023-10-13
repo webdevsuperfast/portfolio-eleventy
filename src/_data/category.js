@@ -59,10 +59,6 @@ async function requestCategory() {
 
   categories = categories.concat(response.data.data.portfolioCategories.nodes)
 
-  for (x = 0; x < categories.length; x++) {
-    theCategory = categories[x]
-  }
-
   const categoriesFormatted = categories.map((item) => {
     return {
       id: item.portfolioCategoryId,
