@@ -1,95 +1,53 @@
-const flatCache = require('flat-cache')
-const path = require('path')
-
-const CACHE_KEY = 'social'
-const CACHE_FOLDER = path.resolve('./.cache')
-const CACHE_FILE = 'social.json'
-
 const { WP_SITE_URL } = require('../../env')
-
 const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
+const Axios = require('axios')
+const { setupCache } = require('axios-cache-interceptor')
+const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
 async function requestSocial() {
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
-  const cachedItems = cache.getKey(CACHE_KEY)
-
-  if (cachedItems) {
-    console.log(`Using cached ${CACHE_KEY}`)
-    return cachedItems
-  }
-
-  let afterCursor = ''
-  let itemsPerRequest = 100
-
-  let makeNewQuery = true
-
   let social = []
 
-  while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`)
-
-    try {
-      const data = await fetch(GRAPHQL_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          query: `query {
-            menu(
-              id: "Social Media"
-              idType: NAME
-              ) {
-              menuItems {
-                nodes {
-                  id
-                  url
-                  target
-                  label
-                }
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                  endCursor
-                  startCursor
-                }
-              }
-            }
-          }`,
-        }),
-      })
-
-      const response = await data.json()
-
-      if (response.errors) {
-        let errors = response.errors
-
-        errors.map((error) => {
-          console.error(error.message)
-        })
-
-        throw new Error(`Error fetching ${CACHE_KEY}`)
-      }
-
-      socialInfo = response.data.menu.menuItems.pageInfo
-
-      if (socialInfo.hasNextPage) {
-        makeNewQuery = true
-        afterCursor = socialInfo.endCursor
-      } else {
-        makeNewQuery = false
-      }
-
-      social = social.concat(response.data.menu.menuItems.nodes)
-    } catch (error) {
-      throw new Error(error)
-    }
+  const headers = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Accept: 'application/json',
+    },
   }
 
-  for (x = 0; x < social.length; x++) {
-    theSocial = social[x]
+  const graphqlQuery = {
+    operationName: 'socialRequest',
+    query: `query socialRequest {
+      menu(
+        id: "Social Media"
+        idType: NAME
+        ) {
+        menuItems {
+          nodes {
+            id
+            url
+            target
+            label
+          }
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            endCursor
+            startCursor
+          }
+        }
+      }
+    }`,
   }
+
+  const response = await axios({
+    url: GRAPHQL_URL,
+    method: 'post',
+    headers: headers,
+    data: graphqlQuery,
+  })
+
+  social = social.concat(response.data.data.menu.menuItems.nodes)
 
   const socialFormatted = social.map((item) => {
     return {
@@ -99,11 +57,6 @@ async function requestSocial() {
       target: item.target,
     }
   })
-
-  if (socialFormatted.length) {
-    cache.setKey(CACHE_KEY, socialFormatted)
-    cache.save(true)
-  }
 
   return socialFormatted
 }

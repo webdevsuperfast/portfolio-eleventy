@@ -1,104 +1,62 @@
-const flatCache = require('flat-cache')
-const path = require('path')
-
-const CACHE_KEY = 'testimonials'
-const CACHE_FOLDER = path.resolve('./.cache')
-const CACHE_FILE = 'testimonials.json'
-
 const { WP_SITE_URL } = require('../../env')
-
 const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
+const Axios = require('axios')
+const { setupCache } = require('axios-cache-interceptor')
+
+const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
 async function requestTestimonial() {
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
-  const cachedItems = cache.getKey(CACHE_KEY)
-
-  if (cachedItems) {
-    console.log(`Using cached ${CACHE_KEY}`)
-    return cachedItems
-  }
-
-  let afterCursor = ''
-  let itemsPerRequest = 100
-
-  let makeNewQuery = true
-
   let testimonials = []
+  const afterCursor = ''
+  const itemsPerRequest = 100
 
-  while (makeNewQuery) {
-    console.log(`Trying to fetch ${itemsPerRequest} ${CACHE_KEY}`)
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  }
 
-    try {
-      const data = await fetch(GRAPHQL_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          query: `query {
-            testimonials(
-              first: ${itemsPerRequest}
-              after: "${afterCursor}" 
-              where: {orderby: {field: TITLE, order: ASC}}
-              ) {
-              nodes {
-                content
-                featuredImage {
-                  node {
-                    altText
-                    sourceUrl
-                  }
-                }
-                title
-                slug
-                testimonialId
-                testimonialDetails {
-                  testimonialLocation
-                  testimonialScore
-                }
-              }
-              pageInfo {
-                hasNextPage
-                hasPreviousPage
-                endCursor
-                startCursor
-              }
+  const graphqlQuery = {
+    operationName: 'testimonialRequest',
+    query: `query testimonialRequest {
+      testimonials(
+        first: ${itemsPerRequest}
+        after: "${afterCursor}" 
+        where: {orderby: {field: TITLE, order: ASC}}
+        ) {
+        nodes {
+          content
+          featuredImage {
+            node {
+              altText
+              sourceUrl
             }
-          }`,
-        }),
-      })
-
-      const response = await data.json()
-
-      if (response.errors) {
-        let errors = response.errors
-
-        errors.map((error) => {
-          console.error(error.message)
-        })
-
-        throw new Error('Failed to fetch testimonial')
+          }
+          title
+          slug
+          testimonialId
+          testimonialDetails {
+            testimonialLocation
+            testimonialScore
+          }
+        }
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          endCursor
+          startCursor
+        }
       }
-
-      testimonialInfo = response.data.testimonials.pageInfo
-
-      if (testimonialInfo.hasNextPage) {
-        makeNewQuery = true
-        afterCursor = testimonialInfo.endCursor
-      } else {
-        makeNewQuery = false
-      }
-
-      testimonials = testimonials.concat(response.data.testimonials.nodes)
-    } catch (error) {
-      throw new Error(error)
-    }
+    }`,
   }
 
-  for (x = 0; x < testimonials.length; x++) {
-    theTestimonial = testimonials[x]
-  }
+  const response = await axios({
+    url: GRAPHQL_URL,
+    method: 'POST',
+    headers: headers,
+    data: graphqlQuery,
+  })
+
+  testimonials = testimonials.concat(response.data.data.testimonials.nodes)
 
   const testimonialsFormatted = testimonials.map((item) => {
     return {
@@ -112,11 +70,6 @@ async function requestTestimonial() {
       score: item.testimonialDetails.testimonialScore,
     }
   })
-
-  if (testimonialsFormatted.length) {
-    cache.setKey(CACHE_KEY, testimonialsFormatted)
-    cache.save(true)
-  }
 
   return testimonialsFormatted
 }
