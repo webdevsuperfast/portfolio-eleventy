@@ -16,7 +16,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'space-mono': ['Space Mono', 'monospace'],
+        'ibm-plex-sans': ['IBM Plex Sans', 'sans-serif'],
+        'ibm-plex-sans-condensed': ['IBM Plex Sans Condensed', 'sans-serif'],
       },
       fontSize: {
         '10xl': [

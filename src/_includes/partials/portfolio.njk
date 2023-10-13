@@ -3,20 +3,20 @@
   class="relative flex w-full scroll-mt-12 sm:min-h-screen sm:scroll-mt-24"
 >
   <div
-    class="container relative mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-8"
+    class="container relative px-4 py-4 mx-auto sm:px-6 lg:px-8 lg:py-8"
     x-data="{ filterOpen: false }"
     @click.away="filterOpen = false"
   >
     <div
-      class="filter-container relative flex flex-nowrap place-content-between items-center py-10"
+      class="relative flex items-center py-10 filter-container flex-nowrap place-content-between"
     >
-      <h2 class="section-title grow text-4xl sm:text-6xl text-gray-700 dark:text-gray-100">
+      <h2 class="text-4xl text-gray-700 section-title grow sm:text-6xl dark:text-gray-100 font-ibm-plex-sans-condensed">
         Portfolio
       </h2>
       <div class="filter-block">
         <div
           x-transition
-          class="flex w-full flex-none items-center space-x-8 sm:ml-auto lg:mt-0 lg:w-auto"
+          class="flex items-center flex-none w-full space-x-8 sm:ml-auto lg:mt-0 lg:w-auto"
           x-data="filterPortfolio()"
         >
           <div
@@ -25,27 +25,27 @@
             class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
           >
             {% for item in category %}
-            <a
+              <a
               @click.prevent="clicked($event)"
               x-bind:class="value === '{{
                 item.filter
               }}' ? 'text-gray-400 dark:text-rose-900 lg:underline lg:underline-offset-4' : ''"
-              class="block py-1 px-6 text-center uppercase filter transition-colors hover:cursor-pointer hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
+              class="block px-6 py-1 text-center uppercase transition-colors filter hover:cursor-pointer hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
               data-filter="{{ item.filter }}"
             >
-              {{ item.name }}
-            </a>
+                {{ item.name }}
+              </a>
             {% endfor %}
           </div>
           <button
             x-on:click="filterOpen = ! filterOpen"
-            class="flex items-center space-x-2 focus:outline-none text-gray-700 dark:text-gray-100"
+            class="flex items-center space-x-2 text-gray-700 focus:outline-none dark:text-gray-100"
           >
             <span class="text-xl uppercase" x-text="filterOpen ? '' : 'Filter'">
               Filter
             </span>
 
-            <div class="relative flex h-10 w-10 items-center justify-center">
+            <div class="relative flex items-center justify-center w-10 h-10">
               <span
                 x-bind:class="filterOpen ? '-translate-y-0 rotate-45' : '-translate-y-3'"
                 class="absolute h-0.5 w-full transform rounded bg-current transition"
@@ -65,35 +65,36 @@
     </div>
 
     <div
-      class="collections 2xl:grid-col-6 relative grid grid-cols-none gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      class="relative grid grid-cols-none gap-8 collections 2xl:grid-col-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
       {% for item in portfolio %}
-      <figure
+        <figure
         class="mix portfolio w-100 {{
           item.category
         }} group drop-shadow-xl shadow-gray-400 dark:shadow-rose-900"
       >
-        <a
+          <a
           data-glightbox="type: image"
           href="{% portfolioImage item.featuredImage %}"
-          class="glightbox block overflow-hidden relative rounded-xl rounded-br-none"
+          class="relative block overflow-hidden rounded-br-none glightbox rounded-xl"
         >
-          <img
+            <img
             width="445"
             height="330"
             data-src="{% portfolioImage item.thumbnail %}"
             alt="{{ item.title }}"
             class="portfolio-image lazy mb-0 h-[250px] w-full object-cover transition-transform group-hover:-translate-y-10"
-          />
-          <figcaption
-            class="portfolio-info absolute bottom-0 left-0 w-full translate-y-full bg-gray-100 dark:bg-rose-900 py-4 px-5 transition-transform group-hover:translate-y-0"
+/>
+            <figcaption
+            class="absolute bottom-0 left-0 w-full px-5 py-4 transition-transform translate-y-full bg-gray-100 portfolio-info dark:bg-rose-900 group-hover:translate-y-0"
           >
-            <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
-          </figcaption>
-        </a>
-      </figure>
+              <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
+            </figcaption>
+          </a>
+        </figure>
       {% endfor %}
     </div>
-  </div><!-- End .container -->
+  </div>
+  <!-- End .container -->
 </section>
 <!-- Portfolio Section -->
