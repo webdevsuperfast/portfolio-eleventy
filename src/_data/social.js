@@ -45,6 +45,8 @@ async function requestSocial() {
     method: 'post',
     headers: headers,
     data: graphqlQuery,
+  }).catch(function (error) {
+    console.log(error.toJSON())
   })
 
   social = social.concat(response.data.data.menu.menuItems.nodes)

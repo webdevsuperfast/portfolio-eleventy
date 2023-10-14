@@ -45,17 +45,9 @@ async function requestCategory() {
     method: 'post',
     headers: headers,
     data: graphqlQuery,
+  }).catch(function (error) {
+    console.log(error.toJSON())
   })
-
-  if (response.errors) {
-    let errors = response.errors
-
-    errors.map((error) => {
-      console.log(error.message)
-    })
-
-    throw new Error(`Error fetching {$GRAPHQL_URL}`)
-  }
 
   categories = categories.concat(response.data.data.portfolioCategories.nodes)
 

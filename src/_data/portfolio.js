@@ -65,17 +65,9 @@ async function requestPortfolio() {
     method: 'POST',
     headers: headers,
     data: graphqlQuery,
+  }).catch(function (error) {
+    console.log(error.toJSON())
   })
-
-  if (response.errors) {
-    let errors = response.errors
-
-    errors.map((error) => {
-      console.log(error.message)
-    })
-
-    throw new Error(`Error fetching {$GRAPHQL_URL}`)
-  }
 
   portfolios = portfolios.concat(response.data.data.allPortfolio.nodes)
 

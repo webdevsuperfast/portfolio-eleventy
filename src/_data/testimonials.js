@@ -54,6 +54,8 @@ async function requestTestimonial() {
     method: 'POST',
     headers: headers,
     data: graphqlQuery,
+  }).catch(function (error) {
+    console.log(error.toJSON())
   })
 
   testimonials = testimonials.concat(response.data.data.testimonials.nodes)
