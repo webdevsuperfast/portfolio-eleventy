@@ -4,7 +4,7 @@
   "description": "My portfolio based on TEA Stack.",
   "main": "index.js",
   "config": {
-    "css_in": "src/_styles/_main.pcss",
+    "css_in": "src/_styles/_main.css",
     "css_out": "dist/assets/main.bundle.css",
     "js_in": "src/_scripts/_main.js",
     "js_out": "dist/assets/main.bundle.js"
