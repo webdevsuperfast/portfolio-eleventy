@@ -1,7 +1,5 @@
 const { WP_SITE_URL } = require('../../env')
-
 const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-
 const Axios = require('axios')
 const { setupCache } = require('axios-cache-interceptor')
 
