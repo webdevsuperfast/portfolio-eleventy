@@ -1,4 +1,5 @@
-@import '../../node_modules/glightbox/dist/css/glightbox.css';
+@import '../../node_modules/venobox/dist/venobox.css';
+
 @import 'tailwindcss/base';
 @import './base.css';
 

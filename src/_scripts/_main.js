@@ -1,5 +1,5 @@
 import './alpine'
-import './glightbox'
+import './lightbox'
 import './lazyload'
 import './mixitup'
 import './app'
