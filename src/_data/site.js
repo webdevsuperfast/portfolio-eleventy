@@ -4,6 +4,7 @@ const {
   EMAIL_ADDRESS,
   RESUME,
   WP_SITE_URL,
+  SITE_URL,
 } = require('../../env')
 
 const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
@@ -61,6 +62,7 @@ async function requestInformation() {
       microsoft_site_verification: MICROSOFT_SITE_VERIFICATION,
       resume: RESUME,
       email_address: EMAIL_ADDRESS,
+      url: SITE_URL,
     }
   })
 
