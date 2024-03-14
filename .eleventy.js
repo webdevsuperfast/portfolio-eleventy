@@ -1,14 +1,5 @@
 module.exports = (config) => {
   const Image = require('@11ty/eleventy-img')
-  const criticalCss = require('eleventy-critical-css')
-
-  config.addPlugin(criticalCss, {
-    height: 1080,
-    width: 1920,
-    penthouse: {
-      timeout: 60000
-    }
-  })
 
   config.addPassthroughCopy({ public: './' })
 
