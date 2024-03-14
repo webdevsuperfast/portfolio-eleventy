@@ -10,7 +10,6 @@ const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 async function requestPortfolio() {
   let afterCursor = ''
   let itemsPerRequest = 100
-  let makeNewQuery = true
   let portfolios = []
 
   const headers = {
