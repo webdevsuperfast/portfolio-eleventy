@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /cdn-cgi/
+
+Host: https://www.rotsenacob.com/
+
+Sitemap: https://www.rotsenacob.com/sitemap.xml

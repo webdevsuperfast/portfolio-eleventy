@@ -14,6 +14,8 @@ module.exports = (config) => {
 
   config.addPassthroughCopy({ public: './' })
 
+  config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
+
   async function imageShortcode(src, alt, sizes) {
     let metadata = await Image(src, {
       widths: [445, null],
