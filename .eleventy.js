@@ -1,10 +1,6 @@
 module.exports = (config) => {
   const Image = require('@11ty/eleventy-img')
 
-  const criticalCss = require('eleventy-critical-css')
-
-  config.addPlugin(criticalCss)
-
   config.addPassthroughCopy({ public: './' })
 
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
