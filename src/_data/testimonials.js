@@ -8,7 +8,7 @@ const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 async function requestTestimonial() {
   let testimonials = []
   const afterCursor = ''
-  const itemsPerRequest = 100
+  const itemsPerRequest = 20
 
   const headers = {
     'Content-Type': 'application/json',

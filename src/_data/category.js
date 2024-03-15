@@ -7,7 +7,7 @@ const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
 async function requestCategory() {
   let afterCursor = ''
-  let itemsPerRequest = 100
+  let itemsPerRequest = 10
   let categories = []
 
   const headers = {
