@@ -1,15 +1,15 @@
 <header
-  class="fixed z-50 w-full flex-none pt-4 text-sm font-medium leading-6 text-gray-700 dark:text-gray-100 transition-all lg:pt-16 xl:pt-24"
+  class="z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all dark:text-gray-100 lg:pt-16 xl:pt-24"
   x-data="{ scrolled: false, navOpen: false }"
-  :class="{ 'bg-gray-200 dark:bg-gray-900 drop-shadow bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow py-4 lg:pt-4 xl:pt-4' : scrolled }"
+  :class="{ 'bg-gray-200 fixed dark:bg-gray-900 drop-shadow bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow py-4 lg:pt-4 xl:pt-4' : scrolled }"
   @scroll.window="scrolled = (window.pageYOffset > 20) ? true : false"
   @click.away="navOpen = false"
 >
-  <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-nowrap items-center">
+  <nav class="container px-4 mx-auto sm:px-6 lg:px-8">
+    <div class="flex items-center flex-nowrap">
       <a class="flex-none" href="/">
         <svg
-          class="fill-gray-700 dark:fill-gray-100 transition-colors hover:fill-gray-400 dark:hover:fill-rose-900"
+          class="transition-colors fill-gray-700 dark:fill-gray-100 hover:fill-gray-400 dark:hover:fill-rose-900"
           width="50"
           height="50"
           fill="none"
@@ -19,11 +19,11 @@
             fill-rule="evenodd"
             clip-rule="evenodd"
             d="M44.444 16.667A5.556 5.556 0 0 0 50 11.11V5.556A5.556 5.556 0 0 0 44.444 0H0V44.444A5.556 5.556 0 0 0 5.556 50h5.555a5.556 5.556 0 0 0 5.556-5.556V22.222a5.556 5.556 0 0 1 5.555-5.555h22.222ZM50 38.889a5.556 5.556 0 0 0-5.556-5.556H38.89a5.556 5.556 0 0 0-5.556 5.556v5.555A5.556 5.556 0 0 0 38.89 50H50V38.889Z"
-          />
+/>
         </svg>
       </a>
       <div
-        class="flex grow origin-bottom transform justify-end transition-all duration-300 sm:mt-0 sm:ml-auto sm:w-auto lg:origin-right"
+        class="flex justify-end transition-all duration-300 origin-bottom transform grow sm:mt-0 sm:ml-auto sm:w-auto lg:origin-right"
         x-data="filterNav()"
       >
         <div
@@ -33,35 +33,35 @@
           x-transition:leave-end="opacity-0 lg:scale-75"
           :class="{ 'hidden sm:flex' : navOpen, 'hidden' : !navOpen }"
           x-cloak
-          class="navigation w-100 text-light fixed top-8 flex-col items-center rounded-xl bg-gray-900 bg-opacity-75 text-center uppercase sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
+          class="fixed flex-col items-center text-center uppercase bg-gray-900 bg-opacity-75 navigation w-100 text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
         >
           {%- for nav in navigation -%}
-          <a
+            <a
             @click="clicked"
             x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
-            class="text-md block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+            class="block px-6 py-3 text-2xl uppercase transition-colors text-md hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
             href="#{{ nav.route }}"
           >
-            {{ nav.name }}
-          </a>
+              {{ nav.name }}
+            </a>
           {%- endfor -%}
         </div>
         <button
           x-on:click="navOpen = ! navOpen"
-          class="group ml-4 flex items-center space-x-4 uppercase focus:outline-none"
+          class="flex items-center ml-4 space-x-4 uppercase group focus:outline-none"
         >
-          <div class="relative flex h-10 w-10 items-center justify-center">
+          <div class="relative flex items-center justify-center w-10 h-10">
             <span
               x-bind:class="navOpen ? 'translate-y-0 rotate-45' : '-translate-y-3'"
-              class="absolute h-1 w-full transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute w-full h-1 transition transform bg-current rounded group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
             <span
               x-bind:class="navOpen ? 'opacity-0 translate-x-3 w-10' : 'opacity-100'"
-              class="absolute right-0 h-1 w-4/5 transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute right-0 w-4/5 h-1 transition transform bg-current rounded group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
             <span
               x-bind:class="navOpen ? 'translate-y-0 -rotate-45 w-10' : 'translate-y-3 w-3/5'"
-              class="absolute right-0 h-1 transform rounded bg-current transition group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute right-0 h-1 transition transform bg-current rounded group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
             ></span>
           </div>
         </button>
@@ -70,8 +70,8 @@
         <label for="toggle-dark-mode" class="flex items-center cursor-pointer">
           <div class="relative">
             <input type="checkbox" id="toggle-dark-mode" class="sr-only" @click="setTheme">
-            <div class="block bg-gray-700 w-14 h-8 rounded-full"></div>
-            <div class="dot absolute left-1 top-1 bg-gray-100 w-6 h-6 rounded-full transition"></div>
+            <div class="block h-8 bg-gray-700 rounded-full w-14"></div>
+            <div class="absolute w-6 h-6 transition bg-gray-100 rounded-full dot left-1 top-1"></div>
           </div>
         </label>
       </div>
@@ -79,7 +79,7 @@
   </nav>
   <nav 
     :class="{ 'bg-transparent dark:bg-transparent' : scrolled }"
-    class="mobile-navigation bg-gray-200 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 mt-4 text-center sm:text-left sm:hidden" 
+    class="mt-4 text-center bg-gray-200 bg-opacity-75 mobile-navigation dark:bg-gray-900 dark:bg-opacity-75 sm:text-left sm:hidden" 
     x-show="navOpen"
     x-data="filterNav"
   >
@@ -93,14 +93,14 @@
       class="navigation"
     >
       {%- for nav in navigation -%}
-      <a
+        <a
         @click="clicked"
         x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
-        class="text-md block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+        class="block px-6 py-3 text-2xl uppercase transition-colors text-md hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
         href="#{{ nav.route }}"
       >
-        {{ nav.name }}
-      </a>
+          {{ nav.name }}
+        </a>
       {%- endfor -%}
     </div>
   </nav>
