@@ -3,13 +3,7 @@ module.exports = (config) => {
 
   const criticalCss = require('eleventy-critical-css')
 
-  config.addPlugin(criticalCss, {
-    height: 1080,
-    width: 1920,
-    penthouse: {
-      timeout: 60000,
-    },
-  })
+  config.addPlugin(criticalCss)
 
   config.addPassthroughCopy({ public: './' })
 
