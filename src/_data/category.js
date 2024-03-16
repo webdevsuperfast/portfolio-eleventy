@@ -54,7 +54,7 @@ async function requestCategory() {
       id: item.portfolioCategoryId,
       name: item.name,
       slug: item.slug,
-      filter: `.${item.slug}`,
+      filter: item.slug,
     }
   })
 
