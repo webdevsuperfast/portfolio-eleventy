@@ -34,10 +34,10 @@
     </noscript>
 
     {% if type | criticalExists %}
-      <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
       <style>
         {{type | getCritical}}
       </style>
+      <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     {% else %}
       <link rel="stylesheet" href="/assets/main.bundle.css" media="all">
     {% endif %}
