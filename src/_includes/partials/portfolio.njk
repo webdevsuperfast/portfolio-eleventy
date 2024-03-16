@@ -27,6 +27,7 @@
             {% for item in category %}
               <a
               @click.prevent="clicked($event)"
+              href="#{{item.filter}}"
               x-bind:class="value === '{{
                 item.filter
               }}' ? 'text-gray-400 dark:text-rose-900 lg:underline lg:underline-offset-4' : ''"
