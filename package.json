@@ -44,6 +44,7 @@
   "homepage": "https://github.com/webdevsuperfast/portfolio-eleventy#readme",
   "dependencies": {
     "@11ty/eleventy-img": "^4.0.2",
+    "acclaimed": "^1.0.12",
     "alpinejs": "^3.13.7",
     "autoprefixer": "^10.4.18",
     "axios": "^1.6.7",
