@@ -22,7 +22,7 @@
           <div
             x-cloak
             :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
-            class="filter-container absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
+            class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
           >
             {% for item in category %}
               <a
@@ -65,16 +65,16 @@
     </div>
 
     <div
-      class="relative grid grid-cols-none gap-8 collections 2xl:grid-col-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      class="relative -mr-8 collections"
     >
       {% for item in portfolio %}
-        <figure
-        class="mix portfolio w-100 {{
+        <figure data-groups="{{item.dataGroups}}"
+        class="mb-8 mr-8 portfolio w-100 {{
           item.category
         }} group drop-shadow-xl shadow-gray-400 dark:shadow-rose-900"
       >
           <a
-          data-gall data-vbtype=""
+          data-gall aria-label="View full image of {{ item.title }}" data-vbtype=""
           href="{% portfolioImage item.featuredImage %}"
           class="relative block overflow-hidden rounded-br-none portfolio-link rounded-xl"
         >
@@ -82,7 +82,7 @@
             width="445"
             height="330"
             data-src="{% portfolioImage item.thumbnail %}"
-            alt="{{ item.title }}"
+            alt="Featured Image of {{ item.title }}"
             class="portfolio-image lazy mb-0 h-[250px] w-full object-cover transition-transform group-hover:-translate-y-10"
 />
             <figcaption
@@ -94,6 +94,7 @@
         </figure>
       {% endfor %}
     </div>
+    <div class="row-span-full items-sizer"></div>
   </div>
   <!-- End .container -->
 </section>
