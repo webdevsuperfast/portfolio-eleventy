@@ -26,19 +26,22 @@
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
 />
-    <link
-      rel="preload"
-      href="/assets/main.bundle.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-/>
     <noscript>
       <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,700;1,700&family=IBM+Plex+Sans:ital@0;1&display=swap"
         rel="stylesheet"
 />
-      <link rel="stylesheet" href="/assets/main.bundle.css"/>
     </noscript>
+
+    {% if type | criticalExists %}
+      <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+      <style>
+        {{type | getCritical}}
+      </style>
+    {% else %}
+      <link rel="stylesheet" href="/assets/main.bundle.css" media="all">
+    {% endif %}
+
     <script src="/assets/main.bundle.js" defer></script>
 
     {% if (site[0].google_site_verification) %}
