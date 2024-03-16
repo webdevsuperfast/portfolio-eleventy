@@ -1,9 +1,19 @@
 module.exports = (config) => {
   const Image = require('@11ty/eleventy-img')
 
+  const fs = require('fs')
+
   config.addPassthroughCopy({ public: './' })
 
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
+
+  config.addFilter('criticalExists', () => {
+    return fs.existsSync('./critical.min.css')
+  })
+
+  config.addFilter('getCritical', () => {
+    return fs.readFileSync('./critical.min.css')
+  })
 
   async function imageShortcode(src, alt, sizes) {
     let metadata = await Image(src, {
