@@ -49,11 +49,10 @@
     "axios": "^1.6.7",
     "axios-cache-interceptor": "^1.5.1",
     "eleventy-critical-css": "^2.0.2",
-    "flat-cache": "^4.0.1",
     "https": "^1.0.0",
-    "mixitup": "^3.3.1",
     "path": "^0.12.7",
     "postcss": "^8.4.35",
+    "shufflejs": "^6.1.1",
     "vanilla-lazyload": "^17.8.8",
     "venobox": "^2.1.6"
   },
