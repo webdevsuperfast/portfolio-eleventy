@@ -1,16 +1,14 @@
 const { WP_SITE_URL } = require('../../env')
-
 const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-
 const Axios = require('axios')
 const { setupCache } = require('axios-cache-interceptor')
 
-const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
+const axiosInstance = Axios.defaults.cache ? Axios : setupCache(Axios)
 
 async function requestPortfolio() {
-  let afterCursor = ''
-  let itemsPerRequest = 50
-  let portfolios = []
+  const afterCursor = ''
+  const itemsPerRequest = 50
+  const portfolios = []
 
   const headers = {
     'content-type': 'application/json',
@@ -59,40 +57,44 @@ async function requestPortfolio() {
     }`,
   }
 
-  const response = await axios({
-    url: GRAPHQL_URL,
-    method: 'POST',
-    headers: headers,
-    data: graphqlQuery,
-  }).catch(function (error) {
-    console.log(error.toJSON())
-  })
+  try {
+    const response = await axiosInstance({
+      url: GRAPHQL_URL,
+      method: 'POST',
+      headers: headers,
+      data: graphqlQuery,
+    })
 
-  portfolios = portfolios.concat(response.data.data.allPortfolio.nodes)
+    const portfolioNodes = response.data.data.allPortfolio.nodes
 
-  const portfoliosFormatted = portfolios.map((item) => {
-    let categories = []
-    for (i = 0; i < item.portfolioCategories.nodes.length; i++) {
-      categories[i] = item.portfolioCategories.nodes[i].slug
+    for (const item of portfolioNodes) {
+      const categories = item.portfolioCategories.nodes
+        .map((category) => category.slug)
+        .join(' ')
+      const categoriesData = item.portfolioCategories.nodes
+        .map((category) => category.slug)
+        .join(',')
+
+      portfolios.push({
+        id: item.portfolioId,
+        title: item.title,
+        slug: item.slug,
+        content: item.content,
+        thumbnail: item.featuredImage.node.thumbnail,
+        featuredImage: item.featuredImage.node.featuredImage,
+        imageAlt: item.featuredImage.node.altText,
+        category: categories,
+        clientName: item.clientInformation.clientName,
+        clientWebsite: item.clientInformation.clientWebsite,
+        dataGroups: categoriesData,
+      })
     }
 
-    categories = categories.join(' ')
-
-    return {
-      id: item.portfolioId,
-      title: item.title,
-      slug: item.slug,
-      content: item.content,
-      thumbnail: item.featuredImage.node.thumbnail,
-      featuredImage: item.featuredImage.node.featuredImage,
-      imageAlt: item.featuredImage.node.altText,
-      category: categories,
-      clientName: item.clientInformation.clientName,
-      clientWebsite: item.clientInformation.clientWebsite,
-    }
-  })
-
-  return portfoliosFormatted
+    return portfolios
+  } catch (error) {
+    console.error(error.toJSON())
+    return [] // Return empty array in case of error
+  }
 }
 
 module.exports = requestPortfolio
