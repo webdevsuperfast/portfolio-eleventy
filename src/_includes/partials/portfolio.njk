@@ -33,6 +33,7 @@
               }}' ? 'text-gray-400 dark:text-rose-900 lg:underline lg:underline-offset-4' : ''"
               class="block px-6 py-1 text-center uppercase transition-colors filter hover:cursor-pointer hover:text-gray-400 dark:hover:text-rose-900 lg:px-0 lg:py-0"
               data-filter="{{ item.filter }}"
+              id="{{ item.filter }}"
             >
                 {{ item.name }}
               </a>
@@ -66,11 +67,11 @@
     </div>
 
     <div
-      class="relative -mr-8 !overflow-visible collections"
+      class="relative grid grid-cols-none gap-8 collections 2xl:grid-col-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
       {% for item in portfolio %}
         <figure data-groups="{{item.dataGroups}}"
-        class="mb-8 mr-8 portfolio w-100 {{
+        class="portfolio w-100 {{
           item.category
         }} group drop-shadow-xl shadow-gray-400 dark:shadow-rose-900"
       >
