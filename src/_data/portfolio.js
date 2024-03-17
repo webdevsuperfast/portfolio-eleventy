@@ -68,6 +68,13 @@ async function requestPortfolio() {
     const portfolioNodes = response.data.data.allPortfolio.nodes
 
     for (const item of portfolioNodes) {
+      const thumbnail =
+        item.featuredImage &&
+        item.featuredImage.node &&
+        item.featuredImage.node.thumbnail
+          ? item.featuredImage.node.thumbnail
+          : null
+
       const categories = item.portfolioCategories.nodes
         .map((category) => category.slug)
         .join(' ')
@@ -80,9 +87,19 @@ async function requestPortfolio() {
         title: item.title,
         slug: item.slug,
         content: item.content,
-        thumbnail: item.featuredImage.node.thumbnail,
-        featuredImage: item.featuredImage.node.featuredImage,
-        imageAlt: item.featuredImage.node.altText,
+        thumbnail: thumbnail,
+        featuredImage:
+          item.featuredImage &&
+          item.featuredImage.node &&
+          item.featuredImage.node.featuredImage
+            ? item.featuredImage.node.featuredImage
+            : null,
+        imageAlt:
+          item.featuredImage &&
+          item.featuredImage.node &&
+          item.featuredImage.node.altText
+            ? item.featuredImage.node.altText
+            : null,
         category: categories,
         clientName: item.clientInformation.clientName,
         clientWebsite: item.clientInformation.clientWebsite,
@@ -92,7 +109,7 @@ async function requestPortfolio() {
 
     return portfolios
   } catch (error) {
-    console.error(error.toJSON())
+    console.error(error)
     return [] // Return empty array in case of error
   }
 }
