@@ -30,7 +30,7 @@ const filterPortfolio = (window.filterPortfolio = () => ({
 
 // Set navigation on click
 const filterNav = (window.filterNav = () => ({
-  value: '#js-scroll-to-about',
+  value: '#about',
   clicked(e) {
     this.value = e.target.hash
   },
