@@ -66,10 +66,6 @@ module.exports = {
           },
         ],
       },
-      backgroundImage: {
-        light: 'url(../images/background-light.jpg)',
-        dark: 'url(../images/background-dark.jpg)',
-      },
     },
   },
 }
