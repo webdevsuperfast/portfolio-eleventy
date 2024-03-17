@@ -17,7 +17,7 @@ module.exports = {
       position: ['bottom', 'right'],
     },
     fontFamily: {
-      sans: ['MiSans', ...defaultTheme.fontFamily.sans],
+      sans: ['Recursive', ...defaultTheme.fontFamily.sans],
       serif: [...defaultTheme.fontFamily.serif],
       mono: [...defaultTheme.fontFamily.mono],
     },
