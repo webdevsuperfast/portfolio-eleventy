@@ -7,4 +7,5 @@ module.exports = {
   MICROSOFT_SITE_VERIFICATION: process.env.MICROSOFT_SITE_VERIFICATION,
   EMAIL_ADDRESS: process.env.EMAIL_ADDRESS,
   RESUME: process.env.RESUME,
+  SITE_URL: process.env.SITE_URL,
 }
