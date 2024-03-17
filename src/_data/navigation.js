@@ -1,14 +1,14 @@
 module.exports = [
   {
     name: 'About',
-    route: 'js-scroll-to-about',
+    route: 'about',
   },
   {
     name: 'Portfolio',
-    route: 'js-scroll-to-portfolio',
+    route: 'portfolio',
   },
   {
     name: 'Testimonials',
-    route: 'js-scroll-to-testimonials',
+    route: 'testimonials',
   },
 ]
