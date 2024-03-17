@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{js,md,njk,svg}'],
@@ -14,11 +16,12 @@ module.exports = {
     debugScreens: {
       position: ['bottom', 'right'],
     },
+    fontFamily: {
+      sans: ['MiSans', ...defaultTheme.fontFamily.sans],
+      serif: [...defaultTheme.fontFamily.serif],
+      mono: [...defaultTheme.fontFamily.mono],
+    },
     extend: {
-      fontFamily: {
-        'ibm-plex-sans': ['IBM Plex Sans', 'sans-serif'],
-        'ibm-plex-sans-condensed': ['IBM Plex Sans Condensed', 'sans-serif'],
-      },
       fontSize: {
         '10xl': [
           '10rem',
