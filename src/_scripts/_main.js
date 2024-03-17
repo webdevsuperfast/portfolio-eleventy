@@ -1,5 +1,6 @@
 import './alpine'
 import './lightbox'
 import './lazyload'
-import './shuffle'
+// import './shuffle'
+import './gsap'
 import './app'
