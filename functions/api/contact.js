@@ -1,5 +1,3 @@
-const { WP_SITE_URL, TURNSTILE_SECRET } = require('../../env')
-
 export async function onRequestPost(context) {
   try {
     return await handleRequest(context)
@@ -7,6 +5,10 @@ export async function onRequestPost(context) {
     console.log(e)
     return new Response('Error sending message', { status: 500 })
   }
+}
+
+export async function fetch(request, env, ctx) {
+  return new Response(`TURNSTILE_SECRET: ${env.TURNSTILE_SECRET}`)
 }
 
 async function handleRequest({ request }) {
@@ -33,7 +35,7 @@ async function handleRequest({ request }) {
 }
 
 async function validateToken(ip, token) {
-  const TURNSTILE_SECRET_KEY = TURNSTILE_SECRET
+  const TURNSTILE_SECRET_KEY = env.TURNSTILE_SECRET
 
   const formData = new FormData()
   formData.append('secret', TURNSTILE_SECRET_KEY)
@@ -64,7 +66,7 @@ async function forwardMessage(name, email, service, website, message) {
   formData.append('fwebsite', website)
   formData.append('fmessage', message)
 
-  const url = `${WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`
+  const url = `${env.WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`
 
   const response = await fetch(url, {
     method: 'POST',
