@@ -1,18 +1,6 @@
 export async function onRequestPost(context) {
-  try {
-    return await handleRequest(context)
-  } catch (e) {
-    console.log(e)
-    return new Response('Error sending message', {
-      status: 500,
-    })
-  }
-}
-
-async function handleRequest({ request }) {
-  const ip = request.headers.get('CF-Connecting-IP')
-
-  const formData = await request.formData()
+  const ip = context.request.headers.get('CF-Connecting-IP')
+  const formData = await context.request.formData()
 
   const name = formData.get('name')
   const email = formData.get('email')
@@ -21,22 +9,36 @@ async function handleRequest({ request }) {
   const message = formData.get('message')
   const token = formData.get('cf-turnstile-response')
 
-  const tokenValidated = await validateToken(ip, token)
+  try {
+    const tokenValidated = await validateToken(
+      ip,
+      token,
+      context.env.TURNSTILE_SECRET
+    )
 
-  if (!tokenValidated) {
-    return new Response('Token validation failed', { status: 403 })
+    if (!tokenValidated) {
+      return new Response('Token validation failed', { status: 403 })
+    }
+
+    await forwardMessage(
+      name,
+      email,
+      service,
+      website,
+      message,
+      context.env.WP_SITE_URL
+    )
+
+    return new Response('Ok', { status: 200 })
+  } catch (e) {
+    console.log(e)
+    return new Response('Error sending message.', { status: 500 })
   }
-
-  await forwardMessage(name, email, service, website, message)
-
-  return new Response('Ok', { status: 200 })
 }
 
-async function validateToken(ip, token) {
-  const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET
-
+async function validateToken(ip, token, TURNSTILE_SECRET) {
   const formData = new FormData()
-  formData.append('secret', TURNSTILE_SECRET_KEY)
+  formData.append('secret', TURNSTILE_SECRET)
   formData.append('response', token)
   formData.append('remoteip', ip)
 
@@ -55,7 +57,14 @@ async function validateToken(ip, token) {
   return data.success
 }
 
-async function forwardMessage(name, email, service, website, message) {
+async function forwardMessage(
+  name,
+  email,
+  service,
+  website,
+  message,
+  WP_SITE_URL
+) {
   const formData = new FormData()
   formData.append('form-name', 'contact')
   formData.append('fname', name)
@@ -64,7 +73,7 @@ async function forwardMessage(name, email, service, website, message) {
   formData.append('fwebsite', website)
   formData.append('fmessage', message)
 
-  const url = `${process.env.WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`
+  const url = `${WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`
 
   const response = await fetch(url, {
     method: 'POST',
