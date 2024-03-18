@@ -3,14 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactOverlay = document.getElementById('contact')
   const closeContactButton = document.getElementById('close-contact')
 
-  openContactButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    contactOverlay.classList.remove('hidden')
-  })
+  const toggleContactOverlay = () => {
+    contactOverlay.classList.toggle('hidden')
+    contactOverlay.classList.toggle('flex')
+  }
 
-  closeContactButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    contactOverlay.classList.add('hidden')
-    console.log('test')
-  })
+  openContactButton.addEventListener('click', toggleContactOverlay)
+  closeContactButton.addEventListener('click', toggleContactOverlay)
 })
