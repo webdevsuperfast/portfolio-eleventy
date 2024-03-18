@@ -3,10 +3,7 @@ export async function onRequestPost(context) {
     return await handleRequest(context)
   } catch (e) {
     console.log(e)
-    return new Response(
-      `Error sending message ${context} ${env.TURNSTILE_SECRET}`,
-      { status: 500 }
-    )
+    return new Response('Error sending message', { status: 500 })
   }
 }
 
