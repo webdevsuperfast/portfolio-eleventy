@@ -8,4 +8,6 @@ module.exports = {
   EMAIL_ADDRESS: process.env.EMAIL_ADDRESS,
   RESUME: process.env.RESUME,
   SITE_URL: process.env.SITE_URL,
+  TURNSTILE_SITE: process.env.TURNSTILE_SITE,
+  TURNSTILE_SECRET: process.env.TURNSTILE_SECRET,
 }
