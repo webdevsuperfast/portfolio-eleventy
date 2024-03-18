@@ -7,3 +7,11 @@ html {
 [x-cloak] {
   @apply hidden;
 }
+
+.contact {
+  form {
+    label {
+      @apply block font-bold uppercase text-lg sm:text-xl md:text-2xl;
+    }
+  }
+}
