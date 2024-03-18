@@ -1,0 +1,47 @@
+<section id="contact" class="fixed top-0 left-0 z-50 flex items-center hidden w-full h-full text-gray-600 bg-gray-100 justify-items-center contact dark:bg-gray-900 dark:text-gray-100">
+  <div class="container h-full overflow-auto">
+    <div
+      class="mb-8 section-heading"
+    >
+      <h2 class="text-4xl font-bold text-gray-700 section-title grow sm:text-6xl dark:text-gray-100">
+        Let's Talk
+      </h2>
+      <p class="text-xl subheading md:text-2xl md:py-12">Thanks for dropping by. Send me an information about your project so I can determine how can I help you.</p>
+    </div>
+    <form action="/api/contact" method="POST">
+      <div class="grid grid-cols-none gap-4 mb-4 sm:mb-8 sm:gap-8 sm:grid-cols-2">
+        <div class="w-full">
+          <label for="name">Name</label>
+          <input type="text" class="block w-full mt-2 text-gray-700 uppercase transition-all bg-transparent bg-gray-700 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-rose-900 dark:bg-transparent dark:bg-rose-900 dark:text-rose-900 focus:bg-gray-700 dark:focus:bg-rose-900 focus:text-gray-100 dark:focus:text-gray-100 sm:inline-block lg:px-10 lg:py-3 lg:text-2xl" id="name" name="name"/>
+        </div>
+        <div class="w-full">
+          <label for="email">Email</label>
+          <input type="text" class="block w-full mt-2 text-gray-700 uppercase transition-all bg-transparent bg-gray-700 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-rose-900 dark:bg-transparent dark:bg-rose-900 dark:text-rose-900 focus:bg-gray-700 dark:focus:bg-rose-900 focus:text-gray-100 dark:focus:text-gray-100 sm:inline-block lg:px-10 lg:py-3 lg:text-2xl" id="email" name="email"/>
+        </div>
+      </div>
+      <div class="grid grid-cols-none gap-4 mb-4 sm:gap-8 sm:mb-8 sm:grid-cols-2">
+        <div class="w-full">
+          <label for="website">Website</label>
+          <input type="text" class="block w-full mt-2 text-gray-700 uppercase transition-all bg-transparent bg-gray-700 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-rose-900 dark:bg-transparent dark:bg-rose-900 dark:text-rose-900 focus:bg-gray-700 dark:focus:bg-rose-900 focus:text-gray-100 dark:focus:text-gray-100 sm:inline-block lg:px-10 lg:py-3 lg:text-2xl" id="website" name="website"/>
+        </div>
+        <div class="w-full">
+          <label for="service">Service</label>
+          <select class="block w-full mt-2 text-gray-700 uppercase transition-all bg-transparent bg-gray-700 border-2 border-gray-700 rounded-br-none form-select rounded-xl dark:border-rose-900 dark:bg-transparent dark:bg-rose-900 dark:text-rose-900 focus:bg-gray-700 dark:focus:bg-rose-900 focus:text-gray-100 dark:focus:text-gray-100 sm:inline-block lg:px-10 lg:py-3 lg:text-2xl" id="service" name="service">
+            {% for item in category %}
+              <option value="{{ item.filter }}">{{ item.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-none gap-8 mb-8">
+        <div class="w-full col-span-full">
+          <label for="message">Message</label>
+          <textarea name="message" id="message" cols="30" rows="3" class="block w-full mt-2 text-gray-700 uppercase transition-all bg-transparent bg-gray-700 border-2 border-gray-700 rounded-br-none form-textarea rounded-xl dark:border-rose-900 dark:bg-transparent dark:bg-rose-900 dark:text-rose-900 focus:bg-gray-700 dark:focus:bg-rose-900 focus:text-gray-100 dark:focus:text-gray-100 sm:inline-block lg:px-10 lg:py-3 lg:text-2xl"></textarea>
+        </div>
+      </div>
+      <div class="mb-8 cf-turnstile" data-sitekey="{{ site[0].turnstile_key }}"></div>
+
+      <button class="px-8 py-3 mb-5 text-xl text-center text-gray-100 uppercase transition-all bg-gray-700 border-2 border-gray-700 rounded-br-none md:mb-0 rounded-xl dark:border-rose-900 dark:bg-rose-900 hover:bg-transparent hover:text-gray-700 dark:hover:text-gray-100 dark:hover:bg-transparent sm:inline-block lg:px-10 lg:py-3 lg:text-2xl" type="submit">Submit</button>
+    </form>
+  </div>
+</section>
