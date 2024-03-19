@@ -1,8 +1,7 @@
 export async function onRequestPost(context) {
-  const ip = context.request.headers.get('CF-Connecting-IP')
   try {
+    const ip = context.request.headers.get('CF-Connecting-IP')
     const formData = await context.request.formData()
-    // const { token, ip } = formData // Destructuring for concise variable access
     const token = formData.get('cf-turnstile-response')
 
     const tokenValidated = await validateToken(
@@ -15,7 +14,7 @@ export async function onRequestPost(context) {
       return new Response('Token validation failed.', { status: 403 })
     }
 
-    await submitHandler(formData, context.env)
+    await submitHandler(extractFormData(formData), context.env)
 
     return new Response('Ok', { status: 200 })
   } catch (e) {
@@ -45,35 +44,34 @@ async function validateToken(ip, token, TURNSTILE_SECRET) {
   return data.success
 }
 
+function extractFormData(formData) {
+  const data = new FormData()
+
+  data.append('fname', formData.get('name'))
+  data.append('fmail', formData.get('email'))
+  data.append('fwebsite', formData.get('website'))
+  data.append('fservice', formData.get('service'))
+  data.append('fmessage', formData.get('message'))
+  data.append('_wpcf7_unit_tag', '1d3501d')
+
+  return data
+}
+
 async function submitHandler(formData, env) {
-  const { name, email, website, services, message } =
-    Object.fromEntries(formData)
-
-  const formData2 = new URLSearchParams()
-
-  formData2.append('fname', name)
-  formData2.append('fmail', email)
-  formData2.append('fwebsite', website)
-  formData2.append('fservice', services)
-  formData2.append('fmessage', message)
-  formData2.append('_wpcf7_unit_tag', '1d3501d')
-
   try {
     const response = await fetch(
       `${env.WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        body: formData.toString(), // Convert URLSearchParams to string
+        body: formData,
       }
     )
 
     if (!response.ok) {
       throw new Error('Failed to submit form data to Contact Form 7')
     }
+
+    return response
   } catch (e) {
     console.error(e)
     // Handle submission error
