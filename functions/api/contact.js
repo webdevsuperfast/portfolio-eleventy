@@ -72,8 +72,6 @@ async function submitHandler(formData, env) {
       throw new Error('Failed to submit form data to Contact Form 7')
     }
 
-    console.log(formData.get('fservice'))
-
     return response
   } catch (e) {
     console.error(e)
