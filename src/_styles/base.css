@@ -17,10 +17,10 @@ html {
 }
 
 .close {
-  @apply absolute right-8 top-8 w-10 h-10 rounded-xl bg-gray-900 hover:bg-gray-700 text-gray-100 dark:bg-rose-900 dark:hover:bg-rose-700 before:content-[''] rounded-br-none;
+  @apply absolute right-8 top-8 w-8 h-8 opacity-100 hover:opacity-90 before:content-[''];
   &:before,
   &:after {
-    @apply absolute left-[18px] content-[''] top-[9px] h-5 w-1 rounded-sm bg-gray-100;
+    @apply absolute left-[15px] content-[''] h-[33px] w-1 bg-gray-700 rounded-sm dark:bg-rose-900;
   }
   &:before {
     @apply rotate-45;
