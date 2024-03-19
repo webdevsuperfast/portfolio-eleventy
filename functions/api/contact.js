@@ -19,6 +19,7 @@ export async function onRequestPost(context) {
     return new Response('Ok', { status: 200 })
   } catch (e) {
     console.error(e)
+    console.log(e)
     return new Response('Error sending message.', { status: 500 })
   }
 }
@@ -50,7 +51,7 @@ function extractFormData(formData) {
   data.append('fname', formData.get('name'))
   data.append('fmail', formData.get('email'))
   data.append('fwebsite', formData.get('website'))
-  data.append('fservice', formData.get('service'))
+  data.append('fservice', formData.get('services'))
   data.append('fmessage', formData.get('message'))
   data.append('_wpcf7_unit_tag', '1d3501d')
 
@@ -70,6 +71,8 @@ async function submitHandler(formData, env) {
     if (!response.ok) {
       throw new Error('Failed to submit form data to Contact Form 7')
     }
+
+    console.log(formData.get('fservice'))
 
     return response
   } catch (e) {
