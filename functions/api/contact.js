@@ -23,7 +23,7 @@ export async function onRequestPost(context) {
     if (!submission) {
       return new Response('Error', { status: 403 })
     } else {
-      return new Response('Ok', { status: 200 })
+      return Response.redirect(context.env.SITE_URL)
     }
   } catch (e) {
     console.error(e)
