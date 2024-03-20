@@ -19,7 +19,6 @@ export async function onRequestPost(context) {
     return new Response('Ok', { status: 200 })
   } catch (e) {
     console.error(e)
-    console.log(e)
     return new Response('Error sending message.', { status: 500 })
   }
 }
