@@ -2,6 +2,7 @@ export async function onRequestPost(context) {
   try {
     const ip = context.request.headers.get('CF-Connecting-IP')
     const formData = await context.request.formData()
+    const userAgent = await context.request.headers.get('user-agent')
     const token = formData.get('cf-turnstile-response')
 
     const tokenValidated = await validateToken(
@@ -16,7 +17,8 @@ export async function onRequestPost(context) {
 
     const submission = await submitHandler(
       extractFormData(formData),
-      context.env
+      context.env,
+      userAgent
     )
     if (!submission) {
       return new Response('Error', { status: 403 })
@@ -63,15 +65,14 @@ function extractFormData(formData) {
   return data
 }
 
-async function submitHandler(formData, env) {
+async function submitHandler(formData, env, userAgent) {
   try {
     const response = await fetch(
       `${env.WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`,
       {
         method: 'POST',
         headers: {
-          'User-Agent':
-            'Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0',
+          'User-Agent': userAgent,
         },
         body: formData,
       }
