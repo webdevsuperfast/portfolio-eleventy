@@ -14,9 +14,15 @@ export async function onRequestPost(context) {
       return new Response('Token validation failed.', { status: 403 })
     }
 
-    await submitHandler(extractFormData(formData), context.env)
-
-    return new Response('Ok', { status: 200 })
+    const submission = await submitHandler(
+      extractFormData(formData),
+      context.env
+    )
+    if (!submission) {
+      return new Response('Error', { status: 403 })
+    } else {
+      return new Response('Ok', { status: 200 })
+    }
   } catch (e) {
     console.error(e)
     return new Response('Error sending message.', { status: 500 })
@@ -63,6 +69,10 @@ async function submitHandler(formData, env) {
       `${env.WP_SITE_URL}/wp-json/contact-form-7/v1/contact-forms/3/feedback`,
       {
         method: 'POST',
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0',
+        },
         body: formData,
       }
     )
