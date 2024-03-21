@@ -1,20 +1,16 @@
-module.exports = (config) => {
-  const Image = require('@11ty/eleventy-img')
+const Image = require('@11ty/eleventy-img')
+const fs = require('fs')
 
-  const fs = require('fs')
-
+module.exports = function (config) {
+  // Add passthrough copies
   config.addPassthroughCopy({ public: './' })
-
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
 
-  config.addFilter('criticalExists', () => {
-    return fs.existsSync('./critical.min.css')
-  })
+  // Add filters
+  config.addFilter('criticalExists', () => fs.existsSync('./critical.min.css'))
+  config.addFilter('getCritical', () => fs.readFileSync('./critical.min.css'))
 
-  config.addFilter('getCritical', () => {
-    return fs.readFileSync('./critical.min.css')
-  })
-
+  // Image shortcode
   async function imageShortcode(src, alt, sizes) {
     let metadata = await Image(src, {
       widths: [445, null],
@@ -32,9 +28,9 @@ module.exports = (config) => {
 
     return Image.generateHTML(metadata, imageAttributes)
   }
-
   config.addNunjucksAsyncShortcode('image', imageShortcode)
 
+  // Portfolio image shortcode
   async function portfolioImageShortcode(src, alt) {
     let metadata = await Image(src, {
       widths: [null],
@@ -43,23 +39,19 @@ module.exports = (config) => {
       outputDir: './dist/images/',
     })
 
-    let imageAttributes = {
-      alt,
-      loading: 'lazy',
-      decoding: 'async',
-    }
-
     let data = metadata.webp[metadata.webp.length - 1]
 
     return data.url
   }
-
   config.addNunjucksAsyncShortcode('portfolioImage', portfolioImageShortcode)
 
+  // Set BrowserSync config
   config.setBrowserSyncConfig({
     files: ['dist/**/*'],
     open: true,
   })
+
+  // Set directory configuration
   return {
     dir: {
       input: 'src',
