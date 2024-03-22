@@ -55,18 +55,16 @@ async function requestInformation() {
 
   siteInfo = siteInfo.concat(response.data.data.page)
 
-  const siteInfoFormatted = siteInfo.map((item) => {
-    return {
-      title: item.seo.title,
-      description: item.seo.metaDesc,
-      google_site_verification: GOOGLE_SITE_VERIFICATION,
-      microsoft_site_verification: MICROSOFT_SITE_VERIFICATION,
-      resume: RESUME,
-      email_address: EMAIL_ADDRESS,
-      url: SITE_URL,
-      turnstile_site_key: TURNSTILE_SITE,
-    }
-  })
+  const siteInfoFormatted = {
+    title: siteInfo[0].seo.title,
+    description: siteInfo[0].seo.metaDesc,
+    google_site_verification: GOOGLE_SITE_VERIFICATION,
+    microsoft_site_verification: MICROSOFT_SITE_VERIFICATION,
+    resume: RESUME,
+    email_address: EMAIL_ADDRESS,
+    url: SITE_URL,
+    turnstile_site_key: TURNSTILE_SITE,
+  }
 
   return siteInfoFormatted
 }
