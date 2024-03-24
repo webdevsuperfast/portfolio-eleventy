@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  class="scroll-smooth"
+  class="font-sans scroll-smooth"
   x-data="{
     setTheme: () => {
       if (localStorage.theme === 'dark') {
@@ -18,19 +18,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ site.title }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap"
-      rel="preload"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-/>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/combine/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css,npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css" onload="this.onload=null;this.rel='stylesheet'">
+
     <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap"
-        rel="stylesheet"
-/>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css,npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css">
     </noscript>
 
     {% if type | criticalExists %}
