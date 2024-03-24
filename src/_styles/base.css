@@ -1,11 +1,19 @@
 /* Custom Base Styles Go Here. */
 html {
-  @apply text-gray-100 antialiased;
+  @apply text-gray-100 antialiased font-sans;
 }
 
 /* This allows you to hide Alpine DOM until it's ready to go. */
 [x-cloak] {
   @apply hidden;
+}
+
+input:checked ~ .block {
+  @apply bg-rose-900;
+}
+
+input:checked ~ .dot {
+  @apply translate-x-full bg-gray-100;
 }
 
 .contact {
