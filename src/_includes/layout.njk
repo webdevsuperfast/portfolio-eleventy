@@ -19,10 +19,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ site.title }}</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/combine/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css,npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css" onload="this.onload=null;this.rel='stylesheet'">
 
     <noscript>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css,npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css">
     </noscript>
 
     {% if type | criticalExists %}
