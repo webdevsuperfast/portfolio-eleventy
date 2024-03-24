@@ -46,15 +46,15 @@
     "@11ty/eleventy-img": "^4.0.2",
     "acclaimed": "^1.0.12",
     "alpinejs": "^3.13.7",
-    "autoprefixer": "^10.4.18",
-    "axios": "^1.6.7",
+    "autoprefixer": "^10.4.19",
+    "axios": "^1.6.8",
     "axios-cache-interceptor": "^1.5.1",
     "eleventy-critical-css": "^2.0.2",
     "gsap": "^3.12.5",
     "https": "^1.0.0",
     "path": "^0.12.7",
-    "postcss": "^8.4.35",
-    "vanilla-lazyload": "^17.8.8",
+    "postcss": "^8.4.38",
+    "vanilla-lazyload": "^18.0.0",
     "venobox": "^2.1.6"
   },
   "devDependencies": {
@@ -66,11 +66,11 @@
     "esbuild": "^0.20.2",
     "node-fetch": "^3.3.2",
     "npm-run-all": "^4.1.5",
-    "postcss-import": "^16.0.1",
+    "postcss-import": "^16.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.4.1",
     "tailwindcss-debug-screens": "^2.2.1",
-    "wrangler": "^3.34.2"
+    "wrangler": "^3.37.0"
   }
 }
