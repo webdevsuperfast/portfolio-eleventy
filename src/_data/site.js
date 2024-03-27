@@ -25,19 +25,20 @@ async function requestInformation() {
   const graphqlQuery = {
     operationName: 'requestInformation',
     query: `query requestInformation {
-      page(idType: DATABASE_ID, id: 439) {
-        title
-        content,
-        seo {
-          metaDesc,
+      nodeByUri(uri: "/") {
+        __typename
+        ... on ContentType {
+          id
+          name
+          description
+        }
+        ... on Page {
+          id
           title
-        },
-        socialMediaInformation {
-          socialMedia {
-            social {
-              name,
-              url
-            }
+          content
+          seo {
+            metaDesc
+            title
           }
         }
       }
@@ -53,11 +54,13 @@ async function requestInformation() {
     console.log(error.toJSON())
   })
 
-  siteInfo = siteInfo.concat(response.data.data.page)
+  siteInfo = siteInfo.concat(response.data.data.nodeByUri)
 
   const siteInfoFormatted = {
     title: siteInfo[0].seo.title,
     description: siteInfo[0].seo.metaDesc,
+    pageTitle: siteInfo[0].title,
+    pageContent: siteInfo[0].content,
     google_site_verification: GOOGLE_SITE_VERIFICATION,
     microsoft_site_verification: MICROSOFT_SITE_VERIFICATION,
     resume: RESUME,
