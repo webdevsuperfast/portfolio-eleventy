@@ -7,12 +7,10 @@
       <h1
         class="text-4xl font-bold text-gray-900 dark:text-rose-900 sm:text-xl md:text-7xl"
       >
-        Craft. Integrate. Elevate. Your Web Presence.
+        {{ site.pageTitle  }}
       </h1>
       <div class="py-8 text-xl md:text-2xl md:py-12">
-        <p class="mb-6">
-          I bring a wealth of experience in responsive web development, WordPress troubleshooting, lead generation strategies, web API integration, and exceptional customer support to the table,  helping businesses and individuals achieve their online potential.
-        </p>
+        {{ site.pageContent | safe }}
       </div>
 
       <div class="grid grid-cols-none gap-8 text-gray-100 sm:grid-cols-2 button-container">
