@@ -8,3 +8,26 @@
 
 @import 'tailwindcss/utilities';
 @import './utilities.css';
+
+#about {
+  @apply relative;
+  &:before {
+    @apply content-[''] bg-white h-8 w-full absolute left-0 bottom-0;
+    clip-path: polygon(
+      0% 0%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      0% 100%
+    );
+  }
+}
+
+#testimonials {
+  @apply relative;
+  &:before {
+    @apply content-[''] bg-white h-8 w-full absolute left-0 top-0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%, 0% 0%);
+  }
+}
