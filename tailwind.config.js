@@ -2,7 +2,14 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,css,md,njk,svg}'],
+  content: [
+    './src/**/.njk',
+    './src/_scripts/*.js',
+    './src/_styles/*.css',
+    './src/**/*.{css,js}',
+    './src/_includes/*.njk',
+    './src/_includes/**/*.njk',
+  ],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
@@ -17,7 +24,7 @@ module.exports = {
       position: ['bottom', 'right'],
     },
     fontFamily: {
-      sans: ['MiSansLatin', ...defaultTheme.fontFamily.sans],
+      sans: ['Recursive', ...defaultTheme.fontFamily.sans],
       serif: [...defaultTheme.fontFamily.serif],
       mono: [...defaultTheme.fontFamily.mono],
     },
