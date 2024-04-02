@@ -49,11 +49,13 @@
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "axios-cache-interceptor": "^1.5.1",
+    "cssnano": "^6.1.2",
     "eleventy-critical-css": "^2.0.2",
     "gsap": "^3.12.5",
     "https": "^1.0.0",
     "path": "^0.12.7",
     "postcss": "^8.4.38",
+    "postcss-nested-ancestors": "^3.0.0",
     "vanilla-lazyload": "^18.0.0",
     "venobox": "^2.1.6"
   },
