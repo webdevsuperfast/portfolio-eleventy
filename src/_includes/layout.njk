@@ -18,13 +18,12 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ site.title }}</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css" crossorigin>
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap" rel="stylesheet">
 
     <noscript>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Regular.min.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Bold.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap">
     </noscript>
 
     {% if type | criticalExists %}
@@ -86,7 +85,7 @@
     <meta name="theme-color" content="#ffffff"/>
   </head>
   <body
-    class="{{ 'debug-screens' if env.devMode }} text-gray-600 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+    class="{{ 'debug-screens' if env.devMode }} recursive-regular text-gray-600 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
   >
     {% include 'header.njk' %}
 
