@@ -87,14 +87,13 @@
   <body
     class="{{ 'debug-screens' if env.devMode }} recursive-regular text-gray-600 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
   >
-    {% include 'header.njk' %}
+    {# {% include 'header.njk' %} #}
 
-    <main class="site-content">
-      {% block body %}
-        {{ content | safe }}
-      {% endblock %}
-    </main>
-    {% include 'partials/contact.njk' %}
+    {% block body %}
+      {{ content | safe }}
+    {% endblock %}
+
+    {# {% include 'partials/contact.njk' %} #}
     {% include 'footer.njk' %}
   </body>
 </html>

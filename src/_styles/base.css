@@ -37,3 +37,9 @@ input:checked ~ .dot {
     @apply -rotate-45;
   }
 }
+
+@media (prefers-reduced-motion) {
+  .animation {
+    @apply transition-none;
+  }
+}

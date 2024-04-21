@@ -1,6 +1,6 @@
 <section
   id="testimonials"
-  class="flex w-full min-h-screen py-16 sm:py-24 scroll-mt-12 sm:scroll-mt-24"
+  class="flex w-full min-h-screen py-16 animation sm:py-24 scroll-mt-12 sm:scroll-mt-24"
 >
   <div class="container px-4 mx-auto sm:px-6 lg:px-8">
     <div
@@ -21,13 +21,7 @@
               {{ testimonial.content | safe }}
             </blockquote>
             <div class="flex flex-row-reverse items-center content-end text-right">
-              <img
-            width="150"
-            height="150"
-            class="w-10 h-10 ml-4 rounded-full lazy"
-            data-src="{% portfolioImage testimonial.image %}"
-            alt="{{ testimonial.title }}"
-/>
+              <img width="150" height="150" class="w-10 h-10 ml-4 rounded-full lazy" data-src="{% portfolioImage testimonial.image %}" alt="{{ testimonial.title }}"/>
               <div class="text-sm">
                 <h3 class="font-bold text-gray-900 dark:text-gray-100 font-ibm-plex-sans-condensed">{{ testimonial.title }}</h3>
                 <p class="text-xs text-gray-600 dark:text-gray-200">{{ testimonial.location }}</p>
