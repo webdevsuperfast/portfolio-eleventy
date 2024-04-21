@@ -89,12 +89,18 @@
   >
     {% include 'header.njk' %}
 
+    {% include 'partials/about.njk' %}
+
     <main class="site-content">
       {% block body %}
         {{ content | safe }}
       {% endblock %}
     </main>
+
+    {% include 'partials/testimonials.njk' %}
+
     {% include 'partials/contact.njk' %}
+
     {% include 'footer.njk' %}
   </body>
 </html>
