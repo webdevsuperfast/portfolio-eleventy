@@ -17,7 +17,7 @@
         <div
           x-transition
           class="flex items-center flex-none w-full space-x-8 sm:ml-auto lg:mt-0 lg:w-auto"
-          x-data="filterPortfolio()"
+          x-data="filterPortfolio"
         >
           <div
             x-cloak
@@ -28,7 +28,7 @@
               <a
               @click.prevent="clicked($event)"
               href="#{{item.filter}}"
-              x-bind:class="value === '{{
+              :class="value === '{{
                 item.filter
               }}' ? 'text-gray-400 dark:text-rose-700 lg:underline lg:underline-offset-4' : ''"
               class="block px-6 py-1 text-center uppercase transition-colors filter hover:cursor-pointer dark:text-rose-900 hover:text-gray-400 dark:hover:text-rose-700 lg:px-0 lg:py-0"

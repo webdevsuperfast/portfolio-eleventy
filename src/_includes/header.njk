@@ -14,7 +14,7 @@
       </a>
       <div
         class="flex justify-end transition-all duration-300 origin-bottom transform grow sm:mt-0 sm:ml-auto sm:w-auto lg:origin-right"
-        x-data="filterNav()"
+        x-data="filterNav"
       >
         <div
           x-transition:enter-start="opacity-0 lg:scale-75"
@@ -27,13 +27,14 @@
         >
           {%- for nav in navigation -%}
             <a
-            @click="clicked"
-            x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
-            class="block px-6 py-3 text-2xl uppercase transition-colors text-md hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
-            href="#{{ nav.route }}"
-          >
+              @click="clicked"
+              :class="value === '#' + '{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900' : ''"
+              class="block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+              href="#{{ nav.route }}"
+            >
               {{ nav.name }}
             </a>
+
           {%- endfor -%}
         </div>
         <button
