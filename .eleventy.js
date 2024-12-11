@@ -1,7 +1,7 @@
-const Image = require('@11ty/eleventy-img')
-const fs = require('fs')
+import Image from '@11ty/eleventy-img'
+import fs from 'fs'
 
-module.exports = function (config) {
+export default function (config) {
   // Add passthrough copies
   config.addPassthroughCopy({ public: './' })
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
@@ -19,14 +19,12 @@ module.exports = function (config) {
       outputDir: './dist/images/',
     })
 
-    let imageAttributes = {
+    return Image.generateHTML(metadata, {
       sizes,
       alt,
       loading: 'lazy',
       decoding: 'async',
-    }
-
-    return Image.generateHTML(metadata, imageAttributes)
+    })
   }
   config.addNunjucksAsyncShortcode('image', imageShortcode)
 
@@ -39,9 +37,7 @@ module.exports = function (config) {
       outputDir: './dist/images/',
     })
 
-    let data = metadata.webp[metadata.webp.length - 1]
-
-    return data.url
+    return metadata.webp[metadata.webp.length - 1].url
   }
   config.addNunjucksAsyncShortcode('portfolioImage', portfolioImageShortcode)
 

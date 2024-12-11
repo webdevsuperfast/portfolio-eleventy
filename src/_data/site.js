@@ -1,16 +1,18 @@
+import config from '../../env.js'
+
 const {
+  WP_SITE_URL,
   GOOGLE_SITE_VERIFICATION,
   MICROSOFT_SITE_VERIFICATION,
   EMAIL_ADDRESS,
   RESUME,
-  WP_SITE_URL,
   SITE_URL,
   TURNSTILE_SITE,
-} = require('../../env')
+  TURNSTILE_SECRET,
+} = config
 
-const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-const Axios = require('axios')
-const { setupCache } = require('axios-cache-interceptor')
+import Axios from 'axios'
+import { setupCache } from 'axios-cache-interceptor'
 
 const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
@@ -46,7 +48,7 @@ async function requestInformation() {
   }
 
   const response = await axios({
-    url: GRAPHQL_URL,
+    url: `${WP_SITE_URL}/graphql`,
     method: 'POST',
     headers: headers,
     data: graphqlQuery,
@@ -54,13 +56,15 @@ async function requestInformation() {
     console.log(error.toJSON())
   })
 
-  siteInfo = siteInfo.concat(response.data.data.nodeByUri)
+  if (response?.data?.data?.nodeByUri) {
+    siteInfo = siteInfo.concat(response.data.data.nodeByUri)
+  }
 
   const siteInfoFormatted = {
-    title: siteInfo[0].seo.title,
-    description: siteInfo[0].seo.metaDesc,
-    pageTitle: siteInfo[0].title,
-    pageContent: siteInfo[0].content,
+    title: siteInfo[0]?.seo?.title,
+    description: siteInfo[0]?.seo?.metaDesc,
+    pageTitle: siteInfo[0]?.title,
+    pageContent: siteInfo[0]?.content,
     google_site_verification: GOOGLE_SITE_VERIFICATION,
     microsoft_site_verification: MICROSOFT_SITE_VERIFICATION,
     resume: RESUME,
@@ -72,4 +76,4 @@ async function requestInformation() {
   return siteInfoFormatted
 }
 
-module.exports = requestInformation
+export default requestInformation

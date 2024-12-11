@@ -1,18 +1,17 @@
-const { WP_SITE_URL } = require('../../env')
-const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-const Axios = require('axios')
-const { setupCache } = require('axios-cache-interceptor')
+import config from '../../env.js'
+
+const { WP_SITE_URL } = config
+import Axios from 'axios'
+import { setupCache } from 'axios-cache-interceptor'
+
 const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
 async function requestSocial() {
   let social = []
 
   const headers = {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      Accept: 'application/json',
-    },
+    'content-type': 'application/json',
+    Accept: 'application/json',
   }
 
   const graphqlQuery = {
@@ -41,7 +40,7 @@ async function requestSocial() {
   }
 
   const response = await axios({
-    url: GRAPHQL_URL,
+    url: `${WP_SITE_URL}/graphql`,
     method: 'post',
     headers: headers,
     data: graphqlQuery,
@@ -49,7 +48,15 @@ async function requestSocial() {
     console.log(error.toJSON())
   })
 
-  social = social.concat(response.data.data.menu.menuItems.nodes)
+  if (
+    response &&
+    response.data &&
+    response.data.data &&
+    response.data.data.menu &&
+    response.data.data.menu.menuItems
+  ) {
+    social = social.concat(response.data.data.menu.menuItems.nodes)
+  }
 
   const socialFormatted = social.map((item) => {
     return {
@@ -63,4 +70,4 @@ async function requestSocial() {
   return socialFormatted
 }
 
-module.exports = requestSocial
+export default requestSocial

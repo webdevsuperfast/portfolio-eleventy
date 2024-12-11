@@ -1,6 +1,9 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+import defaultTheme from 'tailwindcss/defaultTheme'
+import forms from '@tailwindcss/forms'
+import typography from '@tailwindcss/typography'
+import tailwindcssDebugScreens from 'tailwindcss-debug-screens'
 
-module.exports = {
+export default {
   darkMode: 'class',
   content: [
     './src/**/.njk',
@@ -10,11 +13,7 @@ module.exports = {
     './src/_includes/*.njk',
     './src/_includes/**/*.njk',
   ],
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('tailwindcss-debug-screens'),
-  ],
+  plugins: [forms, typography, tailwindcssDebugScreens],
   theme: {
     container: {
       center: true,

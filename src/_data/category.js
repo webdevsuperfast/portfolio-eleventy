@@ -1,11 +1,14 @@
-const { WP_SITE_URL } = require('../../env')
-const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-const Axios = require('axios')
-const { setupCache } = require('axios-cache-interceptor')
+// import { WP_SITE_URL } from '../../env.js'
+import config from '../../env.js'
+
+const { WP_SITE_URL } = config
+
+import Axios from 'axios'
+import { setupCache } from 'axios-cache-interceptor'
 
 const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
 
-async function requestCategory() {
+const requestCategory = async () => {
   let afterCursor = ''
   let itemsPerRequest = 10
   let categories = []
@@ -39,7 +42,7 @@ async function requestCategory() {
   }
 
   const response = await axios({
-    url: GRAPHQL_URL,
+    url: `${WP_SITE_URL}/graphql`,
     method: 'post',
     headers: headers,
     data: graphqlQuery,
@@ -47,7 +50,14 @@ async function requestCategory() {
     console.log(error.toJSON())
   })
 
-  categories = categories.concat(response.data.data.portfolioCategories.nodes)
+  if (
+    response &&
+    response.data &&
+    response.data.data &&
+    response.data.data.portfolioCategories
+  ) {
+    categories = categories.concat(response.data.data.portfolioCategories.nodes)
+  }
 
   const categoriesFormatted = categories.map((item) => {
     return {
@@ -68,4 +78,4 @@ async function requestCategory() {
   return categoriesFormatted
 }
 
-module.exports = requestCategory
+export default requestCategory

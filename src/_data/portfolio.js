@@ -1,9 +1,10 @@
-const { WP_SITE_URL } = require('../../env')
-const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-const Axios = require('axios')
-const { setupCache } = require('axios-cache-interceptor')
+import config from '../../env.js'
 
-const axiosInstance = Axios.defaults.cache ? Axios : setupCache(Axios)
+const { WP_SITE_URL } = config
+import axios from 'axios'
+import { setupCache } from 'axios-cache-interceptor'
+
+const axiosInstance = axios.defaults.cache ? axios : setupCache(axios)
 
 async function requestPortfolio() {
   const afterCursor = ''
@@ -59,7 +60,7 @@ async function requestPortfolio() {
 
   try {
     const response = await axiosInstance({
-      url: GRAPHQL_URL,
+      url: `${WP_SITE_URL}/graphql`,
       method: 'POST',
       headers: headers,
       data: graphqlQuery,
@@ -114,4 +115,4 @@ async function requestPortfolio() {
   }
 }
 
-module.exports = requestPortfolio
+export default requestPortfolio

@@ -1,9 +1,10 @@
-const { WP_SITE_URL } = require('../../env')
-const GRAPHQL_URL = `${WP_SITE_URL}/graphql`
-const Axios = require('axios')
-const { setupCache } = require('axios-cache-interceptor')
+import config from '../../env.js'
 
-const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
+const { WP_SITE_URL } = config
+import axios from 'axios'
+import { setupCache } from 'axios-cache-interceptor'
+
+const cachedAxios = axios.defaults.cache ? axios : setupCache(axios)
 
 async function requestTestimonial() {
   let testimonials = []
@@ -49,8 +50,8 @@ async function requestTestimonial() {
     }`,
   }
 
-  const response = await axios({
-    url: GRAPHQL_URL,
+  const response = await cachedAxios({
+    url: `${WP_SITE_URL}/graphql`,
     method: 'POST',
     headers: headers,
     data: graphqlQuery,
@@ -58,7 +59,9 @@ async function requestTestimonial() {
     console.log(error.toJSON())
   })
 
-  testimonials = testimonials.concat(response.data.data.testimonials.nodes)
+  if (response?.data?.data?.testimonials?.nodes) {
+    testimonials = testimonials.concat(response.data.data.testimonials.nodes)
+  }
 
   const testimonialsFormatted = testimonials.map((item) => {
     return {
@@ -76,4 +79,4 @@ async function requestTestimonial() {
   return testimonialsFormatted
 }
 
-module.exports = requestTestimonial
+export default requestTestimonial

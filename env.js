@@ -1,7 +1,7 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 dotenv.config()
 
-module.exports = {
+export default {
   WP_SITE_URL: process.env.WP_SITE_URL,
   GOOGLE_SITE_VERIFICATION: process.env.GOOGLE_SITE_VERIFICATION,
   MICROSOFT_SITE_VERIFICATION: process.env.MICROSOFT_SITE_VERIFICATION,
