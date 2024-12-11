@@ -1,13 +1,14 @@
-// set initial color scheme
+// Set initial color scheme
 let explicitelyPreferScheme = false
 if (window.localStorage) {
-  if (localStorage.getItem('theme') === 'dark') {
+  const themePreference = localStorage.getItem('theme')
+  if (themePreference === 'dark') {
     document.documentElement.classList.add('dark')
-    document.getElementById('toggle-dark-mode').checked = true
+    toggleDarkMode(true)
     explicitelyPreferScheme = 'dark'
-  } else if (localStorage.getItem('theme') === 'light') {
+  } else if (themePreference === 'light') {
     document.documentElement.classList.remove('dark')
-    document.getElementById('toggle-dark-mode').checked = false
+    toggleDarkMode(false)
     explicitelyPreferScheme = 'light'
   }
 }
@@ -17,21 +18,38 @@ if (
   window.matchMedia('(prefers-color-scheme:dark)').matches
 ) {
   document.documentElement.classList.add('dark')
-  document.getElementById('toggle-dark-mode').checked = true
+  toggleDarkMode(true)
+}
+
+function toggleDarkMode(isDark) {
+  const toggleSwitch = document.getElementById('toggle-dark-mode')
+  if (toggleSwitch) {
+    toggleSwitch.checked = isDark
+  } else {
+    console.error('Element with ID "toggle-dark-mode" not found.')
+  }
 }
 
 // Set portfolio filter on click
-const filterPortfolio = (window.filterPortfolio = () => ({
+const filterPortfolio = (window.filterPortfolio = {
   value: 'all',
   clicked(e) {
-    this.value = e.target.dataset.filter
+    if (e.target && e.target.dataset && e.target.dataset.filter) {
+      this.value = e.target.dataset.filter
+    } else {
+      console.error('Invalid target for portfolio filter.')
+    }
   },
-}))
+})
 
 // Set navigation on click
-const filterNav = (window.filterNav = () => ({
+const filterNav = (window.filterNav = {
   value: '#about',
   clicked(e) {
-    this.value = e.target.hash
+    if (e.target && e.target.hash) {
+      this.value = e.target.hash
+    } else {
+      console.error('Invalid target for navigation.')
+    }
   },
-}))
+})
