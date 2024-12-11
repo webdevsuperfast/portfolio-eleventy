@@ -29,27 +29,3 @@ function toggleDarkMode(isDark) {
     console.error('Element with ID "toggle-dark-mode" not found.')
   }
 }
-
-// Set portfolio filter on click
-const filterPortfolio = (window.filterPortfolio = {
-  value: 'all',
-  clicked(e) {
-    if (e.target && e.target.dataset && e.target.dataset.filter) {
-      this.value = e.target.dataset.filter
-    } else {
-      console.error('Invalid target for portfolio filter.')
-    }
-  },
-})
-
-// Set navigation on click
-const filterNav = (window.filterNav = {
-  value: '#about',
-  clicked(e) {
-    if (e.target && e.target.hash) {
-      this.value = e.target.hash
-    } else {
-      console.error('Invalid target for navigation.')
-    }
-  },
-})
