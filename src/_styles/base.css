@@ -37,3 +37,7 @@ input:checked ~ .dot {
     @apply -rotate-45;
   }
 }
+
+.active {
+  @apply text-gray-400 dark:text-rose-900;
+}
