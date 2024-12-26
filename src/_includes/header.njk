@@ -29,7 +29,7 @@
             <a
               @click="clicked"
               :class="value === '#' + '{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900' : ''"
-              class="block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+              class="block px-6 py-3 text-2xl uppercase transition-colors nav-link hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
               href="#{{ nav.route }}"
             >
               {{ nav.name }}
