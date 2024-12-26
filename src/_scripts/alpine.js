@@ -25,6 +25,7 @@ try {
     Alpine.data('filterNav', () => ({
       value: '#about',
       clicked: function (e) {
+        console.log(e)
         if (e.target && e.target.hash) {
           this.value = e.target.hash
         } else {
