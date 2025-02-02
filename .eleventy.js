@@ -52,6 +52,7 @@ export default function (config) {
     dir: {
       input: 'src',
       output: 'dist',
+      includes: '_includes',
     },
     markdownTemplateEngine: 'njk',
   }
