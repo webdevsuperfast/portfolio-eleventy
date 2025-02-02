@@ -12,12 +12,12 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production npm-run-all clean build:11ty build:css build:js",
     "build:11ty": "eleventy --quiet",
-    "build:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --minify --postcss",
+    "build:css": "npx @tailwindcss/cli -i $npm_package_config_css_in -o $npm_package_config_css_out --minify --postcss",
     "build:js": "node esbuild.config.js",
     "clean": "rm -rf dist && rm -rf .cache",
     "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && cross-env NODE_ENV=development npm-run-all dev:11ty dev:css dev:js",
     "dev:11ty": "eleventy --serve --quiet",
-    "dev:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --watch --postcss",
+    "dev:css": "npx @tailwindcss/cli -i $npm_package_config_css_in -o $npm_package_config_css_out --watch --postcss",
     "dev:js": "node esbuild.config.js"
   },
   "repository": {
@@ -72,7 +72,6 @@
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.3",
-    "tailwindcss-debug-screens": "^2.2.1",
     "wrangler": "^3.107.2"
   },
   "type": "module"
