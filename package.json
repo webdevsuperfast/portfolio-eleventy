@@ -12,12 +12,12 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production npm-run-all clean -p build:*",
     "build:11ty": "eleventy --quiet",
-    "build:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --minify --postcss",
+    "build:css": "npx tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --minify --postcss",
     "build:js": "esbuild $npm_package_config_js_in --outfile=$npm_package_config_js_out --minify --bundle",
     "clean": "rm -rf dist && rm -rf .cache",
     "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && cross-env NODE_ENV=development npm-run-all -p dev:*",
     "dev:11ty": "eleventy --serve --quiet",
-    "dev:css": "tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --watch --postcss",
+    "dev:css": "npx tailwindcss -i $npm_package_config_css_in -o $npm_package_config_css_out --watch --postcss",
     "dev:js": "esbuild $npm_package_config_js_in --outfile=$npm_package_config_js_out --bundle --watch"
   },
   "repository": {
