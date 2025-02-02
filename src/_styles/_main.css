@@ -1,14 +1,22 @@
 @import '../../node_modules/venobox/dist/venobox.css';
 
-@import 'tailwindcss/base';
-@import './base.css';
+@import 'tailwindcss';
+@layer theme, base, components, utilities;
 
-@import 'tailwindcss/components';
-@import './components.css';
+/* @import 'tailwindcss/preflight' layer(base); */
+/* @import 'tailwindcss/' */
+@layer base {
+  @import './base.css';
+}
+/* @import 'tailwindcss/components' layer(components); */
+@layer components {
+  @import './components.css';
+}
 
-@import 'tailwindcss/utilities';
-@import './utilities.css';
-
+/* @import 'tailwindcss/utilities' layer(utilities); */
+@layer utilities {
+  @import './utilities.css';
+}
 #about {
   @apply relative;
   &:before {
