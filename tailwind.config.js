@@ -1,7 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
-import tailwindcssDebugScreens from 'tailwindcss-debug-screens'
 
 export default {
   darkMode: 'class',
@@ -13,7 +12,7 @@ export default {
     './src/_includes/*.njk',
     './src/_includes/**/*.njk',
   ],
-  plugins: [forms, typography, tailwindcssDebugScreens],
+  plugins: [forms, typography],
   theme: {
     container: {
       center: true,
