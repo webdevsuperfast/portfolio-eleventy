@@ -1,7 +1,6 @@
 @import '../../node_modules/venobox/dist/venobox.css';
 
 @import 'tailwindcss';
-@layer theme, base, components, utilities;
 
 @layer base {
   /* Custom Base Styles Go Here. */
