@@ -1,17 +1,64 @@
-@import '../../node_modules/venobox/dist/venobox.css';
+@import '../../node_modules/venobox/dist/venobox.css' layer(base);
 
 @import 'tailwindcss';
+@import './base.css' layer(base);
+@import './components.css' layer(components);
+@import './utilities.css' layer(utilities);
 
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@source './*.css';
+@source '../**/*.{css,js}';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-*: initial;
+  --font-sans: Recursive, ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+
+  --text-10xl: 10rem;
+  --text-10xl--line-height: 1;
+  --text-12xl: 12rem;
+  --text-12xl--line-height: 1;
+  --text-14xl: 14rem;
+  --text-14xl--line-height: 1;
+  --text-16xl: 16rem;
+  --text-16xl--line-height: 1;
+  --text-18xl: 18rem;
+  --text-18xl--line-height: 1;
+  --text-20xl: 20rem;
+  --text-20xl--line-height: 1;
+  --text-22xl: 22rem;
+  --text-22xl--line-height: 1;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
 @layer base {
-  /* Custom Base Styles Go Here. */
-  html {
-    @apply text-gray-100 antialiased font-sans;
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
-
-  /* This allows you to hide Alpine DOM until it's ready to go. */
-  [x-cloak] {
-    @apply hidden;
-  }
+}
 
   input:checked ~ .block {
     @apply bg-rose-900;
