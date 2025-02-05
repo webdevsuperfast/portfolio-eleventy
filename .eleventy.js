@@ -1,13 +1,10 @@
 import Image from '@11ty/eleventy-img'
-import eleventyCriticalCss from 'eleventy-critical-css'
 import fs from 'fs'
 
 export default function (config) {
   // Add passthrough copies
   config.addPassthroughCopy({ public: './' })
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
-
-  config.addPlugin(eleventyCriticalCss)
 
   // Add filters
   config.addFilter('criticalExists', () => fs.existsSync('./critical.min.css'))
