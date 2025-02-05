@@ -1,7 +1,7 @@
 <header
-  class="z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all dark:text-gray-100 lg:pt-16 xl:pt-24"
+  class="z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all lg:pt-16 dark:text-gray-100"
   x-data="{ scrolled: false, navOpen: false }"
-  :class="{ 'bg-gray-200 fixed dark:bg-gray-900 drop-shadow-sm bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : scrolled }"
+  :class="scrolled ? 'bg-gray-200 fixed dark:bg-gray-900 drop-shadow-sm bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : 'xl:pt-24'"
   @scroll.window="scrolled = (window.pageYOffset > 20) ? true : false"
   @click.away="navOpen = false"
 >
@@ -23,13 +23,13 @@
           x-transition:leave-end="opacity-0 lg:scale-75"
           :class="{ 'hidden sm:flex' : navOpen, 'hidden' : !navOpen }"
           x-cloak
-          class="fixed flex-col items-center text-center uppercase bg-gray-900 bg-opacity-75 navigation w-100 text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
+          class="flex-col items-center text-center uppercase bg-opacity-75 dark:bg-gray-900 navigation text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
         >
           {%- for nav in navigation -%}
             <a
               @click="clicked"
               :class="value === '#' + '{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900' : ''"
-              class="block px-6 py-3 text-2xl uppercase transition-colors hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+              class="block px-6 py-3 text-2xl uppercase transition-colors nav-link hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
               href="#{{ nav.route }}"
             >
               {{ nav.name }}
@@ -39,7 +39,7 @@
         </div>
         <button
           x-on:click="navOpen = ! navOpen"
-          class="flex items-center ml-4 space-x-4 uppercase group focus:outline-hidden" aria-label="Menu Navigation"
+          class="flex items-center ml-4 space-x-4 uppercase group focus:outline-hidden hover:cursor-pointer" aria-label="Menu Navigation"
         >
           <div class="relative flex items-center justify-center w-10 h-10">
             <span

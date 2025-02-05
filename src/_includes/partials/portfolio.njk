@@ -1,6 +1,6 @@
 <section
   id="portfolio"
-  class="relative flex w-full py-16 bg-white sm:py-24 scroll-mt-12 sm:min-h-screen sm:scroll-mt-24"
+  class="relative flex w-full py-16 bg-white sm:py-24 scroll-mt-12 sm:min-h-screen sm:scroll-mt-24 section"
 >
   <div
     class="container relative px-4 py-4 mx-auto sm:px-6 lg:px-8 lg:py-8"
@@ -10,7 +10,7 @@
     <div
       class="relative flex items-center py-10 filter-container flex-nowrap place-content-between"
     >
-      <h2 class="text-4xl text-gray-700 dark:text-rose-900 recursive-bold section-title grow sm:text-6xl">
+      <h2 class="text-4xl font-bold text-gray-700 dark:text-rose-900 section-title grow sm:text-6xl">
         Portfolio
       </h2>
       <div class="filter-block">
@@ -41,7 +41,7 @@
           </div>
           <button
             x-on:click="filterOpen = ! filterOpen"
-            class="flex items-center space-x-2 text-gray-700 focus:outline-hidden dark:text-gray-100"
+            class="flex items-center space-x-2 text-gray-700 focus:outline-hidden hover:cursor-pointer dark:text-gray-100"
           >
             <span class="text-xl uppercase dark:text-rose-900" x-text="filterOpen ? '' : 'Filter'">
               Filter
@@ -71,14 +71,14 @@
     >
       {% for item in portfolio %}
         <figure data-groups="{{item.dataGroups}}"
-        class="portfolio w-100 {{
+        class="portfolio {{
           item.category
         }} group drop-shadow-xl shadow-gray-400 dark:shadow-rose-900"
       >
           <a
           data-gall aria-label="View full image of {{ item.title }}" data-vbtype=""
           href="{% portfolioImage item.featuredImage %}"
-          class="relative block overflow-hidden border border-gray-100 border-solid rounded-br-none portfolio-link rounded-xl"
+          class="relative block overflow-hidden border border-gray-100 border-solid rounded-br-none lg:inline-block portfolio-link rounded-xl"
         >
             <img
             width="445"

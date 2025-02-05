@@ -28,7 +28,7 @@
 
     {% if type | criticalExists %}
       <style>
-        {{type | getCritical}}
+        {# {{type | getCritical}} #}
       </style>
       <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     {% else %}
