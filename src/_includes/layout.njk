@@ -26,14 +26,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap">
     </noscript>
 
-    {% if type | criticalExists %}
-      <style>
-        {{type | getCritical}}
-      </style>
-      <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    {% else %}
-      <link rel="stylesheet" href="/assets/main.bundle.css" media="all">
-    {% endif %}
+    <link rel="stylesheet" href="/assets/main.bundle.css" media="all">
 
     <script src="/assets/main.bundle.js" defer></script>
 
