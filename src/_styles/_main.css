@@ -58,7 +58,6 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
   input:checked ~ .block {
     @apply bg-rose-900;
@@ -91,31 +90,6 @@
   }
 }
 
-@layer utilities {
-  /* Custom Utilities Go Here. */
-  .recursive {
-    font-family: 'Recursive', sans-serif;
-    font-optical-sizing: auto;
-    &-regular {
-      font-weight: 400;
-      font-style: normal;
-      font-variation-settings:
-        'slnt' 0,
-        'CASL' 0,
-        'CRSV' 0.5,
-        'MONO' 0;
-    }
-    &-bold {
-      font-weight: 700;
-      font-style: normal;
-      font-variation-settings:
-        'slnt' 0,
-        'CASL' 0,
-        'CRSV' 0.5,
-        'MONO' 0;
-    }
-  }
-}
 #about {
   @apply relative;
   &:before {
