@@ -28,7 +28,7 @@
 
     {% if type | criticalExists %}
       <style>
-        {{type | getCritical}}
+        {# {{type | getCritical}} #}
       </style>
       <link rel="preload" href="/assets/main.bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     {% else %}
@@ -85,7 +85,7 @@
     <meta name="theme-color" content="#ffffff"/>
   </head>
   <body
-    class="{{ 'debug-screens' if env.devMode }} recursive-regular text-gray-600 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+    class="{{ 'debug-screens' if env.devMode }} text-gray-600 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
   >
     {% include 'header.njk' %}
 

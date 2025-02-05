@@ -2,17 +2,17 @@
   <div class="container px-4 mx-auto sm:px-6 lg:px-8">
     <div class="relative" x-data="{ open: false }" @click.away="open = false">
       <button x-bind:class="open ? 'rounded-tr-none rounded-tl-none' : ''"
-        class="absolute bottom-0 right-0 p-5 bg-gray-700 rounded-br-none rounded-xl dark:bg-rose-900 hover:bg-gray-400 dark:hover:bg-rose-700 active:bg-gray-400 dark:active:bg-rose-700"
+        class="absolute bottom-0 right-0 p-5 bg-gray-700 rounded-br-none hover:cursor-pointer rounded-xl dark:bg-rose-900 hover:bg-gray-400 dark:hover:bg-rose-700 active:bg-gray-400 dark:active:bg-rose-700"
         x-on:click="open = ! open" aria-label="Social Media Links"
       >
         <div class="relative flex items-center justify-center w-5 h-5">
           <span
             x-bind:class="open ? 'rotate-45' : ''"
-            class="absolute h-0.5 w-full transform rounded bg-white transition"
+            class="absolute h-0.5 w-full transform rounded-sm bg-white transition"
           ></span>
           <span
             x-bind:class="open ? 'rotate-45' : ''"
-            class="absolute h-full w-0.5 transform rounded bg-white transition"
+            class="absolute h-full w-0.5 transform rounded-sm bg-white transition"
           ></span>
         </div>
       </button>
