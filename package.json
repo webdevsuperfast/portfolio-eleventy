@@ -44,6 +44,7 @@
   "homepage": "https://github.com/webdevsuperfast/portfolio-eleventy#readme",
   "dependencies": {
     "@11ty/eleventy-img": "^6.0.1",
+    "@tailwindcss/cli": "^4.0.3",
     "acclaimed": "^1.0.12",
     "alpinejs": "^3.14.7",
     "axios": "^1.7.9",
