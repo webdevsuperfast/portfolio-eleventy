@@ -22,7 +22,7 @@
           <div
             x-cloak
             :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
-            class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-sm shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
+            class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-xs shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
           >
             {% for item in category %}
               <a
@@ -41,7 +41,7 @@
           </div>
           <button
             x-on:click="filterOpen = ! filterOpen"
-            class="flex items-center space-x-2 text-gray-700 focus:outline-none dark:text-gray-100"
+            class="flex items-center space-x-2 text-gray-700 focus:outline-hidden dark:text-gray-100"
           >
             <span class="text-xl uppercase dark:text-rose-900" x-text="filterOpen ? '' : 'Filter'">
               Filter
@@ -50,15 +50,15 @@
             <div class="relative flex items-center justify-center w-10 h-10">
               <span
                 x-bind:class="filterOpen ? '-translate-y-0 rotate-45' : '-translate-y-3'"
-                class="absolute w-full h-1 transition transform bg-current rounded dark:bg-rose-900"
+                class="absolute w-full h-1 transition transform bg-current rounded-sm dark:bg-rose-900"
               ></span>
               <span
                 x-bind:class="filterOpen ? 'opacity-0 translate-x-3 w-10' : 'opacity-100'"
-                class="absolute w-3/5 h-1 transition transform bg-current rounded dark:bg-rose-900"
+                class="absolute w-3/5 h-1 transition transform bg-current rounded-sm dark:bg-rose-900"
               ></span>
               <span
                 x-bind:class="filterOpen ? 'translate-y-0 -rotate-45 w-10' : 'translate-y-3 w-1/5'"
-                class="absolute h-1 transition transform bg-current rounded dark:bg-rose-900"
+                class="absolute h-1 transition transform bg-current rounded-sm dark:bg-rose-900"
               ></span>
             </div>
           </button>
