@@ -49,6 +49,7 @@
     "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
     "axios-cache-interceptor": "^1.6.2",
+    "conversational-form": "^1.0.2",
     "cssnano": "^7.0.6",
     "eleventy-critical-css": "^2.0.2",
     "gsap": "^3.12.7",
