@@ -1,7 +1,7 @@
 <header
-  class="z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all lg:pt-16 dark:text-gray-100"
+  class="fixed z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all lg:pt-16 dark:text-gray-100"
   x-data="{ scrolled: false, navOpen: false }"
-  :class="scrolled ? 'bg-gray-200 fixed dark:bg-gray-900 drop-shadow-sm bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : 'xl:pt-24'"
+  :class="scrolled ? 'bg-gray-200 dark:bg-gray-900 drop-shadow-sm bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : 'xl:pt-24'"
   @scroll.window="scrolled = (window.pageYOffset > 20) ? true : false"
   @click.away="navOpen = false"
 >
