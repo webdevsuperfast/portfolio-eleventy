@@ -21,7 +21,7 @@
         >
           <div
             x-cloak
-            :class="{ 'block lg:flex': filterOpen, 'hidden': ! filterOpen }"
+            :class="{ 'block lg:flex mr-0': filterOpen, 'hidden': ! filterOpen }"
             class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-xs shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
           >
             {% for item in category %}
@@ -71,28 +71,27 @@
     >
       {% for item in portfolio %}
         <figure data-groups="{{item.dataGroups}}"
-        class="portfolio {{
+        class="rounded-xl portfolio overflow-hidden border border-gray-100 border-solid rounded-br-none {{
           item.category
         }} group drop-shadow-xl shadow-gray-400 dark:shadow-rose-900"
       >
           <a
           data-gall aria-label="View full image of {{ item.title }}" data-vbtype=""
           href="{% portfolioImage item.featuredImage %}"
-          class="relative block overflow-hidden border border-gray-100 border-solid rounded-br-none lg:inline-block portfolio-link rounded-xl"
-        >
-            <img
+          class="absolute w-full h-full block  portfolio-link z-10"
+        ></a>
+          <img
             width="445"
             height="330"
             data-src="{% portfolioImage item.thumbnail %}"
             alt="Featured Image of {{ item.title }}"
             class="portfolio-image lazy mb-0 h-[250px] w-full object-cover transition-transform group-hover:-translate-y-10"
 />
-            <figcaption
+          <figcaption
             class="absolute bottom-0 left-0 w-full px-5 py-4 transition-transform translate-y-full bg-gray-100 portfolio-info dark:bg-rose-900 group-hover:translate-y-0"
           >
-              <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
-            </figcaption>
-          </a>
+            <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
+          </figcaption>
         </figure>
       {% endfor %}
       <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 items-sizer"></div>
