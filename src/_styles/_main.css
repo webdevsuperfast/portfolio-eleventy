@@ -7,9 +7,19 @@
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+@plugin 'daisyui';
 
+/* daisyUI config (Tailwind v4 CSS-based) */
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  /* inherit daisyUI light as base and tweak if desired */
+  prefersdark: true;
+}
+
+/* Include all templates so Tailwind picks up classes */
 @source './*.css';
-@source '../**/*.{css,js}';
+@source '../**/*.{css,js,njk,md,html}';
+@source '../../src/**/*.{css,js,njk,md,html}';
 
 @custom-variant dark (&:is(.dark *));
 

@@ -4,14 +4,23 @@
   class="font-sans scroll-smooth"
   x-data="{
     setTheme: () => {
-      if (localStorage.theme === 'dark') {
-        localStorage.theme = 'light';
-        document.documentElement.classList.remove('dark');
+      const isDark = localStorage.theme === 'dark'
+      if (isDark) {
+        localStorage.theme = 'light'
+        document.documentElement.classList.remove('dark')
+        document.documentElement.setAttribute('data-theme', 'light')
       } else {
-        localStorage.theme = 'dark';
-        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark'
+        document.documentElement.classList.add('dark')
+        document.documentElement.setAttribute('data-theme', 'dark')
       }
     }
+  }"
+  x-init="() => {
+    // initialize theme on first load
+    const theme = localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.setAttribute('data-theme', theme)
   }"
 >
   <head>

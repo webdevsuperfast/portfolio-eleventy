@@ -8,25 +8,33 @@
       </h2>
       <p class="text-xl subheading md:text-2xl md:py-12">Welcome! Tell me more about your project, and I'll be happy to see how I can assist.</p>
     </div>
-    <form method="POST" action="/api/contact" enctype="multipart/form-data">
-      <div class="grid grid-cols-none gap-4 mb-4 sm:grid-cols-2 md:grid-cols-4 sm:gap-8 sm:mb-8">
-        <div class="input">
-          <label for="name">Full Name</label>
-          <input class="block w-full mt-2 text-gray-700 transition-all bg-gray-100 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:bg-gray-700 dark:focus:bg-gray-800 focus:text-gray-100 dark:focus:text-gray-100 lg:text-2xl" id="name" name="name" type="text" pattern="^(\w\w+)\s(\w+)$" required/>
+    <form method="POST" action="/api/contact" enctype="multipart/form-data" class="space-y-6">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+        <div class="form-control w-full">
+          <label class="label" for="name">
+            <span class="label-text">Full Name</span>
+          </label>
+          <input class="input input-bordered w-full" id="name" name="name" type="text" pattern="^(\w\w+)\s(\w+)$" required />
         </div>
 
-        <div class="input">
-          <label for="email">Email Address</label>
-          <input class="block w-full mt-2 text-gray-700 transition-all bg-gray-100 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:bg-gray-700 dark:focus:bg-gray-800 focus:text-gray-100 dark:focus:text-gray-100 lg:text-2xl" id="email" name="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required/>
+        <div class="form-control w-full">
+          <label class="label" for="email">
+            <span class="label-text">Email Address</span>
+          </label>
+          <input class="input input-bordered w-full" id="email" name="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required />
         </div>
 
-        <div class="input">
-          <label for="website">Website</label>
-          <input class="block w-full mt-2 text-gray-700 transition-all bg-gray-100 border-2 border-gray-700 rounded-br-none form-input rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:bg-gray-700 dark:focus:bg-gray-800 focus:text-gray-100 dark:focus:text-gray-100 lg:text-2xl" id="website" name="website" type="url" required pattern="https?://.+"/>
+        <div class="form-control w-full">
+          <label class="label" for="website">
+            <span class="label-text">Website</span>
+          </label>
+          <input class="input input-bordered w-full" id="website" name="website" type="url" required pattern="https?://.+" />
         </div>
-        <div class="input">
-          <label for="services">Service</label>
-          <select class="block w-full mt-2 text-gray-700 transition-all bg-gray-100 border-2 border-gray-700 rounded-br-none form-select rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:bg-gray-700 dark:focus:bg-gray-800 focus:text-gray-100 dark:focus:text-gray-100 lg:text-2xl" id="services" name="services" required>
+        <div class="form-control w-full">
+          <label class="label" for="services">
+            <span class="label-text">Service</span>
+          </label>
+          <select class="select select-bordered w-full" id="services" name="services" required>
             <option hidden disabled selected value></option>
             <option value="WordPress Plugin">WordPress Plugin</option>
             <option value="Web Design">Web Design</option>
@@ -37,14 +45,16 @@
         </div>
       </div>
 
-      <div class="mb-4 sm:mb-8 message">
-        <label for="message">Tell me more about your project</label>
-        <textarea class="block w-full mt-2 text-gray-700 transition-all bg-gray-100 border-2 border-gray-700 rounded-br-none form-textarea rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 focus:bg-gray-700 dark:focus:bg-gray-800 focus:text-gray-100 dark:focus:text-gray-100 lg:text-2xl" name="message" id="message" cols="30" rows="5" required></textarea>
+      <div class="form-control">
+        <label class="label" for="message">
+          <span class="label-text">Tell me more about your project</span>
+        </label>
+        <textarea class="textarea textarea-bordered h-32" name="message" id="message" required></textarea>
       </div>
 
       <div class="mb-8 cf-turnstile" data-sitekey="{{ site.turnstile_site_key }}"></div>
 
-      <button class="px-8 py-3 mb-5 text-xl text-center text-gray-100 uppercase transition-all bg-gray-700 border-2 border-gray-700 rounded-br-none hover:cursor-pointer md:mb-0 rounded-xl dark:border-gray-100 dark:bg-gray-100 dark:text-gray-900 hover:bg-transparent hover:text-gray-700 dark:hover:text-gray-100 dark:hover:bg-transparent lg:text-2xl" type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit">Submit</button>
     </form>
   </div>
 </section>
