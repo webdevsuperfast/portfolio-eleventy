@@ -9,7 +9,7 @@
     <div class="flex items-center flex-nowrap">
       <a aria-label="{{ site.title }}" class="flex-none" href="/">
         <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
-          <g style="display:inline"><path class="fill-gray-700 dark:fill-rose-900" style="stroke-linecap:round" d="M25 70V30a5 5 135 0 1 5-5h40a5 5 45 0 1 5 5v10H45a4.996 4.996 134.98 0 0-4.996 5l.02 30H30a5 5 45 0 1-5-5zM70 60.078l-5-.039A4.97 4.97 135.273 0 0 59.99 65l-.008 4.914A5.078 5.078 45.05 0 0 65.061 75H75v-9.882a5.04 5.04 45.223 0 0-5-5.04z" transform="translate(-25 -25)"/></g>
+          <g style="display:inline"><path class="fill-gray-700 dark:fill-gray-100" style="stroke-linecap:round" d="M25 70V30a5 5 135 0 1 5-5h40a5 5 45 0 1 5 5v10H45a4.996 4.996 134.98 0 0-4.996 5l.02 30H30a5 5 45 0 1-5-5zM70 60.078l-5-.039A4.97 4.97 135.273 0 0 59.99 65l-.008 4.914A5.078 5.078 45.05 0 0 65.061 75H75v-9.882a5.04 5.04 45.223 0 0-5-5.04z" transform="translate(-25 -25)"/></g>
         </svg>
       </a>
       <div
@@ -28,8 +28,8 @@
           {%- for nav in navigation -%}
             <a
               @click="clicked"
-              :class="value === '#' + '{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900' : ''"
-              class="block px-6 py-3 text-2xl uppercase transition-colors nav-link hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+              :class="value === '#' + '{{ nav.route }}' ? 'text-gray-500 dark:text-white' : ''"
+              class="block px-6 py-3 text-2xl uppercase transition-colors nav-link hover:text-gray-500 dark:hover:text-gray-200 sm:px-0 sm:py-0"
               href="#{{ nav.route }}"
             >
               {{ nav.name }}
@@ -44,15 +44,15 @@
           <div class="relative flex items-center justify-center w-10 h-10">
             <span
               x-bind:class="navOpen ? 'translate-y-0 rotate-45' : '-translate-y-3'"
-              class="absolute w-full h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute w-full h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-gray-200"
             ></span>
             <span
               x-bind:class="navOpen ? 'opacity-0 translate-x-3 w-10' : 'opacity-100'"
-              class="absolute right-0 w-4/5 h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute right-0 w-4/5 h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-gray-200"
             ></span>
             <span
               x-bind:class="navOpen ? 'translate-y-0 -rotate-45 w-10' : 'translate-y-3 w-3/5'"
-              class="absolute right-0 h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-rose-900"
+              class="absolute right-0 h-1 transition transform bg-current rounded-sm group-hover:bg-gray-400 dark:group-hover:bg-gray-200"
             ></span>
           </div>
         </button>
@@ -86,8 +86,8 @@
       {%- for nav in navigation -%}
         <a
         @click="clicked"
-        x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-400 dark:text-rose-900': ''"
-        class="block px-6 py-3 text-2xl uppercase transition-colors text-md hover:text-gray-400 dark:hover:text-rose-900 sm:px-0 sm:py-0"
+  x-bind:class="value === '#{{ nav.route }}' ? 'text-gray-500 dark:text-white': ''"
+  class="block px-6 py-3 text-2xl uppercase transition-colors text-md hover:text-gray-500 dark:hover:text-gray-200 sm:px-0 sm:py-0"
         href="#{{ nav.route }}"
       >
           {{ nav.name }}

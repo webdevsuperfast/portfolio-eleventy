@@ -28,7 +28,7 @@ input:checked ~ .dot {
   @apply absolute right-8 top-8 w-8 h-8 opacity-100 hover:opacity-90 before:content-[''];
   &:before,
   &:after {
-    @apply absolute left-[15px] content-[''] h-[33px] w-1 bg-gray-700 rounded-xs dark:bg-rose-900;
+    @apply absolute left-[15px] content-[''] h-[33px] w-1 bg-gray-700 rounded-xs dark:bg-gray-200;
   }
   &:before {
     @apply rotate-45;
