@@ -15,11 +15,13 @@
 
 @theme {
   --font-*: initial;
-  --font-sans: Recursive, ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans:
+    Recursive, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 
   --text-10xl: 10rem;
   --text-10xl--line-height: 1;
@@ -63,7 +65,7 @@
 #about {
   @apply relative;
   &:before {
-    @apply content-[''] bg-white h-8 w-full absolute left-0 bottom-0;
+    @apply content-[''] h-8 w-full absolute left-0 bottom-0;
     clip-path: polygon(
       0% 0%,
       100% 100%,
@@ -75,10 +77,11 @@
   }
 }
 
-#testimonials {
+#testimonials,
+#contact {
   @apply relative;
   &:before {
-    @apply content-[''] bg-white h-8 w-full absolute left-0 top-0;
+    @apply content-[''] h-8 w-full absolute left-0 top-0;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%, 0% 0%);
   }
 }
