@@ -16,7 +16,9 @@ function runTailwind({ watch = false, minify = false }) {
     '--postcss',
     watch ? '--watch' : '',
     minify ? '--minify' : '',
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ')
   const proc = exec(cmd)
   proc.stdout.pipe(process.stdout)
   proc.stderr.pipe(process.stderr)
