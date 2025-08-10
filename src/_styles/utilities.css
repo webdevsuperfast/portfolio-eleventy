@@ -21,3 +21,11 @@
       'MONO' 0;
   }
 }
+
+.btn-light {
+  @apply bg-gray-800 text-gray-100 hover:bg-gray-900 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800;
+}
+
+.btn-dark {
+  @apply bg-gray-900 text-white hover:bg-gray-900 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+}
