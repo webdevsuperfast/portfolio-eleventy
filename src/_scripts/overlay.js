@@ -119,5 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   openContactButton.addEventListener('click', toggleContactOverlay)
-  // closeContactButton.addEventListener('click', toggleContactOverlay)
 })
