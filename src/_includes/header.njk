@@ -6,7 +6,7 @@
   @click.away="navOpen = false"
 >
   <nav class="container px-4 mx-auto sm:px-6 lg:px-8">
-    <div class="flex items-center flex-nowrap">
+    <div class="flex items-center flex-nowrap navbar bg-base-100/0 dark:bg-base-100/0">
       <a aria-label="{{ site.title }}" class="flex-none" href="/">
         <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
           <g style="display:inline"><path class="fill-gray-700 dark:fill-gray-100" style="stroke-linecap:round" d="M25 70V30a5 5 135 0 1 5-5h40a5 5 45 0 1 5 5v10H45a4.996 4.996 134.98 0 0-4.996 5l.02 30H30a5 5 45 0 1-5-5zM70 60.078l-5-.039A4.97 4.97 135.273 0 0 59.99 65l-.008 4.914A5.078 5.078 45.05 0 0 65.061 75H75v-9.882a5.04 5.04 45.223 0 0-5-5.04z" transform="translate(-25 -25)"/></g>
@@ -23,7 +23,7 @@
           x-transition:leave-end="opacity-0 lg:scale-75"
           :class="{ 'hidden sm:flex' : navOpen, 'hidden' : !navOpen }"
           x-cloak
-          class="flex-col items-center text-center uppercase bg-opacity-75 dark:bg-gray-900 navigation text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none"
+          class="flex-col items-center text-center uppercase bg-opacity-75 dark:bg-gray-900 navigation text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none menu menu-horizontal"
         >
           {%- for nav in navigation -%}
             <a
@@ -37,7 +37,7 @@
 
           {%- endfor -%}
         </div>
-        <button
+  <button
           x-on:click="navOpen = ! navOpen"
           class="flex items-center ml-4 space-x-4 uppercase group focus:outline-hidden hover:cursor-pointer" aria-label="Menu Navigation"
         >
@@ -57,14 +57,35 @@
           </div>
         </button>
       </div>
-      <div class="flex items-center ml-4">
-        <label for="toggle-dark-mode" class="flex items-center cursor-pointer">
-          <div class="relative">
-            <input aria-label="Dark Mode Switch" type="checkbox" id="toggle-dark-mode" class="sr-only" @click="setTheme">
-            <div class="block h-8 bg-gray-700 rounded-full w-14"></div>
-            <div class="absolute w-6 h-6 transition bg-gray-100 rounded-full dot left-1 top-1"></div>
-          </div>
-        </label>
+      <div class="flex items-center ml-4 gap-2">
+        <label class="label"><span class="label-text">Theme</span></label>
+        <select class="select select-bordered select-sm" @change="setThemeName($event.target.value)">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="cupcake">Cupcake</option>
+          <option value="corporate">Corporate</option>
+          <option value="synthwave">Synthwave</option>
+          <option value="retro">Retro</option>
+          <option value="cyberpunk">Cyberpunk</option>
+          <option value="valentine">Valentine</option>
+          <option value="aqua">Aqua</option>
+          <option value="forest">Forest</option>
+          <option value="lofi">Lo-Fi</option>
+          <option value="pastel">Pastel</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="wireframe">Wireframe</option>
+          <option value="black">Black</option>
+          <option value="luxury">Luxury</option>
+          <option value="dracula">Dracula</option>
+          <option value="cmyk">CMYK</option>
+          <option value="autumn">Autumn</option>
+          <option value="business">Business</option>
+          <option value="acid">Acid</option>
+          <option value="lemonade">Lemonade</option>
+          <option value="night">Night</option>
+          <option value="coffee">Coffee</option>
+          <option value="winter">Winter</option>
+        </select>
       </div>
     </div>
   </nav>

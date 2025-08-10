@@ -71,9 +71,7 @@
     >
       {% for item in portfolio %}
         <figure data-groups="{{item.dataGroups}}"
-        class="rounded-xl portfolio overflow-hidden border border-gray-100 border-solid rounded-br-none {{
-          item.category
-  }} group drop-shadow-xl shadow-gray-400 dark:shadow-black/50 dark:border-gray-700"
+        class="rounded-xl portfolio overflow-hidden border border-base-200 {{ item.category }} group shadow-xl"
       >
           <a
           data-gall aria-label="View full image of {{ item.title }}" data-vbtype=""
@@ -88,9 +86,9 @@
             class="portfolio-image lazy mb-0 h-[250px] w-full object-cover transition-transform group-hover:-translate-y-10"
 />
           <figcaption
-            class="absolute bottom-0 left-0 w-full px-5 py-4 transition-transform translate-y-full bg-gray-100 portfolio-info dark:bg-gray-800 group-hover:translate-y-0"
+            class="absolute bottom-0 left-0 w-full px-5 py-4 transition-transform translate-y-full bg-base-100 portfolio-info group-hover:translate-y-0"
           >
-            <h3 class="mb-0 text-gray-700 dark:text-gray-100">{{ item.title }}</h3>
+            <h3 class="mb-0">{{ item.title }}</h3>
           </figcaption>
         </figure>
       {% endfor %}

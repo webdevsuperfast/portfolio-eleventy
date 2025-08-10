@@ -14,23 +14,21 @@
       class="grid grid-cols-none testimonials gap-14 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
     >
         {% for testimonial in testimonials %}
-          <div class="flex flex-col w-full testimonial space-between">
-            <blockquote
-          class="block p-8 mb-6 text-xl text-gray-700 bg-white rounded-br-none grow rounded-2xl dark:bg-gray-100 dark:text-gray-700 drop-shadow-xl shadow-gray-700"
-        >
-              {{ testimonial.content | safe }}
-            </blockquote>
-            <div class="flex flex-row-reverse items-center content-end text-right">
-              <img
-            width="150"
-            height="150"
-            class="w-10 h-10 ml-4 rounded-full lazy"
-            data-src="{% portfolioImage testimonial.image %}"
-            alt="{{ testimonial.title }}"
-/>
-              <div class="text-sm">
-                <h3 class="font-bold text-gray-900 dark:text-gray-100 font-ibm-plex-sans-condensed">{{ testimonial.title }}</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-200">{{ testimonial.location }}</p>
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <p class="text-xl">{{ testimonial.content | safe }}</p>
+              <div class="card-actions justify-end items-center">
+                <img
+                  width="150"
+                  height="150"
+                  class="w-10 h-10 ml-4 rounded-full lazy"
+                  data-src="{% portfolioImage testimonial.image %}"
+                  alt="{{ testimonial.title }}"
+                />
+                <div class="text-sm text-right">
+                  <h3 class="font-bold">{{ testimonial.title }}</h3>
+                  <p class="text-xs opacity-70">{{ testimonial.location }}</p>
+                </div>
               </div>
             </div>
           </div>
