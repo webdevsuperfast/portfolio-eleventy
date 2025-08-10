@@ -1,11 +1,11 @@
 <footer class="fixed w-full bottom-4 lg:bottom-24">
   <div class="container px-4 mx-auto sm:px-6 lg:px-8">
     <div class="relative" x-data="{ open: false }" @click.away="open = false">
-      <div class="dropdown dropdown-top dropdown-end absolute bottom-0 right-0">
-        <div tabindex="0" role="button" class="btn btn-primary" @click="open = !open" aria-label="Social Media Links">
+      <div class="du-dropdown du-dropdown-top du-dropdown-end absolute bottom-0 right-0">
+        <div tabindex="0" role="button" class="du-btn du-btn-primary" @click="open = !open" aria-label="Social Media Links">
           Social
         </div>
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow" x-show="open" x-transition x-cloak>
+        <ul tabindex="0" class="du-dropdown-content du-menu bg-base-100 du-rounded-box z-[1] w-52 p-2 du-shadow" x-show="open" x-transition x-cloak>
           {% if social %}
             {% for item in social %}
               <li><a href="{{ item.url }}" target="{{ item.target }}">{{ item.label }}</a></li>

@@ -1,6 +1,6 @@
 <section
   id="portfolio"
-  class="relative flex w-full py-16 bg-white dark:bg-gray-800 sm:py-24 scroll-mt-12 sm:min-h-screen sm:scroll-mt-24 section"
+  class="relative flex w-full py-16 bg-base-100 sm:py-24 scroll-mt-12 sm:min-h-screen sm:scroll-mt-24 section"
 >
   <div
     class="container relative px-4 py-4 mx-auto sm:px-6 lg:px-8 lg:py-8"
@@ -22,7 +22,7 @@
           <div
             x-cloak
             :class="{ 'block lg:flex mr-0': filterOpen, 'hidden': ! filterOpen }"
-            class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent dark:lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto shadow-xs shadow-gray-200 lg:shadow-none dark:lg:shadow-none shadow-opacity-50"
+            class="filters absolute right-0 top-[100px] z-10 flex-col rounded-xl uppercase lg:static lg:flex-row lg:space-x-6 lg:rounded-none lg:bg-transparent lg:bg-opacity-0 lg:text-xl w-full lg:w-auto du-shadow"
           >
             {% for item in category %}
               <a
@@ -30,8 +30,8 @@
               href="#{{item.filter}}"
               :class="value === '{{
                 item.filter
-              }}' ? 'text-gray-800 dark:text-gray-300 lg:underline lg:underline-offset-4' : ''"
-              class="block px-6 py-1 text-center uppercase transition-colors filter hover:cursor-pointer dark:text-gray-100 hover:text-gray-500 dark:hover:text-gray-300 lg:px-0 lg:py-0"
+              }}' ? 'lg:underline lg:underline-offset-4' : ''"
+              class="block px-6 py-1 text-center uppercase transition-colors filter hover:cursor-pointer lg:px-0 lg:py-0"
               data-filter="{{ item.filter }}"
               id="{{ item.filter }}"
             >
@@ -71,7 +71,7 @@
     >
       {% for item in portfolio %}
         <figure data-groups="{{item.dataGroups}}"
-        class="rounded-xl portfolio overflow-hidden border border-base-200 {{ item.category }} group shadow-xl"
+  class="rounded-xl portfolio overflow-hidden border border-base-200 {{ item.category }} group du-shadow-xl relative"
       >
           <a
           data-gall aria-label="View full image of {{ item.title }}" data-vbtype=""

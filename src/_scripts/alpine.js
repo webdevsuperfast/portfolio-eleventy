@@ -22,6 +22,30 @@ try {
         this.isOpen = !this.isOpen
       },
     })
+    Alpine.store('theme', {
+      value: 'light',
+      allowed: ['dark', 'light', 'cyberpunk', 'wireframe', 'lofi'],
+      init() {
+        const t =
+          localStorage.theme ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light')
+        this.set(t)
+      },
+      set(name) {
+        try {
+          if (typeof name !== 'string' || !name) return
+          if (!this.allowed.includes(name)) name = 'light'
+          localStorage.theme = name
+          document.documentElement.setAttribute('data-theme', name)
+          document.documentElement.classList.toggle('dark', name === 'dark')
+          this.value = name
+        } catch (e) {
+          console.error('Failed to set theme:', e)
+        }
+      },
+    })
     Alpine.data('filterNav', () => ({
       value: '#about',
       clicked: function (e) {

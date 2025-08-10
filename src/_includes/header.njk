@@ -1,12 +1,12 @@
 <header
   class="fixed z-50 flex-none w-full pt-4 text-sm font-medium leading-6 text-gray-700 transition-all dark:text-gray-100"
   x-data="{ scrolled: false, navOpen: false }"
-  :class="scrolled ? 'bg-gray-200 dark:bg-gray-900 drop-shadow-sm bg-opacity-75 dark:bg-opacity-75 dark:drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : 'lg:pt-8 xl:pt-24'"
+  :class="scrolled ? 'bg-base-200/75 drop-shadow-sm py-4 lg:pt-4 xl:pt-4' : 'lg:pt-8 xl:pt-24'"
   @scroll.window="scrolled = (window.pageYOffset > 20) ? true : false"
   @click.away="navOpen = false"
 >
   <nav class="container px-4 mx-auto sm:px-6 lg:px-8">
-    <div class="flex items-center flex-nowrap navbar bg-base-100/0 dark:bg-base-100/0">
+    <div class="flex items-center flex-nowrap du-navbar bg-base-100/0 dark:bg-base-100/0">
       <a aria-label="{{ site.title }}" class="flex-none" href="/">
         <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
           <g style="display:inline"><path class="fill-gray-700 dark:fill-gray-100" style="stroke-linecap:round" d="M25 70V30a5 5 135 0 1 5-5h40a5 5 45 0 1 5 5v10H45a4.996 4.996 134.98 0 0-4.996 5l.02 30H30a5 5 45 0 1-5-5zM70 60.078l-5-.039A4.97 4.97 135.273 0 0 59.99 65l-.008 4.914A5.078 5.078 45.05 0 0 65.061 75H75v-9.882a5.04 5.04 45.223 0 0-5-5.04z" transform="translate(-25 -25)"/></g>
@@ -23,7 +23,7 @@
           x-transition:leave-end="opacity-0 lg:scale-75"
           :class="{ 'hidden sm:flex' : navOpen, 'hidden' : !navOpen }"
           x-cloak
-          class="flex-col items-center text-center uppercase bg-opacity-75 dark:bg-gray-900 navigation text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none menu menu-horizontal"
+          class="flex-col items-center text-center uppercase bg-opacity-75 dark:bg-gray-900 navigation text-light top-8 rounded-xl sm:static sm:flex-row sm:space-x-6 sm:bg-opacity-0 sm:bg-none du-menu du-menu-horizontal"
         >
           {%- for nav in navigation -%}
             <a
@@ -57,41 +57,33 @@
           </div>
         </button>
       </div>
-      <div class="flex items-center ml-4 gap-2">
-        <label class="label"><span class="label-text">Theme</span></label>
-        <select class="select select-bordered select-sm" @change="setThemeName($event.target.value)">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="cupcake">Cupcake</option>
-          <option value="corporate">Corporate</option>
-          <option value="synthwave">Synthwave</option>
-          <option value="retro">Retro</option>
-          <option value="cyberpunk">Cyberpunk</option>
-          <option value="valentine">Valentine</option>
-          <option value="aqua">Aqua</option>
-          <option value="forest">Forest</option>
-          <option value="lofi">Lo-Fi</option>
-          <option value="pastel">Pastel</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="wireframe">Wireframe</option>
-          <option value="black">Black</option>
-          <option value="luxury">Luxury</option>
-          <option value="dracula">Dracula</option>
-          <option value="cmyk">CMYK</option>
-          <option value="autumn">Autumn</option>
-          <option value="business">Business</option>
-          <option value="acid">Acid</option>
-          <option value="lemonade">Lemonade</option>
-          <option value="night">Night</option>
-          <option value="coffee">Coffee</option>
-          <option value="winter">Winter</option>
-        </select>
+      <div class="ml-4">
+        <div class="du-dropdown du-dropdown-end" x-data>
+          <button tabindex="0" type="button" class="du-btn du-btn-ghost du-btn-sm" aria-label="Choose theme">
+            <span class="inline-flex items-center gap-2">
+              <span class="du-mask du-mask-squircle w-4 h-4 bg-primary"></span>
+              <span class="hidden sm:inline" x-text="$store.theme.value.charAt(0).toUpperCase() + $store.theme.value.slice(1)"></span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-3 opacity-60" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.126l3.71-3.896a.75.75 0 111.08 1.04l-4.25 4.46a.75.75 0 01-1.08 0l-4.25-4.46a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </span>
+          </button>
+          <ul tabindex="0" class="du-menu du-dropdown-content z-[1] p-2 du-shadow du-bg-base-100 du-rounded-box w-56 max-h-80 overflow-auto">
+            <template x-for="t in ['dark','light','cyberpunk','wireframe','lofi']" :key="t">
+              <li>
+                <button type="button" class="flex items-center gap-2 w-full" @click="$store.theme.set(t)" :data-theme="t">
+                  <span class="du-mask du-mask-squircle w-4 h-4 bg-primary"></span>
+                  <span class="capitalize" x-text="t"></span>
+                  <span class="ml-auto opacity-60" x-show="$store.theme.value === t">✓</span>
+                </button>
+              </li>
+            </template>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
   <nav 
-    :class="{ 'bg-transparent dark:bg-transparent' : scrolled }"
-    class="mt-4 text-center bg-gray-200 bg-opacity-75 mobile-navigation dark:bg-gray-900 dark:bg-opacity-75 sm:text-left sm:hidden" 
+  :class="{ 'bg-transparent' : scrolled }"
+  class="mt-4 text-center bg-base-200/75 mobile-navigation sm:text-left sm:hidden" 
     x-show="navOpen"
     x-data="filterNav"
   >

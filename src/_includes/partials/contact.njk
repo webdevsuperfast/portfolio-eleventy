@@ -10,31 +10,31 @@
     </div>
     <form method="POST" action="/api/contact" enctype="multipart/form-data" class="space-y-6">
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-        <div class="form-control w-full">
-          <label class="label" for="name">
-            <span class="label-text">Full Name</span>
+        <div class="du-form-control w-full">
+          <label class="du-label" for="name">
+            <span class="du-label-text">Full Name</span>
           </label>
-          <input class="input input-bordered w-full" id="name" name="name" type="text" pattern="^(\w\w+)\s(\w+)$" required />
+          <input class="du-input du-input-bordered w-full" id="name" name="name" type="text" pattern="^(\w\w+)\s(\w+)$" required />
         </div>
 
-        <div class="form-control w-full">
-          <label class="label" for="email">
-            <span class="label-text">Email Address</span>
+        <div class="du-form-control w-full">
+          <label class="du-label" for="email">
+            <span class="du-label-text">Email Address</span>
           </label>
-          <input class="input input-bordered w-full" id="email" name="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required />
+          <input class="du-input du-input-bordered w-full" id="email" name="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required />
         </div>
 
-        <div class="form-control w-full">
-          <label class="label" for="website">
-            <span class="label-text">Website</span>
+        <div class="du-form-control w-full">
+          <label class="du-label" for="website">
+            <span class="du-label-text">Website</span>
           </label>
-          <input class="input input-bordered w-full" id="website" name="website" type="url" required pattern="https?://.+" />
+          <input class="du-input du-input-bordered w-full" id="website" name="website" type="url" required pattern="https?://.+" />
         </div>
-        <div class="form-control w-full">
-          <label class="label" for="services">
-            <span class="label-text">Service</span>
+        <div class="du-form-control w-full">
+          <label class="du-label" for="services">
+            <span class="du-label-text">Service</span>
           </label>
-          <select class="select select-bordered w-full" id="services" name="services" required>
+          <select class="du-select du-select-bordered w-full" id="services" name="services" required>
             <option hidden disabled selected value></option>
             <option value="WordPress Plugin">WordPress Plugin</option>
             <option value="Web Design">Web Design</option>
@@ -45,16 +45,16 @@
         </div>
       </div>
 
-      <div class="form-control">
-        <label class="label" for="message">
-          <span class="label-text">Tell me more about your project</span>
+      <div class="du-form-control">
+        <label class="du-label" for="message">
+          <span class="du-label-text">Tell me more about your project</span>
         </label>
-        <textarea class="textarea textarea-bordered h-32" name="message" id="message" required></textarea>
+        <textarea class="du-textarea du-textarea-bordered h-32" name="message" id="message" required></textarea>
       </div>
 
       <div class="mb-8 cf-turnstile" data-sitekey="{{ site.turnstile_site_key }}"></div>
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="du-btn du-btn-primary" type="submit">Submit</button>
     </form>
   </div>
 </section>
