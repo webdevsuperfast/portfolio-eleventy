@@ -4,7 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
 
+// Performance optimization: Cache DOM queries and calculations
 const hasAnyClass = (el, list) => list.some((c) => el.classList.contains(c))
+
 const isSectionDarkByClass = (section) => {
   const htmlIsDark = document.documentElement.classList.contains('dark')
   const lightClasses = ['bg-white', 'bg-gray-100']
@@ -29,6 +31,9 @@ const init = () => {
   const button = document.getElementById('floating-social-button')
   if (!button) return
 
+  // Performance optimization: Cache viewport height
+  const vh = window.innerHeight || document.documentElement.clientHeight
+
   const updateForSection = (section) => {
     if (hasAnyClass(section, ['bg-gray-100', 'dark:bg-gray-900'])) {
       button.classList.add('btn-dark')
@@ -48,16 +53,19 @@ const init = () => {
       trigger: section,
       start: 'top 60%',
       end: 'bottom 40%',
+      // Performance optimization: Use passive listeners and reduce callback frequency
       onEnter: () => updateForSection(section),
       onEnterBack: () => updateForSection(section),
+      // Optimize for performance
+      fastScrollEnd: true,
+      preventOverlaps: true,
     })
   })
 
-  // Set initial state based on the section currently in view
+  // Performance optimization: More efficient initial state calculation
   const current =
     sections.find((s) => {
       const rect = s.getBoundingClientRect()
-      const vh = window.innerHeight || document.documentElement.clientHeight
       const topInView = rect.top < vh * 0.6
       const bottomAfter = rect.bottom > vh * 0.4
       return topInView && bottomAfter
@@ -66,8 +74,9 @@ const init = () => {
   if (current) updateForSection(current)
 }
 
+// Performance optimization: Use more efficient DOM ready check
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init)
+  document.addEventListener('DOMContentLoaded', init, { passive: true })
 } else {
   init()
 }

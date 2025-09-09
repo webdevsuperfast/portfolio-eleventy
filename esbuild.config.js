@@ -3,7 +3,7 @@ import path from 'path'
 import { exec } from 'child_process'
 
 const jsIn = path.resolve('src/_scripts/_main.js')
-const jsOut = path.resolve('dist/assets/main.bundle.js')
+const jsOutDir = path.resolve('dist/assets')
 const cssIn = path.resolve('src/_styles/_main.css')
 const cssOut = path.resolve('dist/assets/main.bundle.css')
 const isProduction = process.env.NODE_ENV === 'production'
@@ -29,9 +29,25 @@ async function buildAll() {
   try {
     let ctx = await build.context({
       entryPoints: [jsIn],
-      outfile: jsOut,
+      outdir: jsOutDir,
+      entryNames: 'main',
       minify: isProduction,
       bundle: true,
+      // Performance optimizations
+      treeShaking: true,
+      sourcemap: !isProduction,
+      target: ['es2020'],
+      format: 'esm',
+      // Code splitting for better caching
+      splitting: true,
+      chunkNames: 'chunks/[name]-[hash]',
+      // Optimize for production
+      ...(isProduction && {
+        minifyWhitespace: true,
+        minifyIdentifiers: true,
+        minifySyntax: true,
+        drop: ['console', 'debugger'],
+      }),
     })
 
     if (!isProduction) {
