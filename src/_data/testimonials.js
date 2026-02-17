@@ -20,7 +20,6 @@ async function requestTestimonial() {
     operationName: 'testimonialRequest',
     query: `query testimonialRequest {
       testimonials(
-        first: ${itemsPerRequest}
         after: "${afterCursor}" 
         where: {orderby: {field: TITLE, order: ASC}}
         ) {
@@ -29,7 +28,8 @@ async function requestTestimonial() {
           featuredImage {
             node {
               altText
-              sourceUrl
+              thumbnail: sourceUrl(size: PORTFOLIO_THUMBNAIL)
+              featuredImage: sourceUrl
             }
           }
           title
@@ -64,13 +64,23 @@ async function requestTestimonial() {
   }
 
   const testimonialsFormatted = testimonials.map((item) => {
+    // console.log(item.featuredImage)
     return {
       id: item.testimonialId,
       title: item.title,
       slug: item.slug,
       content: item.content,
-      image: item.featuredImage.node.sourceUrl,
-      imageAlt: item.featuredImage.node.altText,
+      // image: item.featuredImage.node.sourceUrl,
+      image:
+        item.featuredImage &&
+        item.featuredImage.node &&
+        item.featuredImage.node.featuredImage
+          ? item.featuredImage.node.featuredImage
+          : null,
+      imageAlt:
+        item.featuredImage && item.featuredImage.node
+          ? item.featuredImage.node.altText
+          : null,
       location: item.testimonialDetails.testimonialLocation,
       score: item.testimonialDetails.testimonialScore,
     }
