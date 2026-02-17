@@ -41,6 +41,36 @@ export default function (config) {
   }
   config.addNunjucksAsyncShortcode('portfolioImage', portfolioImageShortcode)
 
+  async function testimonialImageShortcode(
+    src,
+    alt = '',
+    widths = [50, null],
+    sizes = ''
+  ) {
+    if (!src) return ''
+
+    return await Image(src, {
+      widths: widths,
+      formats: ['webp'],
+      urlPath: '/images/',
+      outputDir: './dist/images/',
+      returnType: 'html',
+      htmlOptions: {
+        imgAttributes: {
+          alt,
+          sizes,
+          loading: 'lazy',
+          decoding: 'async',
+          class: 'testimonial-image rounded-full w-12 h-12 object-cover',
+        },
+      },
+    })
+  }
+  config.addNunjucksAsyncShortcode(
+    'testimonialImage',
+    testimonialImageShortcode
+  )
+
   // Set BrowserSync config
   config.setBrowserSyncConfig({
     files: ['dist/**/*'],
