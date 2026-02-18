@@ -18,7 +18,7 @@
             <blockquote
           class="block p-8 mb-6 text-xl text-gray-700 bg-white rounded-br-none grow rounded-2xl dark:bg-gray-100 dark:text-gray-700 drop-shadow-xl shadow-gray-700"
         >
-              {{ testimonial.content | safe }}
+              {{ testimonial.content | sanitize }}
             </blockquote>
             <div class="flex flex-row-reverse items-center content-end text-right gap-x-4">
               {% testimonialImage testimonial.image %}
