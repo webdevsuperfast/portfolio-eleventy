@@ -1,5 +1,6 @@
 import Image from '@11ty/eleventy-img'
 import fs from 'fs'
+import sanitizeHtml from 'sanitize-html'
 
 export default function (config) {
   // Add passthrough copies
@@ -9,6 +10,12 @@ export default function (config) {
   // Add filters
   config.addFilter('criticalExists', () => fs.existsSync('./critical.min.css'))
   config.addFilter('getCritical', () => fs.readFileSync('./critical.min.css'))
+  config.addFilter('sanitize', (html) =>
+    sanitizeHtml(html, {
+      allowedTags: [],
+      allowedAttributes: {},
+    })
+  )
 
   // Image shortcode
   async function imageShortcode(src, alt, sizes) {
