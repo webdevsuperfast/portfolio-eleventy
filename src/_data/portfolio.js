@@ -1,27 +1,12 @@
-import config from '../../env.js'
-
-const { WP_SITE_URL } = config
-import axios from 'axios'
-import { setupCache } from 'axios-cache-interceptor'
-
-const axiosInstance = axios.defaults.cache ? axios : setupCache(axios)
+import { graphqlRequest } from '../../graphql-client.js'
 
 async function requestPortfolio() {
-  const afterCursor = ''
-  const itemsPerRequest = 50
   const portfolios = []
-
-  const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
-  }
 
   const graphqlQuery = {
     operationName: 'portfolioRequest',
     query: `query portfolioRequest {
       allPortfolio(
-        first: ${itemsPerRequest}
-        after: "${afterCursor}"
         where: {orderby: {field: TITLE, order: ASC}}
         ) {
         nodes {
@@ -46,7 +31,7 @@ async function requestPortfolio() {
           content
           title
           slug
-          portfolioId
+          databaseId
         }
         pageInfo {
           hasNextPage
@@ -59,14 +44,8 @@ async function requestPortfolio() {
   }
 
   try {
-    const response = await axiosInstance({
-      url: `${WP_SITE_URL}/graphql`,
-      method: 'POST',
-      headers: headers,
-      data: graphqlQuery,
-    })
-
-    const portfolioNodes = response.data.data.allPortfolio.nodes
+    const data = await graphqlRequest(graphqlQuery)
+    const portfolioNodes = data?.allPortfolio?.nodes ?? []
 
     for (const item of portfolioNodes) {
       const thumbnail =

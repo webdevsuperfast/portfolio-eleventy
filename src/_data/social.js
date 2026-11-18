@@ -1,18 +1,7 @@
-import config from '../../env.js'
-
-const { WP_SITE_URL } = config
-import Axios from 'axios'
-import { setupCache } from 'axios-cache-interceptor'
-
-const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
+import { graphqlRequest } from '../../graphql-client.js'
 
 async function requestSocial() {
   let social = []
-
-  const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
-  }
 
   const graphqlQuery = {
     operationName: 'socialRequest',
@@ -39,23 +28,13 @@ async function requestSocial() {
     }`,
   }
 
-  const response = await axios({
-    url: `${WP_SITE_URL}/graphql`,
-    method: 'post',
-    headers: headers,
-    data: graphqlQuery,
-  }).catch(function (error) {
-    console.log(error.toJSON())
-  })
-
-  if (
-    response &&
-    response.data &&
-    response.data.data &&
-    response.data.data.menu &&
-    response.data.data.menu.menuItems
-  ) {
-    social = social.concat(response.data.data.menu.menuItems.nodes)
+  try {
+    const data = await graphqlRequest(graphqlQuery)
+    if (data?.menu?.menuItems?.nodes) {
+      social = social.concat(data.menu.menuItems.nodes)
+    }
+  } catch (error) {
+    console.error(error)
   }
 
   const socialFormatted = social.map((item) => {

@@ -1,22 +1,9 @@
-// import { WP_SITE_URL } from '../../env.js'
-import config from '../../env.js'
-
-const { WP_SITE_URL } = config
-
-import Axios from 'axios'
-import { setupCache } from 'axios-cache-interceptor'
-
-const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
+import { graphqlRequest } from '../../graphql-client.js'
 
 const requestCategory = async () => {
   let afterCursor = ''
   let itemsPerRequest = 10
   let categories = []
-
-  const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
-  }
 
   const graphqlQuery = {
     operationName: 'categoryRequest',
@@ -41,22 +28,13 @@ const requestCategory = async () => {
     }`,
   }
 
-  const response = await axios({
-    url: `${WP_SITE_URL}/graphql`,
-    method: 'post',
-    headers: headers,
-    data: graphqlQuery,
-  }).catch(function (error) {
-    console.log(error.toJSON())
-  })
-
-  if (
-    response &&
-    response.data &&
-    response.data.data &&
-    response.data.data.portfolioCategories
-  ) {
-    categories = categories.concat(response.data.data.portfolioCategories.nodes)
+  try {
+    const data = await graphqlRequest(graphqlQuery)
+    if (data?.portfolioCategories?.nodes) {
+      categories = categories.concat(data.portfolioCategories.nodes)
+    }
+  } catch (error) {
+    console.error(error)
   }
 
   const categoriesFormatted = categories.map((item) => {

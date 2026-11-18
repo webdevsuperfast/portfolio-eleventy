@@ -1,28 +1,18 @@
 import config from '../../env.js'
 
 const {
-  WP_SITE_URL,
   GOOGLE_SITE_VERIFICATION,
   MICROSOFT_SITE_VERIFICATION,
   EMAIL_ADDRESS,
   RESUME,
   SITE_URL,
   TURNSTILE_SITE,
-  TURNSTILE_SECRET,
 } = config
 
-import Axios from 'axios'
-import { setupCache } from 'axios-cache-interceptor'
-
-const axios = Axios.defaults.cache ? Axios : setupCache(Axios)
+import { graphqlRequest } from '../../graphql-client.js'
 
 async function requestInformation() {
   let siteInfo = []
-
-  const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
-  }
 
   const graphqlQuery = {
     operationName: 'requestInformation',
@@ -47,17 +37,13 @@ async function requestInformation() {
     }`,
   }
 
-  const response = await axios({
-    url: `${WP_SITE_URL}/graphql`,
-    method: 'POST',
-    headers: headers,
-    data: graphqlQuery,
-  }).catch(function (error) {
-    console.log(error.toJSON())
-  })
-
-  if (response?.data?.data?.nodeByUri) {
-    siteInfo = siteInfo.concat(response.data.data.nodeByUri)
+  try {
+    const data = await graphqlRequest(graphqlQuery)
+    if (data?.nodeByUri) {
+      siteInfo = siteInfo.concat(data.nodeByUri)
+    }
+  } catch (error) {
+    console.error(error)
   }
 
   const siteInfoFormatted = {
