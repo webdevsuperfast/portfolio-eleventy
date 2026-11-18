@@ -1,5 +1,4 @@
 import Image from '@11ty/eleventy-img'
-import fs from 'fs'
 import sanitizeHtml from 'sanitize-html'
 
 export default function (config) {
@@ -8,8 +7,6 @@ export default function (config) {
   config.addPassthroughCopy({ 'src/robots.txt': '/robots.txt' })
 
   // Add filters
-  config.addFilter('criticalExists', () => fs.existsSync('./critical.min.css'))
-  config.addFilter('getCritical', () => fs.readFileSync('./critical.min.css'))
   config.addFilter('sanitize', (html) =>
     sanitizeHtml(html, {
       allowedTags: [],
