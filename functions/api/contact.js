@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
   try {
     const ip = context.request.headers.get('CF-Connecting-IP')
     const formData = await context.request.formData()
-    const userAgent = await context.request.headers.get('user-agent')
+    const userAgent = context.request.headers.get('user-agent')
     const token = formData.get('cf-turnstile-response')
 
     const tokenValidated = await validateToken(
@@ -42,6 +42,7 @@ async function validateToken(ip, token, TURNSTILE_SECRET) {
   const response = await fetch(url, {
     body: formData,
     method: 'POST',
+    signal: AbortSignal.timeout(10000),
   })
 
   if (!response.ok) {
@@ -75,6 +76,7 @@ async function submitHandler(formData, env, userAgent) {
           'User-Agent': userAgent,
         },
         body: formData,
+        signal: AbortSignal.timeout(10000),
       }
     )
 
@@ -85,6 +87,5 @@ async function submitHandler(formData, env, userAgent) {
     return response
   } catch (e) {
     console.error(e)
-    // Handle submission error
   }
 }
