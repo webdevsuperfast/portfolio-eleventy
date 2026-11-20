@@ -2,11 +2,15 @@ import { graphqlRequest } from '../../graphql-client.js'
 
 async function requestPortfolio() {
   const portfolios = []
+  const itemsPerRequest = 50
+  const afterCursor = ''
 
   const graphqlQuery = {
     operationName: 'portfolioRequest',
     query: `query portfolioRequest {
       allPortfolio(
+        first: ${itemsPerRequest}
+        after: "${afterCursor}"
         where: {orderby: {field: TITLE, order: ASC}}
         ) {
         nodes {
